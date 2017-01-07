@@ -1,25 +1,21 @@
-all: hello.pdf
+SRCS := $(wildcard src/idris/*.nw)
 
-%.idr: %.nw
-	notangle $< >$@
+all:
+	make -C src/idris
+	make $(addprefix docs/,$(notdir ${SRCS:.nw=.html})) \
+	$(addprefix docs/,$(notdir ${SRCS:.nw=.pdf}))
 
-# NOTE: requires latex2html
-%.html: %.nw
-	noweave -filter l2h -index -html $< >$@
+docs/%: src/idris/%
+	@ cp $< $@
 
-%.tex: %.nw
-	noweave -n -delay -index $< >$@
+# clean-latex: $(wildcard *.tex)
+# 	@ if [ ! -z "$^" ]; then \
+# 	latexmk -c -silent; \
+# 	fi
 
-%.pdf: %.tex
-	latexmk -pdf $<
+# clean: clean-latex
+# 	@ rm -fr *.ibc *.tex
 
-clean-latex: $(wildcard *.tex)
-	@ if [ ! -z "$^" ]; then \
-	latexmk -c -silent; \
-	fi
-
-clean: clean-latex
-	@ rm -fr *.ibc *.tex
-
-clobber: clean
-	@ rm -fr *.html *.idr *.pdf
+# clobber: clean
+# 	@ rm -fr docs/*.html *.idr *.pdf
+# 	@ ln -s hello.html docs/index.html
