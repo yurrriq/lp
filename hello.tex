@@ -1,0 +1,72 @@
+% -*- mode: noweb; ess-noweb-default-code-mode: idris-mode; -*-% ===> this file was generated automatically by noweave --- better not edit it
+\documentclass[twoside]{article}
+\usepackage{noweb}
+\pagestyle{noweb}
+\noweboptions{longchunks,smallcode}
+\title{Hello, {\tt noweb}!\\
+{\small An exploration of literate Idris programming via {\tt noweb}.}}
+\author{Eric Bailey}
+\newcommand{\stylehook}{\marginpar{\raggedright\sl Style hook}}
+\begin{document}
+\maketitle
+\nwfilename{hello.nw}\nwbegindocs{1}\nwdocspar
+
+\begin{abstract}
+  What follows is an attempt at using {\tt noweb} to write a literate program in
+  Idris. While Idris provides some literate programming support of its own, it's
+  rather basic (like Literate Haskell), and doesn't allow users to present code
+  chunks out of order or do any sort of cross-referencing.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{{\tt hello.idr} Outline}
+{\tt hello.idr} is rather simple. It consists of a module declaration with a
+type signature and definition for the {\tt main} function.
+
+\nwenddocs{}\nwbegincode{2}\sublabel{NW1qNmhI-1p0Y9w-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW1qNmhI-1p0Y9w-1}}}\moddef{*~{\nwtagstyle{}\subpageref{NW1qNmhI-1p0Y9w-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\LA{}Module declaration~{\nwtagstyle{}\subpageref{NW1qNmhI-1pw4rR-1}}\RA{}
+
+\LA{}main type signature~{\nwtagstyle{}\subpageref{NW1qNmhI-4Fe3ro-1}}\RA{}
+\LA{}main definition~{\nwtagstyle{}\subpageref{NW1qNmhI-3i7yrG-1}}\RA{}
+\nwnotused{*}\nwendcode{}\nwbegindocs{3}\nwdocspar
+
+\section{Module Declaration}
+Declare the module {\tt Main}, including a docstring, which is another
+{\tt noweb} chunk.
+
+\nwenddocs{}\nwbegincode{4}\sublabel{NW1qNmhI-1pw4rR-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW1qNmhI-1pw4rR-1}}}\moddef{Module declaration~{\nwtagstyle{}\subpageref{NW1qNmhI-1pw4rR-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW1qNmhI-1p0Y9w-1}}\nwenddeflinemarkup
+||| \LA{}Hello message~{\nwtagstyle{}\subpageref{NW1qNmhI-4FK8wZ-1}}\RA{}
+module Main
+\nwused{\\{NW1qNmhI-1p0Y9w-1}}\nwendcode{}\nwbegindocs{5}\nwdocspar
+
+The docstring above consists of the following message, which we'll also print
+later, using a {\tt noweb} reference.
+\nwenddocs{}\nwbegincode{6}\sublabel{NW1qNmhI-4FK8wZ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW1qNmhI-4FK8wZ-1}}}\moddef{Hello message~{\nwtagstyle{}\subpageref{NW1qNmhI-4FK8wZ-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW1qNmhI-1pw4rR-1}\\{NW1qNmhI-3i7yrG-1}}\nwenddeflinemarkup
+Hello, noweb!
+\nwused{\\{NW1qNmhI-1pw4rR-1}\\{NW1qNmhI-3i7yrG-1}}\nwendcode{}\nwbegindocs{7}\nwdocspar
+
+\section{The {\tt main} Function}
+{\tt main} is an {\tt IO} action that doesn't return any value, i.e.
+\nwenddocs{}\nwbegincode{8}\sublabel{NW1qNmhI-4Fe3ro-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW1qNmhI-4Fe3ro-1}}}\moddef{main type signature~{\nwtagstyle{}\subpageref{NW1qNmhI-4Fe3ro-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW1qNmhI-1p0Y9w-1}}\nwenddeflinemarkup
+main : IO ()
+\nwused{\\{NW1qNmhI-1p0Y9w-1}}\nwendcode{}\nwbegindocs{9}\nwdocspar
+
+Output the message to stdout with a trailing newline.
+\nwenddocs{}\nwbegincode{10}\sublabel{NW1qNmhI-3i7yrG-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW1qNmhI-3i7yrG-1}}}\moddef{main definition~{\nwtagstyle{}\subpageref{NW1qNmhI-3i7yrG-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW1qNmhI-1p0Y9w-1}}\nwenddeflinemarkup
+main = putStrLn "\LA{}Hello message~{\nwtagstyle{}\subpageref{NW1qNmhI-4FK8wZ-1}}\RA{}"
+\nwused{\\{NW1qNmhI-1p0Y9w-1}}\nwendcode{}
+
+\nwixlogsorted{c}{{*}{NW1qNmhI-1p0Y9w-1}{\nwixd{NW1qNmhI-1p0Y9w-1}}}%
+\nwixlogsorted{c}{{Hello message}{NW1qNmhI-4FK8wZ-1}{\nwixu{NW1qNmhI-1pw4rR-1}\nwixd{NW1qNmhI-4FK8wZ-1}\nwixu{NW1qNmhI-3i7yrG-1}}}%
+\nwixlogsorted{c}{{main definition}{NW1qNmhI-3i7yrG-1}{\nwixu{NW1qNmhI-1p0Y9w-1}\nwixd{NW1qNmhI-3i7yrG-1}}}%
+\nwixlogsorted{c}{{main type signature}{NW1qNmhI-4Fe3ro-1}{\nwixu{NW1qNmhI-1p0Y9w-1}\nwixd{NW1qNmhI-4Fe3ro-1}}}%
+\nwixlogsorted{c}{{Module declaration}{NW1qNmhI-1pw4rR-1}{\nwixu{NW1qNmhI-1p0Y9w-1}\nwixd{NW1qNmhI-1pw4rR-1}}}%
+\nwbegindocs{11}\nwdocspar
+
+\section{Chunks} \nowebchunks
+% \twocolumn[\section{Index}]
+% \nowebindex*
+\end{document}
+\nwenddocs{}

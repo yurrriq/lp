@@ -1,0 +1,64 @@
+% -*- mode: noweb; ess-noweb-default-code-mode: idris-mode; -*-
+\documentclass[twoside]{article}
+\usepackage{noweb}
+\pagestyle{noweb}
+\noweboptions{longchunks,smallcode}
+\title{Hello, {\tt noweb}!\\
+{\small An exploration of literate Idris programming via {\tt noweb}.}}
+\author{Eric Bailey}
+\newcommand{\stylehook}{\marginpar{\raggedright\sl Style hook}}
+\begin{document}
+\maketitle
+@
+
+\begin{abstract}
+  What follows is an attempt at using {\tt noweb} to write a literate program in
+  Idris. While Idris provides some literate programming support of its own, it's
+  rather basic (like Literate Haskell), and doesn't allow users to present code
+  chunks out of order or do any sort of cross-referencing.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{{\tt hello.idr} Outline}
+{\tt hello.idr} is rather simple. It consists of a module declaration with a
+type signature and definition for the {\tt main} function.
+
+<<*>>=
+<<Module declaration>>
+
+<<main type signature>>
+<<main definition>>
+@
+
+\section{Module Declaration}
+Declare the module {\tt Main}, including a docstring, which is another
+{\tt noweb} chunk.
+
+<<Module declaration>>=
+||| <<Hello message>>
+module Main
+@
+
+The docstring above consists of the following message, which we'll also print
+later, using a {\tt noweb} reference.
+<<Hello message>>=
+Hello, noweb!
+@
+
+\section{The {\tt main} Function}
+{\tt main} is an {\tt IO} action that doesn't return any value, i.e.
+<<main type signature>>=
+main : IO ()
+@
+
+Output the message to stdout with a trailing newline.
+<<main definition>>=
+main = putStrLn "<<Hello message>>"
+@
+
+\section{Chunks} \nowebchunks
+% \twocolumn[\section{Index}]
+% \nowebindex*
+\end{document}
