@@ -4,6 +4,7 @@ all:
 	make -C src/idris
 	make $(addprefix docs/,$(notdir ${SRCS:.nw=.html})) \
 	$(addprefix docs/,$(notdir ${SRCS:.nw=.pdf}))
+	ln -sf hello.html docs/index.html
 
 docs/%: src/idris/%
 	@ cp $< $@
