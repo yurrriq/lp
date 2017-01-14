@@ -83,7 +83,7 @@ Here's my universal server:
     end.
 @
 
-\sidenote{
+\marginnote[\baselineskip]{
   A universal server waits for a \erl{{become, F}} message
   and then becomes an \erl{F} server.
 }
@@ -109,7 +109,7 @@ factorial of an integer. This is mind-bogglingly simple:
 <<The factorial function>>
 @
 
-\sidenote{
+\marginnote[\baselineskip]{
   A factorial server simply waits for an integer $n$ and sends back $n!$.
 }
 <<Wait for an integer N and send back factorial(N)>>=
@@ -118,7 +118,7 @@ receive
         From ! factorial(N)
 @
 
-\sidenote{
+\marginnote[\baselineskip]{
   The Erlang definition of \erl{factorial/1} bears a striking resemblance
   to the recurrence relation:
   \begin{align*}
@@ -150,7 +150,7 @@ an integer, wait for the response, and print the response:
 @
 \newpage
 
-\sidenote{
+\marginnote[\baselineskip]{
   \erl{test/0} creates a \hyperref[sec:universal_server]{universal server},
   binding its pid to \erl{Pid};
 }
@@ -158,7 +158,7 @@ an integer, wait for the response, and print the response:
 Pid = spawn(fun universal_server/0)
 @
 
-\sidenote{
+\marginnote[\baselineskip]{
   ... sends \erl{Pid} a ``become a
   \hyperref[sec:factorial_server]{factorial server}'' message;
 }
@@ -166,8 +166,8 @@ Pid = spawn(fun universal_server/0)
 Pid ! {become, fun factorial_server/0}
 @
 
-\sidenote{
-  ... sends \erl{Pid} $50$, thereby asking the newly-specialized
+\marginnote[\baselineskip]{
+  ... sends \erl{Pid} $50$, asking the
   \hyperref[sec:factorial_server]{factorial server} to compute and respond with
   the value of $50!$;
 }
@@ -175,7 +175,7 @@ Pid ! {become, fun factorial_server/0}
 Pid ! {self(), 50},
 @
 
-\sidenote{... waits for the response and prints the response.}
+\marginnote{... waits for the response and prints the response.}
 <<Wait for the response and print the response>>=
 receive
     X ->
@@ -185,6 +185,7 @@ receive
 %% TODO: Add a link to fav1.erl
 All these functions belong to the module
 \href{https://github.com/yurrriq/learning-noweb/blob/master/src/erlang/fav1.erl}{\erl{fav1}}:
+\marginnote[\baselineskip]{N.B. \erl{fav1} exports only \erl{test/0}.}
 <<fav1>>=
 -module(fav1).
 -export([test/0]).
