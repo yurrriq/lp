@@ -1,0 +1,86 @@
+% -*- mode: noweb; ess-noweb-default-code-mode: idris-mode; -*-% ===> this file was generated automatically by noweave --- better not edit it
+\documentclass[twoside]{article}
+\usepackage{noweb}
+\usepackage{hyperref}
+% HACK:
+% l2h macro href 2 <a href="#$1">#2</a>
+\usepackage[parfill]{parskip}
+\pagestyle{noweb}
+% NOTE: Use shift option for wide code.
+\noweboptions{smallcode,shortxref,webnumbering,english}
+\title{Hello, {\tt noweb}!\\
+  {\small An exploration of literate Idris programming via {\tt noweb}.}}
+\author{Eric Bailey}
+\newcommand{\stylehook}{\marginpar{\raggedright\sl Style hook}}
+\begin{document}
+\maketitle
+\nwfilename{src/idris/hello.nw}\nwbegindocs{1}\nwdocspar
+
+\begin{abstract}
+  What follows is an attempt at using
+  \href{http://www.cs.tufts.edu/~nr/noweb/}{\tt noweb} to write a literate
+  program in Idris. While \href{https://github.com/idris-lang/Idris-dev}{Idris}
+  provides some \href{http://www-cs-faculty.stanford.edu/~uno/lp.html}{literate
+    programming}
+  \href{http://docs.idris-lang.org/en/latest/tutorial/miscellany.html#literate-programming}{support}
+  of its own, it's rather basic (like
+  \href{https://wiki.haskell.org/Literate_programming}{Literate Haskell}), and
+  doesn't allow users to present code chunks out of order or do any sort of
+  cross-referencing.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Module Declaration}
+\nwenddocs{}\nwbegincode{2}\sublabel{NWHoP6H-4FyBN2-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWHoP6H-4FyBN2-1}}}\moddef{hello~{\nwtagstyle{}\subpageref{NWHoP6H-4FyBN2-1}}}\endmoddef\nwstartdeflinemarkup\nwprevnextdefs{\relax}{NWHoP6H-4FyBN2-2}\nwenddeflinemarkup
+\LA{}Module declaration~{\nwtagstyle{}\subpageref{NWHoP6H-1pw4rR-1}}\RA{}
+
+\nwalsodefined{\\{NWHoP6H-4FyBN2-2}}\nwnotused{hello}\nwendcode{}\nwbegindocs{3}First, we declare the {\tt Main} module, including a docstring, which is
+another {\tt noweb} chunk, because we can.
+
+\nwenddocs{}\nwbegincode{4}\sublabel{NWHoP6H-1pw4rR-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWHoP6H-1pw4rR-1}}}\moddef{Module declaration~{\nwtagstyle{}\subpageref{NWHoP6H-1pw4rR-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWHoP6H-4FyBN2-1}}\nwenddeflinemarkup
+||| \LA{}Hello message~{\nwtagstyle{}\subpageref{NWHoP6H-4FK8wZ-1}}\RA{}
+module Main
+\nwused{\\{NWHoP6H-4FyBN2-1}}\nwendcode{}\nwbegindocs{5}\nwdocspar
+
+The docstring above\footnote{The lines of an Idris docstring start with {\tt
+    |||}, and immediately precede the definition they document.} consists of the
+following message, which we'll also print later, using another {\tt noweb}
+reference.
+\nwenddocs{}\nwbegincode{6}\sublabel{NWHoP6H-4FK8wZ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWHoP6H-4FK8wZ-1}}}\moddef{Hello message~{\nwtagstyle{}\subpageref{NWHoP6H-4FK8wZ-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWHoP6H-1pw4rR-1}\\{NWHoP6H-3i7yrG-1}}\nwenddeflinemarkup
+Hello, noweb!
+\nwused{\\{NWHoP6H-1pw4rR-1}\\{NWHoP6H-3i7yrG-1}}\nwendcode{}\nwbegindocs{7}\nwdocspar
+
+\section{The {\tt main} Function}
+\nwenddocs{}\nwbegincode{8}\sublabel{NWHoP6H-4FyBN2-2}\nwmargintag{{\nwtagstyle{}\subpageref{NWHoP6H-4FyBN2-2}}}\moddef{hello~{\nwtagstyle{}\subpageref{NWHoP6H-4FyBN2-1}}}\plusendmoddef\nwstartdeflinemarkup\nwprevnextdefs{NWHoP6H-4FyBN2-1}{\relax}\nwenddeflinemarkup
+\LA{}main type signature~{\nwtagstyle{}\subpageref{NWHoP6H-4Fe3ro-1}}\RA{}
+\LA{}main definition~{\nwtagstyle{}\subpageref{NWHoP6H-3i7yrG-1}}\RA{}
+\nwendcode{}\nwbegindocs{9}\nwdocspar
+
+{\tt main} is an I/O action that doesn't return any value, i.e.
+\nwenddocs{}\nwbegincode{10}\sublabel{NWHoP6H-4Fe3ro-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWHoP6H-4Fe3ro-1}}}\moddef{main type signature~{\nwtagstyle{}\subpageref{NWHoP6H-4Fe3ro-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWHoP6H-4FyBN2-2}}\nwenddeflinemarkup
+\nwindexdefn{\nwixident{main}}{main}{NWHoP6H-4Fe3ro-1}\nwlinkedidentc{main}{NWHoP6H-4Fe3ro-1} : IO ()
+\nwused{\\{NWHoP6H-4FyBN2-2}}\nwidentdefs{\\{{\nwixident{main}}{main}}}\nwendcode{}\nwbegindocs{11}\nwdocspar
+
+The action, when run, will output the message to {\tt stdout} with a trailing
+newline.
+\nwenddocs{}\nwbegincode{12}\sublabel{NWHoP6H-3i7yrG-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWHoP6H-3i7yrG-1}}}\moddef{main definition~{\nwtagstyle{}\subpageref{NWHoP6H-3i7yrG-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWHoP6H-4FyBN2-2}}\nwenddeflinemarkup
+\nwlinkedidentc{main}{NWHoP6H-4Fe3ro-1} = putStrLn "\LA{}Hello message~{\nwtagstyle{}\subpageref{NWHoP6H-4FK8wZ-1}}\RA{}"
+\nwused{\\{NWHoP6H-4FyBN2-2}}\nwidentuses{\\{{\nwixident{main}}{main}}}\nwindexuse{\nwixident{main}}{main}{NWHoP6H-3i7yrG-1}\nwendcode{}
+
+\nwixlogsorted{c}{{hello}{NWHoP6H-4FyBN2-1}{\nwixd{NWHoP6H-4FyBN2-1}\nwixd{NWHoP6H-4FyBN2-2}}}%
+\nwixlogsorted{c}{{Hello message}{NWHoP6H-4FK8wZ-1}{\nwixu{NWHoP6H-1pw4rR-1}\nwixd{NWHoP6H-4FK8wZ-1}\nwixu{NWHoP6H-3i7yrG-1}}}%
+\nwixlogsorted{c}{{main definition}{NWHoP6H-3i7yrG-1}{\nwixu{NWHoP6H-4FyBN2-2}\nwixd{NWHoP6H-3i7yrG-1}}}%
+\nwixlogsorted{c}{{main type signature}{NWHoP6H-4Fe3ro-1}{\nwixu{NWHoP6H-4FyBN2-2}\nwixd{NWHoP6H-4Fe3ro-1}}}%
+\nwixlogsorted{c}{{Module declaration}{NWHoP6H-1pw4rR-1}{\nwixu{NWHoP6H-4FyBN2-1}\nwixd{NWHoP6H-1pw4rR-1}}}%
+\nwixlogsorted{i}{{\nwixident{main}}{main}}%
+\nwbegindocs{13}\nwdocspar
+
+\section{Chunks}
+\nowebchunks
+
+\twocolumn[\section{Index}]
+\nowebindex
+\end{document}
+\nwenddocs{}
