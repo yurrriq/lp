@@ -3,6 +3,10 @@
 \documentclass{tufte-handout}
 \usepackage{noweb}
 
+\usepackage{color}
+% https://commons.wikimedia.org/wiki/File:Erlang_logo.svg
+\definecolor{ErlangRed}{HTML}{A90533}
+
 \usepackage{hyperref}
 % l2h macro href 2 <a href="#$1">#2</a>
 \hypersetup{
@@ -15,10 +19,8 @@
   pdfcreator={Eric Bailey <eric@ericb.me>},
   pdfkeywords={Erlang, universal server, literate programming, noweb},
   colorlinks=true,
-  linkcolor=red,
-  citecolor=green,
-  filecolor=magenta,
-  urlcolor=cyan
+  linkcolor=ErlangRed,
+  urlcolor=ErlangRed
 }
 
 % \usepackage[parfill]{parskip}
@@ -28,13 +30,19 @@
 
 \usepackage[outputdir=src/erlang]{minted}
 
+% NOTE: Use Tufte instead of noweb page style.
 % \pagestyle{noweb}
 % NOTE: Use shift option for wide code.
 \noweboptions{smallcode,shortxref,webnumbering,english}
 
-\title{My favorite Erlang Program\thanks{This {\tt noweb} version of the
-    original blog post\cite{Armstrong2013} was translated, edited and annotated
-    by \href{https://github.com/yurrriq}{Eric Bailey}.}}
+\title{
+  My favorite Erlang Program
+  \thanks{
+    This version of Joe's blog post was translated, edited and annotated by
+    \href{https://github.com/yurrriq}{Eric Bailey}
+    on \today.\cite{Armstrong2013}
+  }
+}
 
 % \author{Joe Armstrong\\{\small Translated to {\tt noweb} by Eric Bailey}}
 \author{Joe Armstrong}
@@ -75,7 +83,7 @@ Here's my universal server:
     end.
 \nwused{\\{NW3Gelxe-3wQJEV-1}}\nwidentdefs{\\{{\nwixident{universal{\_}server}}{universal:unserver}}}\nwendcode{}\nwbegindocs{3}\nwdocspar
 
-\sidenote{
+\marginnote[\baselineskip]{
   A universal server waits for a \erl{{become, F}} message
   and then becomes an \erl{F} server.
 }
@@ -87,7 +95,6 @@ receive
 
 That was pretty easy. Once I have created a universal server, it just sits and
 waits for a \erl{{become, F}} message and then it becomes an \erl{F} server.
-\newpage
 
 \section{The Factorial Server}\label{sec:factorial_server}
 A factorial server is a server which waits for an integer and sends back the
@@ -100,8 +107,9 @@ factorial of an integer. This is mind-bogglingly simple:
 
 \LA{}The factorial function~{\nwtagstyle{}\subpageref{NW3Gelxe-3ZjObT-1}}\RA{}
 \nwused{\\{NW3Gelxe-3wQJEV-1}}\nwidentdefs{\\{{\nwixident{factorial{\_}server}}{factorial:unserver}}}\nwendcode{}\nwbegindocs{7}\nwdocspar
+\newpage
 
-\sidenote{
+\marginnote[\baselineskip]{
   A factorial server simply waits for an integer $n$ and sends back $n!$.
 }
 \nwenddocs{}\nwbegincode{8}\sublabel{NW3Gelxe-1FtCec-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW3Gelxe-1FtCec-1}}}\moddef{Wait for an integer N and send back factorial(N)~{\nwtagstyle{}\subpageref{NW3Gelxe-1FtCec-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW3Gelxe-1ehRvX-1}}\nwenddeflinemarkup
@@ -110,7 +118,7 @@ receive
         From ! \nwlinkedidentc{factorial}{NW3Gelxe-3ZjObT-1}(N)
 \nwused{\\{NW3Gelxe-1ehRvX-1}}\nwidentuses{\\{{\nwixident{factorial}}{factorial}}}\nwindexuse{\nwixident{factorial}}{factorial}{NW3Gelxe-1FtCec-1}\nwendcode{}\nwbegindocs{9}\nwdocspar
 
-\sidenote{
+\marginnote[\baselineskip]{
   The Erlang definition of \erl{factorial/1} bears a striking resemblance
   to the recurrence relation:
   \begin{align*}
@@ -140,9 +148,8 @@ an integer, wait for the response, and print the response:
     \LA{}Wait for the response and print the response~{\nwtagstyle{}\subpageref{NW3Gelxe-3b0uok-1}}\RA{}
     end.
 \nwused{\\{NW3Gelxe-3wQJEV-1}}\nwidentdefs{\\{{\nwixident{test}}{test}}}\nwendcode{}\nwbegindocs{13}\nwdocspar
-\newpage
 
-\sidenote{
+\marginnote[\baselineskip]{
   \erl{test/0} creates a \hyperref[sec:universal_server]{universal server},
   binding its pid to \erl{Pid};
 }
@@ -150,7 +157,7 @@ an integer, wait for the response, and print the response:
 Pid = spawn(fun \nwlinkedidentc{universal_server}{NW3Gelxe-2PSniS-1}/0)
 \nwused{\\{NW3Gelxe-4Sd2Fj-1}}\nwidentuses{\\{{\nwixident{universal{\_}server}}{universal:unserver}}}\nwindexuse{\nwixident{universal{\_}server}}{universal:unserver}{NW3Gelxe-1bdq1V-1}\nwendcode{}\nwbegindocs{15}\nwdocspar
 
-\sidenote{
+\marginnote[\baselineskip]{
   ... sends \erl{Pid} a ``become a
   \hyperref[sec:factorial_server]{factorial server}'' message;
 }
@@ -158,8 +165,8 @@ Pid = spawn(fun \nwlinkedidentc{universal_server}{NW3Gelxe-2PSniS-1}/0)
 Pid ! \{become, fun \nwlinkedidentc{factorial_server}{NW3Gelxe-1ehRvX-1}/0\}
 \nwused{\\{NW3Gelxe-4Sd2Fj-1}}\nwidentuses{\\{{\nwixident{factorial{\_}server}}{factorial:unserver}}}\nwindexuse{\nwixident{factorial{\_}server}}{factorial:unserver}{NW3Gelxe-21ZjIj-1}\nwendcode{}\nwbegindocs{17}\nwdocspar
 
-\sidenote{
-  ... sends \erl{Pid} $50$, thereby asking the newly-specialized
+\marginnote[\baselineskip]{
+  ... sends \erl{Pid} $50$, asking the
   \hyperref[sec:factorial_server]{factorial server} to compute and respond with
   the value of $50!$;
 }
@@ -167,7 +174,7 @@ Pid ! \{become, fun \nwlinkedidentc{factorial_server}{NW3Gelxe-1ehRvX-1}/0\}
 Pid ! \{self(), 50\},
 \nwused{\\{NW3Gelxe-4Sd2Fj-1}}\nwendcode{}\nwbegindocs{19}\nwdocspar
 
-\sidenote{... waits for the response and prints the response.}
+\marginnote{... waits for the response and prints the response.}
 \nwenddocs{}\nwbegincode{20}\sublabel{NW3Gelxe-3b0uok-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW3Gelxe-3b0uok-1}}}\moddef{Wait for the response and print the response~{\nwtagstyle{}\subpageref{NW3Gelxe-3b0uok-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW3Gelxe-4Sd2Fj-1}}\nwenddeflinemarkup
 receive
     X ->
@@ -175,8 +182,9 @@ receive
 \nwused{\\{NW3Gelxe-4Sd2Fj-1}}\nwendcode{}\nwbegindocs{21}\nwdocspar
 
 %% TODO: Add a link to fav1.erl
-All these functions belong to the module \erl{fav1}, which exports
-\hyperref[sec:test]{\erl{test/0}}:
+All these functions belong to the module
+\href{https://github.com/yurrriq/learning-noweb/blob/master/src/erlang/fav1.erl}{\erl{fav1}}:
+\marginnote[\baselineskip]{N.B. \erl{fav1} exports only \erl{test/0}.}
 \nwenddocs{}\nwbegincode{22}\sublabel{NW3Gelxe-3wQJEV-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW3Gelxe-3wQJEV-1}}}\moddef{fav1~{\nwtagstyle{}\subpageref{NW3Gelxe-3wQJEV-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 -module(fav1).
 -export([\nwlinkedidentc{test}{NW3Gelxe-4Sd2Fj-1}/0]).
@@ -204,6 +212,56 @@ All these functions belong to the module \erl{fav1}, which exports
 \nwixlogsorted{i}{{\nwixident{test}}{test}}%
 \nwixlogsorted{i}{{\nwixident{universal{\_}server}}{universal:unserver}}%
 \nwbegindocs{23}$\square$
+
+Now all we have to do is fire up an Erlang shell and run the test program:
+\begin{minted}[]{shell-session}
+$ erl
+\end{minted}
+\begin{minted}[]{erl}
+1> c("src/erlang/fav1.erl").
+{ok, fav1}
+2> fav1:test().
+30414093201713378043612608166064768844377641568960512000000000000
+ok
+\end{minted}
+
+Alternatively, we can simply compile and evaluate it from the command line:
+\begin{minted}[]{shell-session}
+$ erlc src/erlang/fav1.erl
+$ erl -noshell -eval "fav1:test()" -s init stop
+30414093201713378043612608166064768844377641568960512000000000000
+\end{minted}
+\newpage
+
+\section{Aside}
+A few years ago when I was at SICS I had access to
+\href{http://www.planet-lab.org}{Planet Lab}. Planet Lab is a research network
+of 9000 computers. Joining Planet Lab is easy, all you have to do is buy a
+standard PC, connect it to the network and donate its use to the Planet Lab
+organization. Having donated your machine to the network, you can use all the
+other machines.
+
+Planet Lab is a real-world test-bed for distributed applications. It currently
+has 1171 nodes at 562 sites.
+
+What was I going to do with Planet Lab? I didn't have a clue. What I ended up
+doing was making some scripts to install empty universal Erlang servers on all
+the Planet Lab machines (pretty much like the code in this article) - then I set
+up a gossip algorithm to flood the network with \erl{become} messages. Then I
+had an empty network that in a few seconds would become anything I wanted it to.
+
+About a year later I had to write a paper. One of the disadvantages of being a
+researcher is that in order to get money you have to write a paper about
+something or other. The paper is never about what currently interests you at the
+moment, but rather what the project that financed your research expects to read
+about.
+
+Well I had my gossip network setup on Planet Lab and I could tell it to become
+anything, so I told it to become a content distribution network and used a
+gossip algorithm to make copies of the same file on all machines on the network
+and wrote a paper about it and everybody was happy.
+
+\textcopyright\ 2014-2016 Joe Armstrong - All Rights Reserved.
 \newpage
 
 \section{Chunks}
