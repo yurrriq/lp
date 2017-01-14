@@ -183,8 +183,8 @@ receive
 @
 
 %% TODO: Add a link to fav1.erl
-All these functions belong to the module \erl{fav1}, which exports
-\hyperref[sec:test]{\erl{test/0}}:
+All these functions belong to the module
+\href{https://github.com/yurrriq/learning-noweb/blob/master/src/erlang/fav1.erl}{\erl{fav1}}:
 <<fav1>>=
 -module(fav1).
 -export([test/0]).
