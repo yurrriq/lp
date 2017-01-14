@@ -1,0 +1,201 @@
+% -*- mode: noweb; ess-noweb-default-code-mode: erlang-mode; -*-
+% \documentclass[twoside]{article}
+\documentclass{tufte-handout}
+\usepackage{noweb}
+
+\usepackage{hyperref}
+% l2h macro href 2 <a href="#$1">#2</a>
+\hypersetup{
+  bookmarks=true,
+  pdffitwindow=true,
+  pdfstartview={FitH},
+  pdftitle={My favorite Erlang Program},
+  pdfauthor={Joe Armstrong},
+  pdfsubject={Erlang and other stuff},
+  pdfcreator={Eric Bailey <eric@ericb.me>},
+  pdfkeywords={Erlang, universal server, literate programming, noweb},
+  colorlinks=true,
+  linkcolor=red,
+  citecolor=green,
+  filecolor=magenta,
+  urlcolor=cyan
+}
+
+% \usepackage[parfill]{parskip}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage[outputdir=src/erlang]{minted}
+
+% \pagestyle{noweb}
+% NOTE: Use shift option for wide code.
+\noweboptions{smallcode,shortxref,webnumbering,english}
+
+\title{My favorite Erlang Program\thanks{This {\tt noweb} version of the
+    original blog post\cite{Armstrong2013} was translated, edited and annotated
+    by \href{https://github.com/yurrriq}{Eric Bailey}.}}
+
+% \author{Joe Armstrong\\{\small Translated to {\tt noweb} by Eric Bailey}}
+\author{Joe Armstrong}
+
+\date{November 21, 2013}
+
+\newcommand{\stylehook}{\marginpar{\raggedright\sl Style hook}}
+
+\newmintinline[erl]{erlang}{}
+
+\begin{document}
+\maketitle
+@
+
+\begin{abstract}
+  The other day I got a mail from Dean Galvin from Rowan University. Dean was
+  doing an Erlang project so he asked ``What example program would best
+  exemplify Erlang''.
+
+  He wanted a small program, that would be suitable for a ten minute talk that
+  would best show off the language. I thought for a while ... and quickly wrote
+  my favorite program, it's the ``Universal server''.
+\end{abstract}
+
+% \tableofcontents
+% \newpage
+
+\section{The Universal Server}\label{sec:universal_server}
+Normally servers do something. An HTTP server responds to HTTP requests, an FTP
+server response to FTP requests and so on. But what about a {\sl Universal
+  Server}? Surely we can generalize the idea of a server and make a universal
+server, which we can later tell to become a specific server.
+
+Here's my universal server:
+<<The Universal Server>>=
+`universal_server() ->
+    <<Wait for a ``become F'' message and become an F server>>
+    end.
+@
+
+\sidenote{
+  A universal server waits for a \erl{{become, F}} message
+  and then becomes an \erl{F} server.
+}
+<<Wait for a ``become F'' message and become an F server>>=
+receive
+    {become, F} ->
+        F()
+@
+
+That was pretty easy. Once I have created a universal server, it just sits and
+waits for a \erl{{become, F}} message and then it becomes an \erl{F} server.
+\newpage
+
+\section{The Factorial Server}\label{sec:factorial_server}
+A factorial server is a server which waits for an integer and sends back the
+factorial of an integer. This is mind-bogglingly simple:
+<<The Factorial Server>>=
+`factorial_server() ->
+    <<Wait for an integer N and send back factorial(N)>>,
+            factorial_server()
+    end.
+
+<<The factorial function>>
+@
+
+\sidenote{
+  A factorial server simply waits for an integer $n$ and sends back $n!$.
+}
+<<Wait for an integer N and send back factorial(N)>>=
+receive
+    {From, N} ->
+        From ! factorial(N)
+@
+
+\sidenote{
+  The Erlang definition of \erl{factorial/1} bears a striking resemblance
+  to the recurrence relation:
+  \begin{align*}
+    n! = \begin{cases}
+      1 & \text{if } n = 0, \\
+      (n-1)!\times n & \text{if } n > 0.
+    \end{cases}
+  \end{align*}
+}
+<<The factorial function>>=
+`factorial(0) -> 1;
+factorial(N) -> N * factorial(N-1).
+@
+
+Now we're ready to rock and roll...
+
+\section{Putting It All Together}\label{sec:test}
+I'll write a little function that creates a
+\hyperref[sec:universal_server]{universal server} and sends it a ``become a
+\hyperref[sec:factorial_server]{factorial server}'' message. Then I'll send it
+an integer, wait for the response, and print the response:
+<<Putting It All Together>>=
+`test() ->
+    <<Create a universal server>>,
+    <<Send it a ``become a factorial server'' message>>,
+    <<Send it an integer>>
+    <<Wait for the response and print the response>>
+    end.
+@
+\newpage
+
+\sidenote{
+  \erl{test/0} creates a \hyperref[sec:universal_server]{universal server},
+  binding its pid to \erl{Pid};
+}
+<<Create a universal server>>=
+Pid = spawn(fun universal_server/0)
+@
+
+\sidenote{
+  ... sends \erl{Pid} a ``become a
+  \hyperref[sec:factorial_server]{factorial server}'' message;
+}
+<<Send it a ``become a factorial server'' message>>=
+Pid ! {become, fun factorial_server/0}
+@
+
+\sidenote{
+  ... sends \erl{Pid} $50$, thereby asking the newly-specialized
+  \hyperref[sec:factorial_server]{factorial server} to compute and respond with
+  the value of $50!$;
+}
+<<Send it an integer>>=
+Pid ! {self(), 50},
+@
+
+\sidenote{... waits for the response and prints the response.}
+<<Wait for the response and print the response>>=
+receive
+    X ->
+        io:format("~w~n", [X])
+@
+
+%% TODO: Add a link to fav1.erl
+All these functions belong to the module \erl{fav1}, which exports
+\hyperref[sec:test]{\erl{test/0}}:
+<<fav1>>=
+-module(fav1).
+-export([test/0]).
+
+<<Putting It All Together>>
+
+<<The Universal Server>>
+
+<<The Factorial Server>>
+@ $\square$
+\newpage
+
+\section{Chunks}
+\nowebchunks
+
+\section{Index}
+\nowebindex
+
+\bibliography{fav1}
+\bibliographystyle{plainnat}
+
+\end{document}
