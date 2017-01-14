@@ -3,6 +3,10 @@
 \documentclass{tufte-handout}
 \usepackage{noweb}
 
+\usepackage{color}
+% https://commons.wikimedia.org/wiki/File:Erlang_logo.svg
+\definecolor{ErlangRed}{HTML}{A90533}
+
 \usepackage{hyperref}
 % l2h macro href 2 <a href="#$1">#2</a>
 \hypersetup{
@@ -15,10 +19,8 @@
   pdfcreator={Eric Bailey <eric@ericb.me>},
   pdfkeywords={Erlang, universal server, literate programming, noweb},
   colorlinks=true,
-  linkcolor=red,
-  citecolor=green,
-  filecolor=magenta,
-  urlcolor=cyan
+  linkcolor=ErlangRed,
+  urlcolor=ErlangRed
 }
 
 % \usepackage[parfill]{parskip}
