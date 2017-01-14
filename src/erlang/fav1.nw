@@ -30,13 +30,19 @@
 
 \usepackage[outputdir=src/erlang]{minted}
 
+% NOTE: Use Tufte instead of noweb page style.
 % \pagestyle{noweb}
 % NOTE: Use shift option for wide code.
 \noweboptions{smallcode,shortxref,webnumbering,english}
 
-\title{My favorite Erlang Program\thanks{This {\tt noweb} version of the
-    original blog post\cite{Armstrong2013} was translated, edited and annotated
-    by \href{https://github.com/yurrriq}{Eric Bailey}.}}
+\title{
+  My favorite Erlang Program
+  \thanks{
+    This version of Joe's blog post was translated, edited and annotated by
+    \href{https://github.com/yurrriq}{Eric Bailey}
+    on \today.\cite{Armstrong2013}
+  }
+}
 
 % \author{Joe Armstrong\\{\small Translated to {\tt noweb} by Eric Bailey}}
 \author{Joe Armstrong}
