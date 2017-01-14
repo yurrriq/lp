@@ -2,7 +2,6 @@
 \documentclass[twoside]{article}
 \usepackage{noweb}
 \usepackage{hyperref}
-% HACK:
 % l2h macro href 2 <a href="#$1">#2</a>
 \usepackage[parfill]{parskip}
 \pagestyle{noweb}
