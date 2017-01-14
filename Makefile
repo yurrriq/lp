@@ -1,22 +1,46 @@
-SRCS := $(wildcard src/idris/*.nw)
+IDR_NW    := $(wildcard src/idris/*.nw)
+IDR       := ${IDR_NW:.nw=.idr}
+IDR_HTML  := ${IDR_NW:.nw=.html}
+IDR_TEX   := ${IDR_NW:.nw=.tex}
+IDR_PDF   := ${IDR_NW:.nw=.pdf}
+IDR_SRCS  := ${IDR} ${IDR_TEX} ${IDR_PDF} ${IDR_HTML} # NOTE: order matters
+IDR_DOCS  := $(patsubst src/%,docs/%,${IDR_HTML} ${IDR_PDF})
+IDR_ALL   := ${IDR_SRCS} ${IDR_DOCS}
 
-all:
-	make -C src/idris
-	make $(addprefix docs/,$(notdir ${SRCS:.nw=.html})) \
-	$(addprefix docs/,$(notdir ${SRCS:.nw=.pdf}))
-	ln -sf hello.html docs/index.html
+HTML_SRCS := ${IDR_HTML}
+TEX_SRCS  := ${IDR_TEX}
+PDF_SRCS  := ${IDR_PDF}
 
-docs/%: src/idris/%
-	@ cp $< $@
+# http://stackoverflow.com/a/17807510
+dirname    = $(patsubst %/,%,$(dir $1))
 
-# clean-latex: $(wildcard *.tex)
-# 	@ if [ ! -z "$^" ]; then \
-# 	latexmk -c -silent; \
-# 	fi
+.SUFFIXES: .html .idr .nw .pdf .tex
+.nw.idr: ; notangle -R'$(basename $(notdir $<))' -filter btdefn $< >$@
+# NOTE: requires latex2html
+.nw.html: ; noweave -filter btdefn -filter l2h -index -html $< >$@
+.nw.tex:  ; noweave -filter btdefn -n -delay -index $< >$@
+.tex.pdf: ; latexmk -pdf -outdir=$(call dirname,$<) $<
 
-# clean: clean-latex
-# 	@ rm -fr *.ibc *.tex
+all: ${IDR_ALL}
+	@ ln -sf idris/hello.html docs/index.html
 
-# clobber: clean
-# 	@ rm -fr docs/*.html *.idr *.pdf
-# 	@ ln -s hello.html docs/index.html
+docs/%.html: ${HTML_SRCS}
+	@ mkdir -p $(dir $@)
+	@ mv $< $@
+
+docs/%.pdf: ${PDF_SRCS}
+	@ mkdir -p $(dir $@)
+	@ mv $< $@
+
+.PHONY: clean clean-docs clobber
+
+keep_regex := '.*.[nw|idr]'
+
+clean:
+	@ find src -type f \! -regex ${keep_regex} -delete
+
+clean-docs:
+	@ rm -fr docs
+
+clobber:
+	@ find src \! -name '*.nw' -type f -delete
