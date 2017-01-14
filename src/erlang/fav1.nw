@@ -195,6 +195,27 @@ All these functions belong to the module \erl{fav1}, which exports
 
 <<The Factorial Server>>
 @ $\square$
+
+Now all we have to do is fire up an Erlang shell and run the test program:
+\begin{minted}[]{shell-session}
+$ erl
+\end{minted}
+\begin{minted}[]{erl}
+1> c("src/erlang/fav1.erl").
+{ok, fav1}
+2> fav1:test().
+30414093201713378043612608166064768844377641568960512000000000000
+ok
+\end{minted}
+
+Alternatively, we can simply compile and evaluate it from the command line:
+\begin{minted}[]{shell-session}
+$ erlc src/erlang/fav1.erl
+$ erl -noshell -eval "fav1:test()" -s init stop
+30414093201713378043612608166064768844377641568960512000000000000
+\end{minted}
+\newpage
+
 \newpage
 
 \section{Chunks}
