@@ -95,7 +95,6 @@ receive
 
 That was pretty easy. Once I have created a universal server, it just sits and
 waits for a \erl{{become, F}} message and then it becomes an \erl{F} server.
-\newpage
 
 \section{The Factorial Server}\label{sec:factorial_server}
 A factorial server is a server which waits for an integer and sends back the
@@ -108,6 +107,7 @@ factorial of an integer. This is mind-bogglingly simple:
 
 <<The factorial function>>
 @
+\newpage
 
 \marginnote[\baselineskip]{
   A factorial server simply waits for an integer $n$ and sends back $n!$.
@@ -148,7 +148,6 @@ an integer, wait for the response, and print the response:
     <<Wait for the response and print the response>>
     end.
 @
-\newpage
 
 \marginnote[\baselineskip]{
   \erl{test/0} creates a \hyperref[sec:universal_server]{universal server},
