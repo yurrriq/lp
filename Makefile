@@ -17,12 +17,23 @@ ERL_SRCS  := ${ERL} ${ERL_TEX} ${ERL_PDF} # ${ERL_HTML}
 ERL_DOCS  := $(patsubst src/%,docs/%,${ERL_PDF})
 ERL_ALL   := ${ERL_SRCS} ${ERL_DOCS}
 
+LOL_NW    := $(wildcard src/lol/*.nw)
+LOL       := ${LOL_NW:.nw=.lisp}
+LOL_TEX   := ${LOL_NW:.nw=.tex}
+LOL_PDF   := ${LOL_NW:.nw=.pdf}
+LOL_SRCS  := ${LOL} ${LOL_TEX} ${LOL_PDF}
+LOL_DOCS  := $(patsubst src/%,docs/%,${LOL_PDF})
+LOL_ALL   := ${LOL_SRCS} ${LOL_DOCS}
+
 # http://stackoverflow.com/a/17807510
 dirname    = $(patsubst %/,%,$(dir $1))
 
-.SUFFIXES: .nw .erl .idr .html .pdf .tex
-.nw.erl: ; notangle -R'$(basename $(notdir $<))' -filter btdefn $< >$@
-.nw.idr: ; notangle -R'$(basename $(notdir $<))' -filter btdefn $< >$@
+tangle     = notangle -R'$(basename $(notdir $<))' -filter btdefn $< >$@
+
+.SUFFIXES: .nw .erl .idr .html .lisp .pdf .tex
+.nw.erl: ; ${tangle}
+.nw.idr: ; ${tangle}
+.nw.lisp: ; ${tangle}
 # NOTE: requires latex2html
 .nw.html: ; noweave -filter btdefn -filter l2h -index -html $< >$@
 .nw.tex:  ; noweave -filter btdefn -n -delay -index $< >$@
@@ -35,6 +46,7 @@ all: idris erlang
 
 idris: ${IDR_ALL}
 erlang: ${ERL_ALL}
+lol: ${LOL_ALL}
 
 docs/%.html: src/%.html
 	@ mkdir -p $(dir $@)
@@ -46,7 +58,7 @@ docs/%.pdf: src/%.pdf
 
 .PHONY: clean clean-docs clobber
 
-clean_keep_regex := '.*.[bib|erl|idr|nw|tex]'
+clean_keep_regex := '.*.[bib|erl|idr|lisp|nw|tex]'
 
 clean:
 	@ find src -type f \! -regex ${clean_keep_regex} -delete
