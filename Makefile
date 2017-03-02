@@ -70,3 +70,18 @@ clobber_keep_regex := '.*.[bib|nw]'
 
 clobber:
 	@ find src -type f \! -regex ${clobber_keep_reges} -delete
+
+
+# FIXME
+
+paip: src/paip/paip.pdf src/paip/intro.lisp
+
+src/paip/paip.pdf: src/paip/paip.tex
+	latexmk -shell-escape -pdf -outdir=$(call dirname,$<) $<
+
+src/paip/paip.tex: export FINDUSES_LISP=1
+src/paip/paip.tex: src/paip/paip.nw
+	noweave -autodefs lisp -n -delay -index $< >$@
+
+src/paip/%.lisp: src/paip/paip.nw
+	notangle -R'$*.lisp' $< >$@

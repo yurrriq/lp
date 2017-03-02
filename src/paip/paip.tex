@@ -1,0 +1,299 @@
+% -*- mode: noweb; ess-noweb-default-code-mode: lisp-mode; -*-% ===> this file was generated automatically by noweave --- better not edit it
+\documentclass{tufte-book}
+\usepackage{noweb}
+
+\usepackage{color}
+% https://commons.wikimedia.org/wiki/File:Erlang_logo.svg
+\definecolor{ErlangRed}{HTML}{A90533}
+
+\usepackage{hyperref}
+\hypersetup{
+  bookmarks=true,
+  pdffitwindow=true,
+  pdfstartview={FitH},
+  pdftitle={PAIP Exercises},
+  pdfauthor={Eric Bailey <eric@ericb.me>},
+  pdfsubject={Paradigms of Artificial Intelligence Programming},
+  pdfkeywords={Lisp, artificial intelligence, literate programming, noweb},
+  colorlinks=true,
+  linkcolor=ErlangRed,
+  urlcolor=ErlangRed
+}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage[outputdir=src/paip]{minted}
+
+% NOTE: Use Tufte instead of noweb page style.
+% \pagestyle{noweb}
+% NOTE: Use shift option for wide code.
+\noweboptions{smallcode,shortxref,webnumbering,english}
+
+\title{PAIP Exercises}
+
+\author{Eric Bailey}
+
+% \date{January 23, 2017}
+
+\newcommand{\stylehook}{\marginpar{\raggedright\sl Style hook}}
+
+\newmintinline[lsp]{lisp}{}
+
+\begin{document}
+\maketitle
+\nwfilename{src/paip/paip.nw}\nwbegindocs{1}\nwdocspar
+
+\tableofcontents
+\newpage
+
+\chapter{Introduction to Common Lisp}
+
+\section{Using Functions}
+
+\nwenddocs{}\nwbegincode{2}\sublabel{NW192eu0-BpWdi-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-BpWdi-1}}}\moddef{titles~{\nwtagstyle{}\subpageref{NW192eu0-BpWdi-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-2wUDG5-1}}\nwenddeflinemarkup
+(defparameter \nwlinkedidentc{*titles*}{NW192eu0-BpWdi-1}
+  '(Mr Mrs Miss Ms Sir Madam Dr Admiral Major General)
+  "A list of titles that can appear at the start of a name.")
+\nwindexdefn{\nwixident{*titles*}}{*titles*}{NW192eu0-BpWdi-1}\eatline
+\nwused{\\{NW192eu0-2wUDG5-1}}\nwidentdefs{\\{{\nwixident{*titles*}}{*titles*}}}\nwendcode{}\nwbegindocs{3}\nwdocspar
+\nwenddocs{}\nwbegincode{4}\sublabel{NW192eu0-1xnn0Z-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-1xnn0Z-1}}}\moddef{abstract first-name~{\nwtagstyle{}\subpageref{NW192eu0-1xnn0Z-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+(\LA{}function first-name(name):~{\nwtagstyle{}\subpageref{NW192eu0-4ONS4K-1}}\RA{}
+  (\LA{}if the first element of name is a title~{\nwtagstyle{}\subpageref{NW192eu0-Ix42V-1}}\RA{}
+    \LA{}then return the first-name of the rest of the name~{\nwtagstyle{}\subpageref{NW192eu0-2nVNHx-1}}\RA{}
+    \LA{}else return the first element of the name~{\nwtagstyle{}\subpageref{NW192eu0-16R8JG-1}}\RA{}))
+\nwnotused{abstract first-name}\nwendcode{}\nwbegindocs{5}\nwdocspar
+
+\nwenddocs{}\nwbegincode{6}\sublabel{NW192eu0-4ONS4K-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-4ONS4K-1}}}\moddef{function first-name(name):~{\nwtagstyle{}\subpageref{NW192eu0-4ONS4K-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-1xnn0Z-1}}\nwenddeflinemarkup
+defun first-name (name)
+ "Select the first name from a name represented as a list."
+\nwused{\\{NW192eu0-1xnn0Z-1}}\nwendcode{}\nwbegindocs{7}\nwdocspar
+
+\nwenddocs{}\nwbegincode{8}\sublabel{NW192eu0-Ix42V-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-Ix42V-1}}}\moddef{if the first element of name is a title~{\nwtagstyle{}\subpageref{NW192eu0-Ix42V-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-1xnn0Z-1}}\nwenddeflinemarkup
+if (member (first name) \nwlinkedidentc{*titles*}{NW192eu0-BpWdi-1})
+\nwused{\\{NW192eu0-1xnn0Z-1}}\nwidentuses{\\{{\nwixident{*titles*}}{*titles*}}}\nwindexuse{\nwixident{*titles*}}{*titles*}{NW192eu0-Ix42V-1}\nwendcode{}\nwbegindocs{9}\nwdocspar
+
+\nwenddocs{}\nwbegincode{10}\sublabel{NW192eu0-2nVNHx-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-2nVNHx-1}}}\moddef{then return the first-name of the rest of the name~{\nwtagstyle{}\subpageref{NW192eu0-2nVNHx-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-1xnn0Z-1}}\nwenddeflinemarkup
+  (first-name (rest name))
+\nwused{\\{NW192eu0-1xnn0Z-1}}\nwendcode{}\nwbegindocs{11}\nwdocspar
+
+\nwenddocs{}\nwbegincode{12}\sublabel{NW192eu0-16R8JG-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-16R8JG-1}}}\moddef{else return the first element of the name~{\nwtagstyle{}\subpageref{NW192eu0-16R8JG-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-1xnn0Z-1}}\nwenddeflinemarkup
+(first name)
+\nwused{\\{NW192eu0-1xnn0Z-1}}\nwendcode{}\nwbegindocs{13}\nwdocspar
+
+\section{Exercises}
+
+\nwenddocs{}\nwbegincode{14}\sublabel{NW192eu0-2wUDG5-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-2wUDG5-1}}}\moddef{intro.lisp~{\nwtagstyle{}\subpageref{NW192eu0-2wUDG5-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+(ql:quickload :lisp-unit)
+
+(defpackage #:intro
+  (:use #:common-lisp #:lisp-unit))
+
+(in-package #:intro)
+
+\LA{}titles~{\nwtagstyle{}\subpageref{NW192eu0-BpWdi-1}}\RA{}
+
+;; Exercise 1.1
+\LA{}Exercise 1.1~{\nwtagstyle{}\subpageref{NW192eu0-4Wuo2N-1}}\RA{}
+
+;; Exercise 1.2
+\LA{}Exercise 1.2~{\nwtagstyle{}\subpageref{NW192eu0-2DHmDj-1}}\RA{}
+
+;; Exercise 1.3
+\LA{}Exercise 1.3~{\nwtagstyle{}\subpageref{NW192eu0-2b8599-1}}\RA{}
+\nwnotused{intro.lisp}\nwendcode{}\nwbegindocs{15}\nwdocspar
+
+\subsection{Exercise 1.1}
+
+\begin{quote}
+  Define a version of {\Tt{}\nwlinkedidentq{last-name}{NW192eu0-4Zlwoj-1}\nwendquote} that handles ``Rex Morgan MD,'' ``Morton
+  Downey, Jr.,'' and whatever other cases you can think of.
+\end{quote}
+
+\nwenddocs{}\nwbegincode{16}\sublabel{NW192eu0-4Wuo2N-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-4Wuo2N-1}}}\moddef{Exercise 1.1~{\nwtagstyle{}\subpageref{NW192eu0-4Wuo2N-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-2wUDG5-1}}\nwenddeflinemarkup
+\LA{}suffixes~{\nwtagstyle{}\subpageref{NW192eu0-33GIZY-1}}\RA{}
+
+\LA{}last-name~{\nwtagstyle{}\subpageref{NW192eu0-4Zlwoj-1}}\RA{}
+
+\LA{}Exercise 1.1 tests~{\nwtagstyle{}\subpageref{NW192eu0-29KvuZ-1}}\RA{}
+\nwused{\\{NW192eu0-2wUDG5-1}}\nwendcode{}\nwbegindocs{17}\nwdocspar
+
+\nwenddocs{}\nwbegincode{18}\sublabel{NW192eu0-4Zlwoj-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-4Zlwoj-1}}}\moddef{last-name~{\nwtagstyle{}\subpageref{NW192eu0-4Zlwoj-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-4Wuo2N-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{last-name}{NW192eu0-4Zlwoj-1} (name)\nwindexdefn{\nwixident{last-name}}{last-name}{NW192eu0-4Zlwoj-1}
+  "Select the last name from a name represented as a list."
+  (if \LA{}the last element of a name is a suffix~{\nwtagstyle{}\subpageref{NW192eu0-2t3lxE-1}}\RA{}
+      \LA{}then return the \code{}last-name\edoc{} of all but the last element of the name~{\nwtagstyle{}\subpageref{NW192eu0-3W6gHs-1}}\RA{}
+    \LA{}else return the last element of the name~{\nwtagstyle{}\subpageref{NW192eu0-2NIVBh-1}}\RA{}))
+\nwused{\\{NW192eu0-4Wuo2N-1}}\nwidentdefs{\\{{\nwixident{last-name}}{last-name}}}\nwendcode{}\nwbegindocs{19}\nwdocspar
+
+First, we check to see if the last element of the \lsp{name} is a suffix, i.e.
+whether it's a member of {\Tt{}\nwlinkedidentq{*suffixes*}{NW192eu0-33GIZY-1}\nwendquote}.
+\nwenddocs{}\nwbegincode{20}\sublabel{NW192eu0-2t3lxE-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-2t3lxE-1}}}\moddef{the last element of a name is a suffix~{\nwtagstyle{}\subpageref{NW192eu0-2t3lxE-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-4Zlwoj-1}}\nwenddeflinemarkup
+(member (first (last name)) \nwlinkedidentc{*suffixes*}{NW192eu0-33GIZY-1})
+\nwused{\\{NW192eu0-4Zlwoj-1}}\nwidentuses{\\{{\nwixident{*suffixes*}}{*suffixes*}}}\nwindexuse{\nwixident{*suffixes*}}{*suffixes*}{NW192eu0-2t3lxE-1}\nwendcode{}\nwbegindocs{21}\nwdocspar
+
+If it is, then drop it from the \lsp{name} and return the {\Tt{}\nwlinkedidentq{last-name}{NW192eu0-4Zlwoj-1}\nwendquote} of the
+result.
+\nwenddocs{}\nwbegincode{22}\sublabel{NW192eu0-3W6gHs-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-3W6gHs-1}}}\moddef{then return the \code{}last-name\edoc{} of all but the last element of the name~{\nwtagstyle{}\subpageref{NW192eu0-3W6gHs-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-4Zlwoj-1}}\nwenddeflinemarkup
+(\nwlinkedidentc{last-name}{NW192eu0-4Zlwoj-1} (butlast name))
+\nwused{\\{NW192eu0-4Zlwoj-1}}\nwidentuses{\\{{\nwixident{last-name}}{last-name}}}\nwindexuse{\nwixident{last-name}}{last-name}{NW192eu0-3W6gHs-1}\nwendcode{}\nwbegindocs{23}\nwdocspar
+
+Otherwise, it's the last name, so return it.
+\nwenddocs{}\nwbegincode{24}\sublabel{NW192eu0-2NIVBh-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-2NIVBh-1}}}\moddef{else return the last element of the name~{\nwtagstyle{}\subpageref{NW192eu0-2NIVBh-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-4Zlwoj-1}}\nwenddeflinemarkup
+(first (last name))
+\nwused{\\{NW192eu0-4Zlwoj-1}}\nwendcode{}\nwbegindocs{25}\nwdocspar
+
+\nwenddocs{}\nwbegincode{26}\sublabel{NW192eu0-33GIZY-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-33GIZY-1}}}\moddef{suffixes~{\nwtagstyle{}\subpageref{NW192eu0-33GIZY-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-4Wuo2N-1}}\nwenddeflinemarkup
+(defparameter \nwlinkedidentc{*suffixes*}{NW192eu0-33GIZY-1}
+  '(MD Jr)
+  "A list of suffixes that can appear at the end of a name.")
+\nwindexdefn{\nwixident{*suffixes*}}{*suffixes*}{NW192eu0-33GIZY-1}\eatline
+\nwused{\\{NW192eu0-4Wuo2N-1}}\nwidentdefs{\\{{\nwixident{*suffixes*}}{*suffixes*}}}\nwendcode{}\nwbegindocs{27}\nwdocspar
+\nwenddocs{}\nwbegincode{28}\sublabel{NW192eu0-29KvuZ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-29KvuZ-1}}}\moddef{Exercise 1.1 tests~{\nwtagstyle{}\subpageref{NW192eu0-29KvuZ-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-4Wuo2N-1}}\nwenddeflinemarkup
+(define-test test-last-name
+  \LA{}Rex Morgan MD~{\nwtagstyle{}\subpageref{NW192eu0-1iWMbJ-1}}\RA{}
+  \LA{}Morton Downey, Jr~{\nwtagstyle{}\subpageref{NW192eu0-189ElO-1}}\RA{})
+\nwused{\\{NW192eu0-4Wuo2N-1}}\nwendcode{}\nwbegindocs{29}\nwdocspar
+
+\marginnote[\baselineskip]{
+  Assert that the {\Tt{}\nwlinkedidentq{last-name}{NW192eu0-4Zlwoj-1}\nwendquote} of {\sl Rex Morgan MD} is {\sl Morgan}.
+}
+\nwenddocs{}\nwbegincode{30}\sublabel{NW192eu0-1iWMbJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-1iWMbJ-1}}}\moddef{Rex Morgan MD~{\nwtagstyle{}\subpageref{NW192eu0-1iWMbJ-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-29KvuZ-1}}\nwenddeflinemarkup
+(assert-equal 'Morgan (\nwlinkedidentc{last-name}{NW192eu0-4Zlwoj-1} '(Rex Morgan MD)))
+\nwused{\\{NW192eu0-29KvuZ-1}}\nwidentuses{\\{{\nwixident{last-name}}{last-name}}}\nwindexuse{\nwixident{last-name}}{last-name}{NW192eu0-1iWMbJ-1}\nwendcode{}\nwbegindocs{31}\nwdocspar
+
+\nwenddocs{}\nwbegincode{32}\sublabel{NW192eu0-189ElO-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-189ElO-1}}}\moddef{Morton Downey, Jr~{\nwtagstyle{}\subpageref{NW192eu0-189ElO-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-29KvuZ-1}}\nwenddeflinemarkup
+(assert-equal 'Downey (\nwlinkedidentc{last-name}{NW192eu0-4Zlwoj-1} '(Morton Downey Jr)))
+\nwused{\\{NW192eu0-29KvuZ-1}}\nwidentuses{\\{{\nwixident{last-name}}{last-name}}}\nwindexuse{\nwixident{last-name}}{last-name}{NW192eu0-189ElO-1}\nwendcode{}\nwbegindocs{33}\nwdocspar
+
+\subsection{Exercise 1.2}
+
+\begin{quote}
+  Write a function to exponentiate, or raise a number to an integer power. For
+  example \lsp{(}{\Tt{}\nwlinkedidentq{power}{NW192eu0-3kZCB2-1}\nwendquote}\lsp{ 3 2)} $= 3^2 = 9$.
+\end{quote}
+
+\nwenddocs{}\nwbegincode{34}\sublabel{NW192eu0-2DHmDj-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-2DHmDj-1}}}\moddef{Exercise 1.2~{\nwtagstyle{}\subpageref{NW192eu0-2DHmDj-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-2wUDG5-1}}\nwenddeflinemarkup
+\LA{}square~{\nwtagstyle{}\subpageref{NW192eu0-3NPSQP-1}}\RA{}
+
+\LA{}power~{\nwtagstyle{}\subpageref{NW192eu0-3kZCB2-1}}\RA{}
+
+\LA{}Exercise 1.2 tests~{\nwtagstyle{}\subpageref{NW192eu0-Nfd08-1}}\RA{}
+\nwused{\\{NW192eu0-2wUDG5-1}}\nwendcode{}\nwbegindocs{35}\nwdocspar
+
+\marginnote[2.5\baselineskip]{
+  \begin{align*}
+    x^n = \begin{cases}
+      1 & \text{if } n = 0, \\
+      (x^{n / 2})^2 & \text{if } n \text{ is even}, \\
+      x \times x^{n - 1} & \text{otherwise}.
+    \end{cases}
+  \end{align*}
+}
+\nwenddocs{}\nwbegincode{36}\sublabel{NW192eu0-3kZCB2-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-3kZCB2-1}}}\moddef{power~{\nwtagstyle{}\subpageref{NW192eu0-3kZCB2-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-2DHmDj-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{power}{NW192eu0-3kZCB2-1} (x n)\nwindexdefn{\nwixident{power}}{power}{NW192eu0-3kZCB2-1}
+  "Raise x to the \nwlinkedidentc{power}{NW192eu0-3kZCB2-1} of n."
+  (cond \LA{}if n is zero return 1~{\nwtagstyle{}\subpageref{NW192eu0-2y88rI-1}}\RA{}
+        \LA{}if n is even return x to the power of n over two, squared~{\nwtagstyle{}\subpageref{NW192eu0-3Slm34-1}}\RA{}
+        \LA{}otherwise return x times x to the power of n minus one~{\nwtagstyle{}\subpageref{NW192eu0-1kE0RF-1}}\RA{}))
+\nwused{\\{NW192eu0-2DHmDj-1}}\nwidentdefs{\\{{\nwixident{power}}{power}}}\nwendcode{}\nwbegindocs{37}\nwdocspar
+
+\marginnote[\baselineskip]{$x^0 = 1$}
+\nwenddocs{}\nwbegincode{38}\sublabel{NW192eu0-2y88rI-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-2y88rI-1}}}\moddef{if n is zero return 1~{\nwtagstyle{}\subpageref{NW192eu0-2y88rI-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-3kZCB2-1}}\nwenddeflinemarkup
+((zerop n) 1)
+\nwused{\\{NW192eu0-3kZCB2-1}}\nwendcode{}\nwbegindocs{39}\nwdocspar
+
+\nwenddocs{}\nwbegincode{40}\sublabel{NW192eu0-3Slm34-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-3Slm34-1}}}\moddef{if n is even return x to the power of n over two, squared~{\nwtagstyle{}\subpageref{NW192eu0-3Slm34-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-3kZCB2-1}}\nwenddeflinemarkup
+((evenp n) (\nwlinkedidentc{square}{NW192eu0-3NPSQP-1} (\nwlinkedidentc{power}{NW192eu0-3kZCB2-1} x (/ n 2))))
+\nwused{\\{NW192eu0-3kZCB2-1}}\nwidentuses{\\{{\nwixident{power}}{power}}\\{{\nwixident{square}}{square}}}\nwindexuse{\nwixident{power}}{power}{NW192eu0-3Slm34-1}\nwindexuse{\nwixident{square}}{square}{NW192eu0-3Slm34-1}\nwendcode{}\nwbegindocs{41}\nwdocspar
+
+\nwenddocs{}\nwbegincode{42}\sublabel{NW192eu0-1kE0RF-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-1kE0RF-1}}}\moddef{otherwise return x times x to the power of n minus one~{\nwtagstyle{}\subpageref{NW192eu0-1kE0RF-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-3kZCB2-1}}\nwenddeflinemarkup
+(t (* x (\nwlinkedidentc{power}{NW192eu0-3kZCB2-1} x (- n 1))))
+\nwused{\\{NW192eu0-3kZCB2-1}}\nwidentuses{\\{{\nwixident{power}}{power}}}\nwindexuse{\nwixident{power}}{power}{NW192eu0-1kE0RF-1}\nwendcode{}\nwbegindocs{43}\nwdocspar
+
+\marginnote[\baselineskip]{$\text{square}(x) = x^2$}
+\nwenddocs{}\nwbegincode{44}\sublabel{NW192eu0-3NPSQP-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-3NPSQP-1}}}\moddef{square~{\nwtagstyle{}\subpageref{NW192eu0-3NPSQP-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-2DHmDj-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{square}{NW192eu0-3NPSQP-1} (x) (expt x 2))\nwindexdefn{\nwixident{square}}{square}{NW192eu0-3NPSQP-1}
+\nwused{\\{NW192eu0-2DHmDj-1}}\nwidentdefs{\\{{\nwixident{square}}{square}}}\nwendcode{}\nwbegindocs{45}\nwdocspar
+
+\nwenddocs{}\nwbegincode{46}\sublabel{NW192eu0-Nfd08-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-Nfd08-1}}}\moddef{Exercise 1.2 tests~{\nwtagstyle{}\subpageref{NW192eu0-Nfd08-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-2DHmDj-1}}\nwenddeflinemarkup
+(define-test test-power
+  (assert-equal 9 (\nwlinkedidentc{power}{NW192eu0-3kZCB2-1} 3 2)))
+\nwused{\\{NW192eu0-2DHmDj-1}}\nwidentuses{\\{{\nwixident{power}}{power}}}\nwindexuse{\nwixident{power}}{power}{NW192eu0-Nfd08-1}\nwendcode{}\nwbegindocs{47}\nwdocspar
+
+\subsection{Exercise 1.3}
+
+\begin{quote}
+  Write a function that counts the number of atoms in an expression. For
+  example: \lsp{(}{\Tt{}\nwlinkedidentq{count-atoms}{NW192eu0-2b8599-1}\nwendquote}\lsp{ '(a (b) c))} $= 3$. Notice that there is
+  something of an ambiguity in this: should \lsp{(a nil c)} count as three
+  atoms, or as two, because it is equivalent to \lsp{(a () c)}?
+\end{quote}
+
+\nwenddocs{}\nwbegincode{48}\sublabel{NW192eu0-2b8599-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-2b8599-1}}}\moddef{Exercise 1.3~{\nwtagstyle{}\subpageref{NW192eu0-2b8599-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-2wUDG5-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{count-atoms}{NW192eu0-2b8599-1} (exp)\nwindexdefn{\nwixident{count-atoms}}{count-atoms}{NW192eu0-2b8599-1}
+  "Return the total number of non-nil atoms in the expression."
+  (cond \LA{}if exp is nil there are no atoms~{\nwtagstyle{}\subpageref{NW192eu0-2dHnrc-1}}\RA{}
+        \LA{}if exp is an atom there is only one~{\nwtagstyle{}\subpageref{NW192eu0-20ij8Y-1}}\RA{}
+        \LA{}otherwise add the count of the atoms in the first and rest of exp~{\nwtagstyle{}\subpageref{NW192eu0-44AOMF-1}}\RA{}))
+\nwused{\\{NW192eu0-2wUDG5-1}}\nwidentdefs{\\{{\nwixident{count-atoms}}{count-atoms}}}\nwendcode{}\nwbegindocs{49}\nwdocspar
+
+\nwenddocs{}\nwbegincode{50}\sublabel{NW192eu0-2dHnrc-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-2dHnrc-1}}}\moddef{if exp is nil there are no atoms~{\nwtagstyle{}\subpageref{NW192eu0-2dHnrc-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-2b8599-1}}\nwenddeflinemarkup
+((null exp) 0)
+\nwused{\\{NW192eu0-2b8599-1}}\nwendcode{}\nwbegindocs{51}\nwdocspar
+
+\nwenddocs{}\nwbegincode{52}\sublabel{NW192eu0-20ij8Y-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-20ij8Y-1}}}\moddef{if exp is an atom there is only one~{\nwtagstyle{}\subpageref{NW192eu0-20ij8Y-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-2b8599-1}}\nwenddeflinemarkup
+((atom exp) 1)
+\nwused{\\{NW192eu0-2b8599-1}}\nwendcode{}\nwbegindocs{53}\nwdocspar
+
+\nwenddocs{}\nwbegincode{54}\sublabel{NW192eu0-44AOMF-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-44AOMF-1}}}\moddef{otherwise add the count of the atoms in the first and rest of exp~{\nwtagstyle{}\subpageref{NW192eu0-44AOMF-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW192eu0-2b8599-1}}\nwenddeflinemarkup
+(t (+ (\nwlinkedidentc{count-atoms}{NW192eu0-2b8599-1} (first exp))
+      (\nwlinkedidentc{count-atoms}{NW192eu0-2b8599-1} (rest exp))))
+\nwused{\\{NW192eu0-2b8599-1}}\nwidentuses{\\{{\nwixident{count-atoms}}{count-atoms}}}\nwindexuse{\nwixident{count-atoms}}{count-atoms}{NW192eu0-44AOMF-1}\nwendcode{}
+
+\nwixlogsorted{c}{{abstract first-name}{NW192eu0-1xnn0Z-1}{\nwixd{NW192eu0-1xnn0Z-1}}}%
+\nwixlogsorted{c}{{else return the first element of the name}{NW192eu0-16R8JG-1}{\nwixu{NW192eu0-1xnn0Z-1}\nwixd{NW192eu0-16R8JG-1}}}%
+\nwixlogsorted{c}{{else return the last element of the name}{NW192eu0-2NIVBh-1}{\nwixu{NW192eu0-4Zlwoj-1}\nwixd{NW192eu0-2NIVBh-1}}}%
+\nwixlogsorted{c}{{Exercise 1.1}{NW192eu0-4Wuo2N-1}{\nwixu{NW192eu0-2wUDG5-1}\nwixd{NW192eu0-4Wuo2N-1}}}%
+\nwixlogsorted{c}{{Exercise 1.1 tests}{NW192eu0-29KvuZ-1}{\nwixu{NW192eu0-4Wuo2N-1}\nwixd{NW192eu0-29KvuZ-1}}}%
+\nwixlogsorted{c}{{Exercise 1.2}{NW192eu0-2DHmDj-1}{\nwixu{NW192eu0-2wUDG5-1}\nwixd{NW192eu0-2DHmDj-1}}}%
+\nwixlogsorted{c}{{Exercise 1.2 tests}{NW192eu0-Nfd08-1}{\nwixu{NW192eu0-2DHmDj-1}\nwixd{NW192eu0-Nfd08-1}}}%
+\nwixlogsorted{c}{{Exercise 1.3}{NW192eu0-2b8599-1}{\nwixu{NW192eu0-2wUDG5-1}\nwixd{NW192eu0-2b8599-1}}}%
+\nwixlogsorted{c}{{function first-name(name):}{NW192eu0-4ONS4K-1}{\nwixu{NW192eu0-1xnn0Z-1}\nwixd{NW192eu0-4ONS4K-1}}}%
+\nwixlogsorted{c}{{if exp is an atom there is only one}{NW192eu0-20ij8Y-1}{\nwixu{NW192eu0-2b8599-1}\nwixd{NW192eu0-20ij8Y-1}}}%
+\nwixlogsorted{c}{{if exp is nil there are no atoms}{NW192eu0-2dHnrc-1}{\nwixu{NW192eu0-2b8599-1}\nwixd{NW192eu0-2dHnrc-1}}}%
+\nwixlogsorted{c}{{if n is even return x to the power of n over two, squared}{NW192eu0-3Slm34-1}{\nwixu{NW192eu0-3kZCB2-1}\nwixd{NW192eu0-3Slm34-1}}}%
+\nwixlogsorted{c}{{if n is zero return 1}{NW192eu0-2y88rI-1}{\nwixu{NW192eu0-3kZCB2-1}\nwixd{NW192eu0-2y88rI-1}}}%
+\nwixlogsorted{c}{{if the first element of name is a title}{NW192eu0-Ix42V-1}{\nwixu{NW192eu0-1xnn0Z-1}\nwixd{NW192eu0-Ix42V-1}}}%
+\nwixlogsorted{c}{{intro.lisp}{NW192eu0-2wUDG5-1}{\nwixd{NW192eu0-2wUDG5-1}}}%
+\nwixlogsorted{c}{{last-name}{NW192eu0-4Zlwoj-1}{\nwixu{NW192eu0-4Wuo2N-1}\nwixd{NW192eu0-4Zlwoj-1}}}%
+\nwixlogsorted{c}{{Morton Downey, Jr}{NW192eu0-189ElO-1}{\nwixu{NW192eu0-29KvuZ-1}\nwixd{NW192eu0-189ElO-1}}}%
+\nwixlogsorted{c}{{otherwise add the count of the atoms in the first and rest of exp}{NW192eu0-44AOMF-1}{\nwixu{NW192eu0-2b8599-1}\nwixd{NW192eu0-44AOMF-1}}}%
+\nwixlogsorted{c}{{otherwise return x times x to the power of n minus one}{NW192eu0-1kE0RF-1}{\nwixu{NW192eu0-3kZCB2-1}\nwixd{NW192eu0-1kE0RF-1}}}%
+\nwixlogsorted{c}{{power}{NW192eu0-3kZCB2-1}{\nwixu{NW192eu0-2DHmDj-1}\nwixd{NW192eu0-3kZCB2-1}}}%
+\nwixlogsorted{c}{{Rex Morgan MD}{NW192eu0-1iWMbJ-1}{\nwixu{NW192eu0-29KvuZ-1}\nwixd{NW192eu0-1iWMbJ-1}}}%
+\nwixlogsorted{c}{{square}{NW192eu0-3NPSQP-1}{\nwixu{NW192eu0-2DHmDj-1}\nwixd{NW192eu0-3NPSQP-1}}}%
+\nwixlogsorted{c}{{suffixes}{NW192eu0-33GIZY-1}{\nwixu{NW192eu0-4Wuo2N-1}\nwixd{NW192eu0-33GIZY-1}}}%
+\nwixlogsorted{c}{{the last element of a name is a suffix}{NW192eu0-2t3lxE-1}{\nwixu{NW192eu0-4Zlwoj-1}\nwixd{NW192eu0-2t3lxE-1}}}%
+\nwixlogsorted{c}{{then return the \code{}last-name\edoc{} of all but the last element of the name}{NW192eu0-3W6gHs-1}{\nwixu{NW192eu0-4Zlwoj-1}\nwixd{NW192eu0-3W6gHs-1}}}%
+\nwixlogsorted{c}{{then return the first-name of the rest of the name}{NW192eu0-2nVNHx-1}{\nwixu{NW192eu0-1xnn0Z-1}\nwixd{NW192eu0-2nVNHx-1}}}%
+\nwixlogsorted{c}{{titles}{NW192eu0-BpWdi-1}{\nwixd{NW192eu0-BpWdi-1}\nwixu{NW192eu0-2wUDG5-1}}}%
+\nwixlogsorted{i}{{\nwixident{*suffixes*}}{*suffixes*}}%
+\nwixlogsorted{i}{{\nwixident{*titles*}}{*titles*}}%
+\nwixlogsorted{i}{{\nwixident{count-atoms}}{count-atoms}}%
+\nwixlogsorted{i}{{\nwixident{last-name}}{last-name}}%
+\nwixlogsorted{i}{{\nwixident{power}}{power}}%
+\nwixlogsorted{i}{{\nwixident{square}}{square}}%
+\nwbegindocs{55}\nwdocspar
+
+\chapter{Chunks}
+\nowebchunks
+
+\chapter{Index}
+\nowebindex
+
+\bibliography{paip}
+\bibliographystyle{plainnat}
+
+\end{document}
+\nwenddocs{}

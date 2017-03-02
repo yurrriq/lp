@@ -1,0 +1,263 @@
+% -*- mode: noweb; ess-noweb-default-code-mode: lisp-mode; -*-
+\documentclass{tufte-book}
+\usepackage{noweb}
+
+\usepackage{color}
+% https://commons.wikimedia.org/wiki/File:Erlang_logo.svg
+\definecolor{ErlangRed}{HTML}{A90533}
+
+\usepackage{hyperref}
+\hypersetup{
+  bookmarks=true,
+  pdffitwindow=true,
+  pdfstartview={FitH},
+  pdftitle={PAIP Exercises},
+  pdfauthor={Eric Bailey <eric@ericb.me>},
+  pdfsubject={Paradigms of Artificial Intelligence Programming},
+  pdfkeywords={Lisp, artificial intelligence, literate programming, noweb},
+  colorlinks=true,
+  linkcolor=ErlangRed,
+  urlcolor=ErlangRed
+}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage[outputdir=src/paip]{minted}
+
+% NOTE: Use Tufte instead of noweb page style.
+% \pagestyle{noweb}
+% NOTE: Use shift option for wide code.
+\noweboptions{smallcode,shortxref,webnumbering,english}
+
+\title{PAIP Exercises}
+
+\author{Eric Bailey}
+
+% \date{January 23, 2017}
+
+\newcommand{\stylehook}{\marginpar{\raggedright\sl Style hook}}
+
+\newmintinline[lsp]{lisp}{}
+
+\begin{document}
+\maketitle
+@
+
+\tableofcontents
+\newpage
+
+\chapter{Introduction to Common Lisp}
+
+\section{Using Functions}
+
+<<titles>>=
+(defparameter *titles*
+  '(Mr Mrs Miss Ms Sir Madam Dr Admiral Major General)
+  "A list of titles that can appear at the start of a name.")
+@ %def *titles*
+
+<<abstract first-name>>=
+(<<function first-name(name):>>
+  (<<if the first element of name is a title>>
+    <<then return the first-name of the rest of the name>>
+    <<else return the first element of the name>>))
+@
+
+<<function first-name(name):>>=
+defun first-name (name)
+ "Select the first name from a name represented as a list."
+@
+
+<<if the first element of name is a title>>=
+if (member (first name) *titles*)
+@
+
+<<then return the first-name of the rest of the name>>=
+  (first-name (rest name))
+@
+
+<<else return the first element of the name>>=
+(first name)
+@
+
+\section{Exercises}
+
+<<intro.lisp>>=
+(ql:quickload :lisp-unit)
+
+(defpackage #:intro
+  (:use #:common-lisp #:lisp-unit))
+
+(in-package #:intro)
+
+<<titles>>
+
+;; Exercise 1.1
+<<Exercise 1.1>>
+
+;; Exercise 1.2
+<<Exercise 1.2>>
+
+;; Exercise 1.3
+<<Exercise 1.3>>
+@
+
+\subsection{Exercise 1.1}
+
+\begin{quote}
+  Define a version of [[last-name]] that handles ``Rex Morgan MD,'' ``Morton
+  Downey, Jr.,'' and whatever other cases you can think of.
+\end{quote}
+
+<<Exercise 1.1>>=
+<<suffixes>>
+
+<<last-name>>
+
+<<Exercise 1.1 tests>>
+@
+
+<<last-name>>=
+(defun last-name (name)
+  "Select the last name from a name represented as a list."
+  (if <<the last element of a name is a suffix>>
+      <<then return the [[last-name]] of all but the last element of the name>>
+    <<else return the last element of the name>>))
+@
+
+First, we check to see if the last element of the \lsp{name} is a suffix, i.e.
+whether it's a member of [[*suffixes*]].
+<<the last element of a name is a suffix>>=
+(member (first (last name)) *suffixes*)
+@
+
+If it is, then drop it from the \lsp{name} and return the [[last-name]] of the
+result.
+<<then return the [[last-name]] of all but the last element of the name>>=
+(last-name (butlast name))
+@
+
+Otherwise, it's the last name, so return it.
+<<else return the last element of the name>>=
+(first (last name))
+@
+
+<<suffixes>>=
+(defparameter *suffixes*
+  '(MD Jr)
+  "A list of suffixes that can appear at the end of a name.")
+@ %def *suffixes*
+
+<<Exercise 1.1 tests>>=
+(define-test test-last-name
+  <<Rex Morgan MD>>
+  <<Morton Downey, Jr>>)
+@
+
+\marginnote[\baselineskip]{
+  Assert that the [[last-name]] of {\sl Rex Morgan MD} is {\sl Morgan}.
+}
+<<Rex Morgan MD>>=
+(assert-equal 'Morgan (last-name '(Rex Morgan MD)))
+@
+
+<<Morton Downey, Jr>>=
+(assert-equal 'Downey (last-name '(Morton Downey Jr)))
+@
+
+\subsection{Exercise 1.2}
+
+\begin{quote}
+  Write a function to exponentiate, or raise a number to an integer power. For
+  example \lsp{(}[[power]]\lsp{ 3 2)} $= 3^2 = 9$.
+\end{quote}
+
+<<Exercise 1.2>>=
+<<square>>
+
+<<power>>
+
+<<Exercise 1.2 tests>>
+@
+
+\marginnote[2.5\baselineskip]{
+  \begin{align*}
+    x^n = \begin{cases}
+      1 & \text{if } n = 0, \\
+      (x^{n / 2})^2 & \text{if } n \text{ is even}, \\
+      x \times x^{n - 1} & \text{otherwise}.
+    \end{cases}
+  \end{align*}
+}
+<<power>>=
+(defun power (x n)
+  "Raise x to the power of n."
+  (cond <<if n is zero return 1>>
+        <<if n is even return x to the power of n over two, squared>>
+        <<otherwise return x times x to the power of n minus one>>))
+@
+
+\marginnote[\baselineskip]{$x^0 = 1$}
+<<if n is zero return 1>>=
+((zerop n) 1)
+@
+
+<<if n is even return x to the power of n over two, squared>>=
+((evenp n) (square (power x (/ n 2))))
+@
+
+<<otherwise return x times x to the power of n minus one>>=
+(t (* x (power x (- n 1))))
+@
+
+\marginnote[\baselineskip]{$\text{square}(x) = x^2$}
+<<square>>=
+(defun square (x) (expt x 2))
+@
+
+<<Exercise 1.2 tests>>=
+(define-test test-power
+  (assert-equal 9 (power 3 2)))
+@
+
+\subsection{Exercise 1.3}
+
+\begin{quote}
+  Write a function that counts the number of atoms in an expression. For
+  example: \lsp{(}[[count-atoms]]\lsp{ '(a (b) c))} $= 3$. Notice that there is
+  something of an ambiguity in this: should \lsp{(a nil c)} count as three
+  atoms, or as two, because it is equivalent to \lsp{(a () c)}?
+\end{quote}
+
+<<Exercise 1.3>>=
+(defun count-atoms (exp)
+  "Return the total number of non-nil atoms in the expression."
+  (cond <<if exp is nil there are no atoms>>
+        <<if exp is an atom there is only one>>
+        <<otherwise add the count of the atoms in the first and rest of exp>>))
+@
+
+<<if exp is nil there are no atoms>>=
+((null exp) 0)
+@
+
+<<if exp is an atom there is only one>>=
+((atom exp) 1)
+@
+
+<<otherwise add the count of the atoms in the first and rest of exp>>=
+(t (+ (count-atoms (first exp))
+      (count-atoms (rest exp))))
+@
+
+\chapter{Chunks}
+\nowebchunks
+
+\chapter{Index}
+\nowebindex
+
+\bibliography{paip}
+\bibliographystyle{plainnat}
+
+\end{document}
