@@ -37,7 +37,7 @@ tangle     = notangle -R'$(basename $(notdir $<))' -filter btdefn $< >$@
 # NOTE: requires latex2html
 .nw.html: ; noweave -filter btdefn -filter l2h -index -html $< >$@
 .nw.tex:  ; noweave -filter btdefn -n -delay -index $< >$@
-.tex.pdf: ; latexmk -shell-escape -pdf -outdir=$(call dirname,$<) $<
+.tex.pdf: ; latexmk --shell-escape -pdf -outdir=$(call dirname,$<) $<
 
 all: idris erlang
 	@ ln -sf idris/hello.html docs/index.html
@@ -47,6 +47,22 @@ all: idris erlang
 idris: ${IDR_ALL}
 erlang: ${ERL_ALL}
 lol: ${LOL_ALL}
+paip: \
+	docs/paip/paip.pdf \
+	src/paip/runtests \
+	src/paip/intro.lisp \
+	src/paip/gps.lisp
+
+src/paip/%.lisp: src/paip/paip.nw
+	notangle -R'$*.lisp' $< | cpif $@
+
+src/paip/runtests: src/paip/paip.nw
+	notangle -R'runtests' $< | cpif $@
+	chmod +x $@
+
+src/paip/paip.tex: export FINDUSES_LISP=1
+src/paip/paip.tex: src/paip/paip.nw
+	noweave -autodefs lisp -n -delay -index $< | cpif $@
 
 docs/%.html: src/%.html
 	@ mkdir -p $(dir $@)
@@ -70,18 +86,3 @@ clobber_keep_regex := '.*.[bib|nw]'
 
 clobber:
 	@ find src -type f \! -regex ${clobber_keep_reges} -delete
-
-
-# FIXME
-
-paip: src/paip/paip.pdf src/paip/intro.lisp
-
-src/paip/paip.pdf: src/paip/paip.tex
-	latexmk -shell-escape -pdf -outdir=$(call dirname,$<) $<
-
-src/paip/paip.tex: export FINDUSES_LISP=1
-src/paip/paip.tex: src/paip/paip.nw
-	noweave -autodefs lisp -n -delay -index $< >$@
-
-src/paip/%.lisp: src/paip/paip.nw
-	notangle -R'$*.lisp' $< >$@
