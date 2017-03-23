@@ -84,12 +84,10 @@ if (member (first name) *titles*)
 \section{Exercises}
 
 <<intro.lisp>>=
-(ql:quickload :lisp-unit)
-
-(defpackage #:intro
-  (:use #:common-lisp #:lisp-unit))
-
-(in-package #:intro)
+(in-package :paip)
+(defpackage paip.intro
+  (:use :cl :lisp-unit))
+(in-package :paip.intro)
 
 <<titles>>
 
@@ -269,13 +267,11 @@ Otherwise, it's the last name, so return it.
 \chapter{GPS: The General Problem Solver}
 
 <<gps.lisp>>=
-(ql:quickload :lisp-unit)
-
-(defpackage #:gps
-  (:use #:common-lisp #:lisp-unit)
-  (:export #:GPS))
-
-(in-package #:gps)
+(in-package :paip)
+(defpackage paip.gps
+  (:use :cl :lisp-unit)
+  (:export :GPS))
+(in-package :paip.gps)
 
 <<find-all>>
 
@@ -421,6 +417,29 @@ To drive the son to school, the son must start at home and the car must work.
                    *school-ops*)))
 @
 
+\chapter{Package}
+
+<<paip.asd>>=
+;;;; paip.asd
+
+(asdf:defsystem paip
+  :description "Paradigms of Artificial Intelligence Programming exercises"
+  :author "Eric Bailey <eric@ericb.me>"
+  ;; TODO :license "Specify license here"
+  :depends-on (:lisp-unit)
+  :serial t
+  :components ((:module "src"
+                :components
+                ((:module "paip"
+                  :components
+                  ((:file "intro")
+                   (:file "gps")))))))
+
+(defpackage paip
+  (:use :cl))
+(in-package :paip)
+@
+
 \chapter{Test Runner}
 
 <<runtests>>=
@@ -429,12 +448,27 @@ To drive the son to school, the son must start at home and the car must work.
 
 # N.B. quicklisp must be installed and configured.
 
-sbcl --non-interactive \
-     --load src/paip/$1.lisp \
-     --eval "(let* ((results (lisp-unit:run-tests :all :$1))
+sbcl --noinform --non-interactive \
+     --userinit src/paip/init.lisp \
+     --eval "(in-package :paip.$1)" \
+     --eval "(let* ((results  (lisp-unit:run-tests :all :paip.$1))
                     (failures (lisp-unit:failed-tests results))
                     (status   (if (null failures) 0 1)))
+               (lisp-unit:print-failures results)
                (sb-posix:exit status))"
+@
+
+<<init.lisp>>=
+#-quicklisp
+(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
+                                       (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
+(push (concatenate 'string (sb-posix:getcwd) "/")
+      asdf:*central-registry*)
+
+(asdf:load-system :paip)
 @
 
 \chapter{Chunks}

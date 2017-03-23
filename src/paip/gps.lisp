@@ -1,10 +1,8 @@
-(ql:quickload :lisp-unit)
-
-(defpackage #:gps
-  (:use #:common-lisp #:lisp-unit)
-  (:export #:GPS))
-
-(in-package #:gps)
+(in-package :paip)
+(defpackage paip.gps
+  (:use :cl :lisp-unit)
+  (:export :GPS))
+(in-package :paip.gps)
 
 (defun find-all (item sequence &rest keyword-args
                  &key (test #'eql) test-not &allow-other-keys)

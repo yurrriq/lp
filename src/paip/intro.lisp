@@ -1,9 +1,7 @@
-(ql:quickload :lisp-unit)
-
-(defpackage #:intro
-  (:use #:common-lisp #:lisp-unit))
-
-(in-package #:intro)
+(in-package :paip)
+(defpackage paip.intro
+  (:use :cl :lisp-unit))
+(in-package :paip.intro)
 
 (defparameter *titles*
   '(Mr Mrs Miss Ms Sir Madam Dr Admiral Major General)

@@ -84,12 +84,10 @@ if (member (first name) \nwlinkedidentc{*titles*}{NW192eu0-BpWdi-1})
 \section{Exercises}
 
 \nwenddocs{}\nwbegincode{14}\sublabel{NW192eu0-2wUDG5-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-2wUDG5-1}}}\moddef{intro.lisp~{\nwtagstyle{}\subpageref{NW192eu0-2wUDG5-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
-(ql:quickload :lisp-unit)
-
-(defpackage #:intro
-  (:use #:common-lisp #:lisp-unit))
-
-(in-package #:intro)
+(in-package :paip)
+(defpackage paip.intro
+  (:use :cl :lisp-unit))
+(in-package :paip.intro)
 
 \LA{}titles~{\nwtagstyle{}\subpageref{NW192eu0-BpWdi-1}}\RA{}
 
@@ -269,13 +267,11 @@ Otherwise, it's the last name, so return it.
 \chapter{GPS: The General Problem Solver}
 
 \nwenddocs{}\nwbegincode{58}\sublabel{NW192eu0-2EtURf-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-2EtURf-1}}}\moddef{gps.lisp~{\nwtagstyle{}\subpageref{NW192eu0-2EtURf-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
-(ql:quickload :lisp-unit)
-
-(defpackage #:gps
-  (:use #:common-lisp #:lisp-unit)
-  (:export #:\nwlinkedidentc{GPS}{NW192eu0-30p2tX-1}))
-
-(in-package #:gps)
+(in-package :paip)
+(defpackage paip.gps
+  (:use :cl :lisp-unit)
+  (:export :\nwlinkedidentc{GPS}{NW192eu0-30p2tX-1}))
+(in-package :paip.gps)
 
 \LA{}find-all~{\nwtagstyle{}\subpageref{NW192eu0-3sUrxR-1}}\RA{}
 
@@ -421,21 +417,59 @@ To drive the son to school, the son must start at home and the car must work.
                    *school-ops*)))
 \nwused{\\{NW192eu0-2EtURf-1}}\nwidentuses{\\{{\nwixident{assert-solved}}{assert-solved}}}\nwindexuse{\nwixident{assert-solved}}{assert-solved}{NW192eu0-1ahSlC-1}\nwendcode{}\nwbegindocs{81}\nwdocspar
 
+\chapter{Package}
+
+\nwenddocs{}\nwbegincode{82}\sublabel{NW192eu0-34miW3-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-34miW3-1}}}\moddef{paip.asd~{\nwtagstyle{}\subpageref{NW192eu0-34miW3-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+;;;; paip.asd
+
+(asdf:defsystem paip
+  :description "Paradigms of Artificial Intelligence Programming exercises"
+  :author "Eric Bailey <eric@ericb.me>"
+  ;; TODO :license "Specify license here"
+  :depends-on (:lisp-unit)
+  :serial t
+  :components ((:module "src"
+                :components
+                ((:module "paip"
+                  :components
+                  ((:file "intro")
+                   (:file "gps")))))))
+
+(defpackage paip
+  (:use :cl))
+(in-package :paip)
+\nwnotused{paip.asd}\nwendcode{}\nwbegindocs{83}\nwdocspar
+
 \chapter{Test Runner}
 
-\nwenddocs{}\nwbegincode{82}\sublabel{NW192eu0-i0Dup-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-i0Dup-1}}}\moddef{runtests~{\nwtagstyle{}\subpageref{NW192eu0-i0Dup-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{84}\sublabel{NW192eu0-i0Dup-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-i0Dup-1}}}\moddef{runtests~{\nwtagstyle{}\subpageref{NW192eu0-i0Dup-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 #! /usr/bin/env nix-shell
 #! nix-shell -i sh -p sbcl
 
 # N.B. quicklisp must be installed and configured.
 
-sbcl --non-interactive \\
-     --load src/paip/$1.lisp \\
-     --eval "(let* ((results (lisp-unit:run-tests :all :$1))
+sbcl --noinform --non-interactive \\
+     --userinit src/paip/init.lisp \\
+     --eval "(in-package :paip.$1)" \\
+     --eval "(let* ((results  (lisp-unit:run-tests :all :paip.$1))
                     (failures (lisp-unit:failed-tests results))
                     (status   (if (null failures) 0 1)))
+               (lisp-unit:print-failures results)
                (sb-posix:exit status))"
-\nwnotused{runtests}\nwendcode{}
+\nwnotused{runtests}\nwendcode{}\nwbegindocs{85}\nwdocspar
+
+\nwenddocs{}\nwbegincode{86}\sublabel{NW192eu0-40xICN-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW192eu0-40xICN-1}}}\moddef{init.lisp~{\nwtagstyle{}\subpageref{NW192eu0-40xICN-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+#-quicklisp
+(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
+                                       (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
+(push (concatenate 'string (sb-posix:getcwd) "/")
+      asdf:*central-registry*)
+
+(asdf:load-system :paip)
+\nwnotused{init.lisp}\nwendcode{}
 
 \nwixlogsorted{c}{{A list of available operators}{NW192eu0-1JBQVW-1}{\nwixu{NW192eu0-2EtURf-1}\nwixd{NW192eu0-1JBQVW-1}}}%
 \nwixlogsorted{c}{{abstract first-name}{NW192eu0-1xnn0Z-1}{\nwixd{NW192eu0-1xnn0Z-1}}}%
@@ -462,11 +496,13 @@ sbcl --non-interactive \\
 \nwixlogsorted{c}{{if n is even return x to the power of n over two, squared}{NW192eu0-3Slm34-1}{\nwixu{NW192eu0-3kZCB2-1}\nwixd{NW192eu0-3Slm34-1}}}%
 \nwixlogsorted{c}{{if n is zero return 1}{NW192eu0-2y88rI-1}{\nwixu{NW192eu0-3kZCB2-1}\nwixd{NW192eu0-2y88rI-1}}}%
 \nwixlogsorted{c}{{if the first element of name is a title}{NW192eu0-Ix42V-1}{\nwixu{NW192eu0-1xnn0Z-1}\nwixd{NW192eu0-Ix42V-1}}}%
+\nwixlogsorted{c}{{init.lisp}{NW192eu0-40xICN-1}{\nwixd{NW192eu0-40xICN-1}}}%
 \nwixlogsorted{c}{{intro.lisp}{NW192eu0-2wUDG5-1}{\nwixd{NW192eu0-2wUDG5-1}}}%
 \nwixlogsorted{c}{{last-name}{NW192eu0-4Zlwoj-1}{\nwixu{NW192eu0-4Wuo2N-1}\nwixd{NW192eu0-4Zlwoj-1}}}%
 \nwixlogsorted{c}{{Morton Downey, Jr}{NW192eu0-189ElO-1}{\nwixu{NW192eu0-29KvuZ-1}\nwixd{NW192eu0-189ElO-1}}}%
 \nwixlogsorted{c}{{otherwise add the count of the atoms in the first and rest of exp}{NW192eu0-44AOMF-1}{\nwixu{NW192eu0-2b8599-1}\nwixd{NW192eu0-44AOMF-1}}}%
 \nwixlogsorted{c}{{otherwise return x times x to the power of n minus one}{NW192eu0-1kE0RF-1}{\nwixu{NW192eu0-3kZCB2-1}\nwixd{NW192eu0-1kE0RF-1}}}%
+\nwixlogsorted{c}{{paip.asd}{NW192eu0-34miW3-1}{\nwixd{NW192eu0-34miW3-1}}}%
 \nwixlogsorted{c}{{power}{NW192eu0-3kZCB2-1}{\nwixu{NW192eu0-2DHmDj-1}\nwixd{NW192eu0-3kZCB2-1}}}%
 \nwixlogsorted{c}{{Rex Morgan MD}{NW192eu0-1iWMbJ-1}{\nwixu{NW192eu0-29KvuZ-1}\nwixd{NW192eu0-1iWMbJ-1}}}%
 \nwixlogsorted{c}{{runtests}{NW192eu0-i0Dup-1}{\nwixd{NW192eu0-i0Dup-1}}}%
@@ -492,7 +528,7 @@ sbcl --non-interactive \\
 \nwixlogsorted{i}{{\nwixident{last-name}}{last-name}}%
 \nwixlogsorted{i}{{\nwixident{power}}{power}}%
 \nwixlogsorted{i}{{\nwixident{square}}{square}}%
-\nwbegindocs{83}\nwdocspar
+\nwbegindocs{87}\nwdocspar
 
 \chapter{Chunks}
 \nowebchunks
