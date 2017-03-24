@@ -1,3 +1,7 @@
+cpif   ?= | cpif
+tangle  = notangle -R'$@' $< ${cpif} $@
+weave   = noweave -autodefs lisp -n -delay -index $< ${cpif} $@
+
 .SUFFIXES: .tex .pdf
 .tex.pdf: ; latexmk --shell-escape -outdir=tex -pdf $<
 
@@ -9,18 +13,20 @@ all: \
 	bin/runtests \
 	tex/paip.pdf
 
-paip.asd init.lisp src/*.lisp: paip.nw
-	notangle -R'$(notdir $@)' $< | cpif $@
-
-test: bin/runtests all
+check: bin/runtests all
+	@ echo
 	@ for subpkg in intro gps; do \
+		echo "#:paip.$$subpkg" ; \
 		$< $$subpkg ; \
 	done
 
+paip.asd init.lisp src/*.lisp: paip.nw
+	${tangle}
+
 bin/runtests: paip.nw
-	@ notangle -R'$(notdir $@)' $< | cpif $@
-	@ chmod +x $@
+	${tangle}
+	chmod +x $@
 
 tex/paip.tex: export FINDUSES_LISP=1
 tex/paip.tex: paip.nw
-	@ noweave -autodefs lisp -n -delay -index $< | cpif $@
+	${weave}

@@ -83,7 +83,7 @@ if (member (first name) *titles*)
 
 \section{Exercises}
 
-<<intro.lisp>>=
+<<src/intro.lisp>>=
 (in-package #:paip)
 (defpackage #:paip.intro
   (:use #:cl #:lisp-unit))
@@ -267,7 +267,7 @@ Otherwise, it's the last name, so return it.
 
 \chapter{GPS: The General Problem Solver}
 
-<<gps.lisp>>=
+<<src/gps.lisp>>=
 (in-package #:paip)
 (defpackage #:paip.gps
   (:use #:cl #:lisp-unit)
@@ -300,10 +300,6 @@ Otherwise, it's the last name, so return it.
 <<Print debugging information>>
 
 <<GPS Tests>>
-@
-
-<<The current state: a list of conditions>>=
-(defvar *state* nil "The current state: a list of conditions.")
 @
 
 <<A list of available operators>>=
@@ -458,11 +454,11 @@ To drive the son to school, the son must start at home and the car must work.
             :preconds '(have-money)
             :add-list '(shop-has-money)
             :del-list '(have-money))))
-@
+@ %def *school-ops*
 
 \section{Debugging}
 
-\begin{minted}[]{lisp}
+<<Debugging usage>>=
 ;; Example call
 (dbg :gps "The current goal is: ~a" goal)
 
@@ -471,7 +467,7 @@ To drive the son to school, the son must start at home and the car must work.
 
 ;; Turn off debugging
 (undebug :gps)
-\end{minted}
+@
 
 <<Print debugging information>>=
 (defvar *dbg-ids* nil
@@ -501,10 +497,6 @@ To drive the son to school, the son must start at home and the car must work.
 @
 
 \section{Tests}
-<<Assert that a given problem is solvable>>=
-(defmacro assert-solved (form)
-  `(assert-equal 'solved ,form))
-@
 
 <<GPS Tests>>=
 (define-test complex
@@ -568,7 +560,7 @@ To drive the son to school, the son must start at home and the car must work.
 
 \chapter{Test Runner}
 
-<<runtests>>=
+<<bin/runtests>>=
 #! /usr/bin/env nix-shell
 #! nix-shell -i sh -p sbcl
 
