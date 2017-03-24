@@ -47,29 +47,9 @@ all: idris erlang
 idris: ${IDR_ALL}
 erlang: ${ERL_ALL}
 lol: ${LOL_ALL}
-paip: \
-	docs/paip/paip.pdf \
-	paip.asd \
-	src/paip/init.lisp \
-	src/paip/runtests \
-	src/paip/intro.lisp \
-	src/paip/gps.lisp
-
-paip-tests: src/paip/runtests paip
-	@ for subpkg in intro gps; do \
-		$< $$subpkg ; \
-	done
-
-src/paip/%.lisp: src/paip/paip.nw
-	@ notangle -R'$*.lisp' $< | cpif $@
-
-src/paip/runtests: src/paip/paip.nw
-	@ notangle -R'runtests' $< | cpif $@
-	@ chmod +x $@
-
-src/paip/paip.tex: export FINDUSES_LISP=1
-src/paip/paip.tex: src/paip/paip.nw
-	@ noweave -autodefs lisp -n -delay -index $< | cpif $@
+paip:
+	@ ${MAKE} -C paip
+	@ ln -fs ../paip/tex/paip.pdf docs/
 
 docs/%.html: src/%.html
 	@ mkdir -p $(dir $@)

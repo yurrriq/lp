@@ -4,7 +4,7 @@
 # N.B. quicklisp must be installed and configured.
 
 sbcl --noinform --non-interactive \
-     --userinit src/paip/init.lisp \
+     --userinit init.lisp \
      --eval "(in-package :paip.$1)" \
      --eval "(let* ((results  (lisp-unit:run-tests :all :paip.$1))
                     (failures (lisp-unit:failed-tests results))

@@ -1,7 +1,7 @@
-(in-package :paip)
-(defpackage paip.intro
-  (:use :cl :lisp-unit))
-(in-package :paip.intro)
+(in-package #:paip)
+(defpackage #:paip.intro
+  (:use #:cl #:lisp-unit))
+(in-package #:paip.intro)
 
 (defparameter *titles*
   '(Mr Mrs Miss Ms Sir Madam Dr Admiral Major General)

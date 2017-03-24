@@ -23,7 +23,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 
-\usepackage[outputdir=src/paip]{minted}
+\usepackage[outputdir=tex]{minted}
 
 % NOTE: Use Tufte instead of noweb page style.
 % \pagestyle{noweb}
@@ -84,10 +84,10 @@ if (member (first name) *titles*)
 \section{Exercises}
 
 <<intro.lisp>>=
-(in-package :paip)
-(defpackage paip.intro
-  (:use :cl :lisp-unit))
-(in-package :paip.intro)
+(in-package #:paip)
+(defpackage #:paip.intro
+  (:use #:cl #:lisp-unit))
+(in-package #:paip.intro)
 
 <<titles>>
 
@@ -268,12 +268,12 @@ Otherwise, it's the last name, so return it.
 \chapter{GPS: The General Problem Solver}
 
 <<gps.lisp>>=
-(in-package :paip)
-(defpackage paip.gps
-  (:use :cl :lisp-unit)
-  (:shadow :debug)
-  (:export :GPS))
-(in-package :paip.gps)
+(in-package #:paip)
+(defpackage #:paip.gps
+  (:use #:cl #:lisp-unit)
+  (:shadow #:debug)
+  (:export #:GPS))
+(in-package #:paip.gps)
 
 <<find-all>>
 
@@ -549,22 +549,21 @@ To drive the son to school, the son must start at home and the car must work.
 <<paip.asd>>=
 ;;;; paip.asd
 
-(asdf:defsystem paip
+(asdf:defsystem #:paip
   :description "Paradigms of Artificial Intelligence Programming exercises"
   :author "Eric Bailey <eric@ericb.me>"
   ;; TODO :license "Specify license here"
-  :depends-on (:lisp-unit)
+  :depends-on (#:lisp-unit)
   :serial t
   :components ((:module "src"
+                :serial t
                 :components
-                ((:module "paip"
-                  :components
-                  ((:file "intro")
-                   (:file "gps")))))))
+                ((:file "intro")
+                 (:file "gps")))))
 
-(defpackage paip
-  (:use :cl))
-(in-package :paip)
+(defpackage #:paip
+  (:use #:cl))
+(in-package #:paip)
 @
 
 \chapter{Test Runner}
@@ -576,7 +575,7 @@ To drive the son to school, the son must start at home and the car must work.
 # N.B. quicklisp must be installed and configured.
 
 sbcl --noinform --non-interactive \
-     --userinit src/paip/init.lisp \
+     --userinit init.lisp \
      --eval "(in-package :paip.$1)" \
      --eval "(let* ((results  (lisp-unit:run-tests :all :paip.$1))
                     (failures (lisp-unit:failed-tests results))

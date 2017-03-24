@@ -1,9 +1,9 @@
-(in-package :paip)
-(defpackage paip.gps
-  (:use :cl :lisp-unit)
-  (:shadow :debug)
-  (:export :GPS))
-(in-package :paip.gps)
+(in-package #:paip)
+(defpackage #:paip.gps
+  (:use #:cl #:lisp-unit)
+  (:shadow #:debug)
+  (:export #:GPS))
+(in-package #:paip.gps)
 
 (defun find-all (item sequence &rest keyword-args
                  &key (test #'eql) test-not &allow-other-keys)
