@@ -1,4 +1,4 @@
-% -*- mode: noweb; ess-noweb-default-code-mode: lisp-mode; -*-
+% -*- ess-noweb-default-code-mode: lisp-mode; -*-
 \documentclass{tufte-book}
 \usepackage{noweb}
 
