@@ -1,6 +1,7 @@
 (in-package :paip)
 (defpackage paip.gps
   (:use :cl :lisp-unit)
+  (:shadow :debug)
   (:export :GPS))
 (in-package :paip.gps)
 
@@ -14,7 +15,7 @@
       (apply #'remove item sequence
              :test (complement test) keyword-args)))
 
-(defvar *state* nil "The current state: a list of conditions.")
+(setf (symbol-function 'find-all-if) #'remove-if-not)
 
 (defvar *ops* nil "A list of available operators.")
 
@@ -25,32 +26,72 @@
   (add-list nil)
   (del-list nil))
 
-(defun GPS (*state* goals *ops*)
-  "General Problem Solver: achieve all goals using *ops*."
-  (if (achieve-all goals) 'solved))
+(defun GPS (state goals &optional (*ops* *ops*))
+  "General Problem Solver: from state, achieve goals using *ops*."
+  (remove-if #'atom (achieve-all (cons '(start) state) goals nil)))
 
-(defun achieve (goal)
+(defun achieve (state goal goal-stack)
   "A goal is achieved if it already holds,
   or if there is an appropriate op for it that is applicable."
-  (or (member goal *state*)
-      (some #'apply-op
-            (find-all goal *ops* :test #'appropriate-p))))
+  (dbg-indent :gps (length goal-stack) "Goal: ~a" goal)
+  (cond ((member-equal goal state)      state)
+        ((member-equal goal goal-stack) nil)
+        (t (some #'(lambda (op) (apply-op state goal op goal-stack))
+                 (find-all goal *ops* :test #'appropriate-p)))))
 
-(defun achieve-all (goals)
+(defun achieve-all (state goals goal-stack)
   "Try to achieve each goal, then make sure they still hold."
-  (and (every #'achieve goals) (subsetp goals *state*)))
+  (let ((current-state state))
+    (if (and (every #'(lambda (g)
+                        (setf current-state
+                              (achieve current-state g goal-stack)))
+                    goals)
+             (subsetp goals current-state :test #'equal))
+        current-state)))
 
 (defun appropriate-p (goal op)
   "An op is appropriate to a goal if it is in its add list."
-  (member goal (op-add-list op)))
+  (member-equal goal (op-add-list op)))
 
-(defun apply-op (op)
-  "Print a message and update *state* if op is applicable."
-  (when (achieve-all (op-preconds op))
-    (print (list 'executing (op-action op)))
-    (setf *state* (set-difference *state* (op-del-list op)))
-    (setf *state* (union *state* (op-add-list op)))
-    t))
+(defun apply-op (state goal op goal-stack)
+  "Return a new, transformed state if op is applicable."
+  (dbg-indent :gps (length goal-stack) "Consider: ~a" (op-action op))
+  (let ((state* (achieve-all state (op-preconds op)
+                             (cons goal goal-stack))))
+    (unless (null state*)
+      (dbg-indent :gps (length goal-stack) "Action: ~a" (op-action op))
+      (append (remove-if #'(lambda (x)
+                             (member-equal x (op-del-list op)))
+                         state*)
+              (op-add-list op)))))
+
+(defun executing-p (x)
+  "Is x of the form: (executing ...) ?"
+  (starts-with x 'executing))
+
+(defun starts-with (list x)
+  "Is this a list whose first element is x?"
+  (and (consp list) (eql (first list) x)))
+
+(defun convert-op (op)
+  "Make op conform to the (EXECUTING op) convention."
+  (unless (some #'executing-p (op-add-list op))
+    (push (list 'executing (op-action op)) (op-add-list op)))
+  op)
+
+(defun op (action &key preconds add-list del-list)
+  "Make a new operator that obeys the (EXECUTING op) convention."
+  (convert-op (make-op :action action
+                       :preconds preconds
+                       :add-list add-list
+                       :del-list del-list)))
+
+(defun use (oplist)
+  "Use oplist as the default list of operators."
+  (length (setf *ops* oplist)))
+
+(defun member-equal (item list)
+  (member item list :test #'equal))
 
 (defparameter *school-ops*
   (list
@@ -75,23 +116,46 @@
             :add-list '(shop-has-money)
             :del-list '(have-money))))
 
-(defmacro assert-solved (form)
-  `(assert-equal 'solved ,form))
+(mapc #'convert-op *school-ops*)
+
+(defvar *dbg-ids* nil
+  "Identifiers used by dbg")
+
+(defun dbg (id format-string &rest args)
+  "Print debugging info if (DEBUG ID) has been specified."
+  (when (member id *dbg-ids*)
+    (fresh-line *debug-io*)
+    (apply #'format *debug-io* format-string args)))
+
+(defun debug (&rest ids)
+  "Start dbg output on the given ids."
+  (setf *dbg-ids* (union ids *dbg-ids*)))
+
+(defun undebug (&rest ids)
+  "Stop dbg on the ids. With no ids, stop dbg altogether."
+  (setf *dbg-ids* (if (null ids) nil
+                      (set-difference *dbg-ids* ids))))
+
+(defun dbg-indent (id indent format-string &rest args)
+  "Print indented debugging info if (DEBUG ID) has been specified."
+  (when (member id *dbg-ids*)
+    (fresh-line *debug-io*)
+    (dotimes (i indent) (princ " " *debug-io*))
+    (apply #'format *debug-io* format-string args)))
 
 (define-test complex
   (assert-equal
-   (format nil "~%~{(EXECUTING ~A) ~^~%~}"
-           '(look-up-number
-             telephone-shop
-             tell-shop-problem
-             give-shop-money
-             shop-installs-battery
-             drive-son-to-school))
-   (with-output-to-string (*standard-output*)
-     (assert-solved
-      (gps '(son-at-home car-needs-battery have-money have-phone-book)
-           '(son-at-school)
-           *school-ops*)))))
+   (cons '(start)
+         (mapcar #'(lambda (step) (list 'executing step))
+                 '(look-up-number
+                   telephone-shop
+                   tell-shop-problem
+                   give-shop-money
+                   shop-installs-battery
+                   drive-son-to-school)))
+   (gps '(son-at-home car-needs-battery have-money have-phone-book)
+        '(son-at-school)
+        *school-ops*)))
 
 (define-test unsolvable
   (assert-nil (gps '(son-at-home car-needs-battery have-money)
@@ -99,14 +163,16 @@
                    *school-ops*)))
 
 (define-test simple
-  (assert-solved (gps '(son-at-home car-works)
-                      '(son-at-school)
-                      *school-ops*)))
+  (assert-equal '((start) (executing drive-son-to-school))
+                (gps '(son-at-home car-works)
+                     '(son-at-school)
+                     *school-ops*)))
 
 (define-test money-leftover
-  (assert-solved (gps '(son-at-home have-money car-works)
-                      '(have-money son-at-school)
-                      *school-ops*)))
+  (assert-equal '((start) (executing drive-son-to-school))
+                (gps '(son-at-home have-money car-works)
+                     '(have-money son-at-school)
+                     *school-ops*)))
 
 (define-test clobbered-sibling
   (assert-nil (gps '(son-at-home car-needs-battery have-money have-phone-book)
