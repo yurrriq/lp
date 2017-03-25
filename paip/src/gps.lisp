@@ -15,7 +15,11 @@
       (apply #'remove item sequence
              :test (complement test) keyword-args)))
 
-(setf (symbol-function 'find-all-if) #'remove-if-not)
+;; (setf (symbol-function 'find-all-if) #'remove-if-not)
+
+(defun mappend (fn the-list)
+  "Apply fn to each element of list and append the results."
+  (apply #'append (mapcar fn the-list)))
 
 (defvar *ops* nil "A list of available operators.")
 
@@ -28,7 +32,8 @@
 
 (defun GPS (state goals &optional (*ops* *ops*))
   "General Problem Solver: from state, achieve goals using *ops*."
-  (remove-if #'atom (achieve-all (cons '(start) state) goals nil)))
+  (remove-if-not #'action-p
+                 (achieve-all (cons '(start) state) goals nil)))
 
 (defun achieve (state goal goal-stack)
   "A goal is achieved if it already holds,
@@ -68,6 +73,10 @@
 (defun executing-p (x)
   "Is x of the form: (executing ...) ?"
   (starts-with x 'executing))
+
+(defun action-p (x)
+  "Is x something that is (start) or (executing ...)?"
+  (or (equal x '(start)) (executing-p x)))
 
 (defun starts-with (list x)
   "Is this a list whose first element is x?"
@@ -115,6 +124,76 @@
             :preconds '(have-money)
             :add-list '(shop-has-money)
             :del-list '(have-money))))
+
+(defparameter *banana-ops*
+  (list
+   (op 'climb-on-chair
+       :preconds '(chair-at-middle-room at-middle-room on-floor)
+       :add-list '(at-bananas on-chair)
+       :del-list '(at-middle-room on-floor))
+   (op 'push-chair-from-door-to-middle-room
+       :preconds '(chair-at-door at-door)
+       :add-list '(chair-at-middle-room at-middle-room)
+       :del-list '(chair-at-door at-door))
+   (op 'walk-from-door-to-middle-room
+       :preconds '(at-door on-floor)
+       :add-list '(at-middle-room)
+       :del-list '(at-door))
+   (op 'grasp-bananas
+       :preconds '(at-bananas empty-handed)
+       :add-list '(has-bananas)
+       :del-list '(empty-handed))
+   (op 'drop-ball
+       :preconds '(has-ball)
+       :add-list '(empty-handed)
+       :del-list '(has-ball))
+   (op 'eat-bananas
+       :preconds '(has-bananas)
+       :add-list '(empty-handed not-hungry)
+       :del-list '(has-bananas hungry))))
+
+(defun make-maze-ops (pair)
+  "Make maze ops in both directions."
+  (list (make-maze-op (first pair) (second pair))
+        (make-maze-op (second pair) (first pair))))
+
+(defun make-maze-op (here there)
+  "Make an operator to move between two places."
+  (op `(move from ,here to ,there)
+      :preconds `((at ,here))
+      :add-list `((at ,there))
+      :del-list `((at ,here))))
+
+(defparameter *maze-ops*
+  (mappend #'make-maze-ops
+    '((1 2) (2 3) (3 4) (4 9) (9 14) (9 8) (8 7) (7 12) (12 13)
+      (12 11) (11 6) (11 16) (16 17) (17 22) (21 22) (22 23)
+      (23 18) (23 24) (24 19) (19 20) (20 15) (15 10) (10 5) (20 25))))
+
+(defun find-path (start end)
+  "Search a maze for a path from start to end."
+  (let ((results (GPS `((at ,start)) `((at ,end)))))
+    (unless (null results)
+      (cons start (mapcar #'destination
+                          (remove '(start) results
+                                  :test #'equal))))))
+
+(defun destination (action)
+  "Find the Y in (executing (move from X to Y))."
+  (fifth (second action)))
+
+(define-test maze
+  (use *maze-ops*)
+  (assert-equal '(1 2 3 4 9 8 7 12 11 16 17 22 23 24 19 20 25)
+                (find-path 1 25)))
+
+(define-test go-nowhere
+  (use *maze-ops*)
+  (assert-equal '(1) (find-path 1 1)))
+
+(define-test maze-reverse
+  (use *maze-ops*)
+  (assert-equal (find-path 1 25) (reverse (find-path 25 1))))
 
 (mapc #'convert-op *school-ops*)
 
