@@ -313,6 +313,8 @@ Otherwise, it's the last name, so return it.
 
 \LA{}Convert existing operators~{\nwtagstyle{}\subpageref{NWlJ9ZL-yooUt-1}}\RA{}
 
+\LA{}The Blocks World Domain~{\nwtagstyle{}\subpageref{NWlJ9ZL-1t2bMc-1}}\RA{}
+
 \LA{}Print debugging information~{\nwtagstyle{}\subpageref{NWlJ9ZL-3LP9Za-1}}\RA{}
 
 \LA{}GPS Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}\RA{}
@@ -340,6 +342,11 @@ Otherwise, it's the last name, so return it.
 
 \nwenddocs{}\nwbegincode{68}\sublabel{NWlJ9ZL-23MH3b-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-23MH3b-1}}}\moddef{Achieve all goals~{\nwtagstyle{}\subpageref{NWlJ9ZL-23MH3b-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{achieve-all}{NWlJ9ZL-23MH3b-1} (state goals goal-stack)\nwindexdefn{\nwixident{achieve-all}}{achieve-all}{NWlJ9ZL-23MH3b-1}
+  "Achieve each goal, trying several orderings."
+  (some #'(lambda (goals) (\nwlinkedidentc{achieve-each}{NWlJ9ZL-23MH3b-1} state goals goal-stack))
+        (\nwlinkedidentc{orderings}{NWlJ9ZL-23MH3b-1} goals)))
+
+(defun \nwlinkedidentc{achieve-each}{NWlJ9ZL-23MH3b-1} (state goals goal-stack)\nwindexdefn{\nwixident{achieve-each}}{achieve-each}{NWlJ9ZL-23MH3b-1}
   "Try to \nwlinkedidentc{achieve}{NWlJ9ZL-1Tx3Kh-1} each goal, then make sure they still hold."
   (let ((current-state state))
     (if (and (every #'(lambda (g)
@@ -348,7 +355,12 @@ Otherwise, it's the last name, so return it.
                     goals)
              (subsetp goals current-state :test #'equal))
         current-state)))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{achieve-all}}{achieve-all}}}\nwidentuses{\\{{\nwixident{achieve}}{achieve}}}\nwindexuse{\nwixident{achieve}}{achieve}{NWlJ9ZL-23MH3b-1}\nwendcode{}\nwbegindocs{69}\nwdocspar
+
+(defun \nwlinkedidentc{orderings}{NWlJ9ZL-23MH3b-1} (lst)\nwindexdefn{\nwixident{orderings}}{orderings}{NWlJ9ZL-23MH3b-1}
+  (if (> (length lst) 1)
+      (list lst (reverse lst))
+      (list lst)))
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{achieve-all}}{achieve-all}}\\{{\nwixident{achieve-each}}{achieve-each}}\\{{\nwixident{orderings}}{orderings}}}\nwidentuses{\\{{\nwixident{achieve}}{achieve}}}\nwindexuse{\nwixident{achieve}}{achieve}{NWlJ9ZL-23MH3b-1}\nwendcode{}\nwbegindocs{69}\nwdocspar
 
 \nwenddocs{}\nwbegincode{70}\sublabel{NWlJ9ZL-1Tx3Kh-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1Tx3Kh-1}}}\moddef{Achieve an individual goal~{\nwtagstyle{}\subpageref{NWlJ9ZL-1Tx3Kh-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{achieve}{NWlJ9ZL-1Tx3Kh-1} (state goal goal-stack)\nwindexdefn{\nwixident{achieve}}{achieve}{NWlJ9ZL-1Tx3Kh-1}
@@ -358,8 +370,17 @@ Otherwise, it's the last name, so return it.
   (cond ((\nwlinkedidentc{member-equal}{NWlJ9ZL-1aljzn-1} goal state)      state)
         ((\nwlinkedidentc{member-equal}{NWlJ9ZL-1aljzn-1} goal goal-stack) nil)
         (t (some #'(lambda (\nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1}) (\nwlinkedidentc{apply-op}{NWlJ9ZL-3nt6zV-1} state goal \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1} goal-stack))
-                 (\nwlinkedidentc{find-all}{NWlJ9ZL-3sUrxR-1} goal \nwlinkedidentc{*ops*}{NWlJ9ZL-1JBQVW-1} :test #'\nwlinkedidentc{appropriate-p}{NWlJ9ZL-ocPeo-1})))))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{achieve}}{achieve}}}\nwidentuses{\\{{\nwixident{*ops*}}{*ops*}}\\{{\nwixident{apply-op}}{apply-op}}\\{{\nwixident{appropriate-p}}{appropriate-p}}\\{{\nwixident{dbg-indent}}{dbg-indent}}\\{{\nwixident{find-all}}{find-all}}\\{{\nwixident{member-equal}}{member-equal}}\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{*ops*}}{*ops*}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{apply-op}}{apply-op}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{appropriate-p}}{appropriate-p}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{dbg-indent}}{dbg-indent}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{find-all}}{find-all}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{member-equal}}{member-equal}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-1Tx3Kh-1}\nwendcode{}\nwbegindocs{71}\nwdocspar
+                 (\nwlinkedidentc{appropriate-ops}{NWlJ9ZL-1Tx3Kh-1} goal state)))))
+
+(defun \nwlinkedidentc{appropriate-ops}{NWlJ9ZL-1Tx3Kh-1} (goal state)\nwindexdefn{\nwixident{appropriate-ops}}{appropriate-ops}{NWlJ9ZL-1Tx3Kh-1}
+  "Return a list of appropriate operators,
+  sorted by the number of unfulfilled preconditions."
+  (sort (copy-list (\nwlinkedidentc{find-all}{NWlJ9ZL-3sUrxR-1} goal \nwlinkedidentc{*ops*}{NWlJ9ZL-1JBQVW-1} :test #'\nwlinkedidentc{appropriate-p}{NWlJ9ZL-ocPeo-1})) #'<
+        :key #'(lambda (\nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1})
+                 (count-if #'(lambda (precond)
+                               (not (\nwlinkedidentc{member-equal}{NWlJ9ZL-1aljzn-1} precond state)))
+                           (op-preconds \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1})))))
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{achieve}}{achieve}}\\{{\nwixident{appropriate-ops}}{appropriate-ops}}}\nwidentuses{\\{{\nwixident{*ops*}}{*ops*}}\\{{\nwixident{apply-op}}{apply-op}}\\{{\nwixident{appropriate-p}}{appropriate-p}}\\{{\nwixident{dbg-indent}}{dbg-indent}}\\{{\nwixident{find-all}}{find-all}}\\{{\nwixident{member-equal}}{member-equal}}\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{*ops*}}{*ops*}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{apply-op}}{apply-op}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{appropriate-p}}{appropriate-p}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{dbg-indent}}{dbg-indent}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{find-all}}{find-all}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{member-equal}}{member-equal}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-1Tx3Kh-1}\nwendcode{}\nwbegindocs{71}\nwdocspar
 
 \nwenddocs{}\nwbegincode{72}\sublabel{NWlJ9ZL-ocPeo-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-ocPeo-1}}}\moddef{Decide if an operator is appropriate for a goal~{\nwtagstyle{}\subpageref{NWlJ9ZL-ocPeo-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{appropriate-p}{NWlJ9ZL-ocPeo-1} (goal \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1})\nwindexdefn{\nwixident{appropriate-p}}{appropriate-p}{NWlJ9ZL-ocPeo-1}
@@ -568,9 +589,106 @@ To drive the son to school, the son must start at home and the car must work.
   of what's really happening--there's bound to be trouble.
 \end{quote}
 
+\section{The Blocks World Domain}
+
+\nwenddocs{}\nwbegincode{104}\sublabel{NWlJ9ZL-1t2bMc-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1t2bMc-1}}}\moddef{The Blocks World Domain~{\nwtagstyle{}\subpageref{NWlJ9ZL-1t2bMc-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{make-block-ops}{NWlJ9ZL-1t2bMc-1} (blocks)\nwindexdefn{\nwixident{make-block-ops}}{make-block-ops}{NWlJ9ZL-1t2bMc-1}
+  (let ((ops nil))
+    (dolist (a blocks)
+      (dolist (b blocks)
+        (unless (equal a b)
+          (dolist (c blocks)
+            (unless (or (equal c a)
+                        (equal c b))
+              (push (\nwlinkedidentc{move-op}{NWlJ9ZL-1t2bMc-1} a b c) ops)))
+          (push (\nwlinkedidentc{move-op}{NWlJ9ZL-1t2bMc-1} a 'table b) ops)
+          (push (\nwlinkedidentc{move-op}{NWlJ9ZL-1t2bMc-1} a b 'table) ops))))
+    ops))
+
+(defun \nwlinkedidentc{move-op}{NWlJ9ZL-1t2bMc-1} (a b c)\nwindexdefn{\nwixident{move-op}}{move-op}{NWlJ9ZL-1t2bMc-1}
+  "Make an operator to move A from B to C."
+  (\nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1} `(move ,a from ,b to ,c)
+      :preconds `((space on ,a) (space on ,c) (,a on ,b))
+      :add-list (\nwlinkedidentc{move-ons}{NWlJ9ZL-1t2bMc-1} a b c)
+      :del-list (\nwlinkedidentc{move-ons}{NWlJ9ZL-1t2bMc-1} a c b)))
+
+(defun \nwlinkedidentc{move-ons}{NWlJ9ZL-1t2bMc-1} (a b c)\nwindexdefn{\nwixident{move-ons}}{move-ons}{NWlJ9ZL-1t2bMc-1}
+  (if (eq b 'table)
+      `((,a on ,c))
+      `((,a on ,c) (space on ,b))))
+
+\LA{}Blocks World Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-8artJ-1}}\RA{}
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{make-block-ops}}{make-block-ops}}\\{{\nwixident{move-ons}}{move-ons}}\\{{\nwixident{move-op}}{move-op}}}\nwidentuses{\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-1t2bMc-1}\nwendcode{}\nwbegindocs{105}\nwdocspar
+
+\nwenddocs{}\nwbegincode{106}\sublabel{NWlJ9ZL-8artJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-8artJ-1}}}\moddef{Blocks World Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-8artJ-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-1t2bMc-1}}\nwenddeflinemarkup
+(define-test simplest-blocks-problem
+  (\nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} (\nwlinkedidentc{make-block-ops}{NWlJ9ZL-1t2bMc-1} '(a b)))
+  (assert-equal '((start) (executing (move a from table to b)))
+                (gps '((a on table) (b on table) (space on a) (space on b)
+                       (space on table))
+                     '((a on b) (b on table)))))
+
+(define-test slighty-more-complex-blocks
+  (\nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} (\nwlinkedidentc{make-block-ops}{NWlJ9ZL-1t2bMc-1} '(a b)))
+  (assert-equal '((start)
+                  (executing (move a from b to table))
+                  (executing (move b from table to a)))
+                (gps '((a on b) (b on table) (space on a) (space on table))
+                     '((b on a)))))
+
+(define-test blocks-goals-order-insignificant
+  (let ((ops (\nwlinkedidentc{make-block-ops}{NWlJ9ZL-1t2bMc-1} '(a b c))))
+    (let ((state '((a on b) (b on c) (c on table)
+                   (space on a) (space on table))))
+      (assert-equal '((start)
+                      (executing (move a from b to table))
+                      (executing (move b from c to a))
+                      (executing (move c from table to b)))
+                    (gps state '((b on a) (c on b)) ops))
+      (assert-equal '((start)
+                      (executing (move a from b to table))
+                      (executing (move b from c to a))
+                      (executing (move c from table to b)))
+                    (gps state '((c on b) (b on a)) ops)))))
+
+(define-test blocks-ops-ordered-intelligently
+  (let ((ops (\nwlinkedidentc{make-block-ops}{NWlJ9ZL-1t2bMc-1} '(a b c))))
+    (let ((state '((c on a) (a on table) (b on table)
+                   (space on c) (space on b) (space on table))))
+      (assert-equal '((start)
+                      (executing (move c from a to table))
+                      (executing (move a from table to b)))
+                    (gps state '((c on table) (a on b)) ops)))
+    (let ((state '((a on b) (b on c) (c on table)
+                   (space on a) (space on table))))
+      (assert-equal '((start)
+                      (executing (move a from b to table))
+                      (executing (move b from c to a))
+                      (executing (move c from table to b)))
+                    (gps state '((b on a) (c on b)) ops))
+      (assert-equal '((start)
+                      (executing (move a from b to table))
+                      (executing (move b from c to a))
+                      (executing (move c from table to b)))
+                    (gps state '((c on b) (b on a)) ops)))))
+
+\LA{}Blocks: The Sussman Anomaly~{\nwtagstyle{}\subpageref{NWlJ9ZL-2FEfPq-1}}\RA{}
+\nwused{\\{NWlJ9ZL-1t2bMc-1}}\nwidentuses{\\{{\nwixident{make-block-ops}}{make-block-ops}}\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{make-block-ops}}{make-block-ops}{NWlJ9ZL-8artJ-1}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-8artJ-1}\nwendcode{}\nwbegindocs{107}\nwdocspar
+
+\subsection{The Sussman Anomaly}
+
+N.B. These results are undesirable and will be addressed in chapter 6.
+\nwenddocs{}\nwbegincode{108}\sublabel{NWlJ9ZL-2FEfPq-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-2FEfPq-1}}}\moddef{Blocks: The Sussman Anomaly~{\nwtagstyle{}\subpageref{NWlJ9ZL-2FEfPq-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-8artJ-1}}\nwenddeflinemarkup
+(define-test blocks-the-sussman-anomaly
+  (let ((start '((c on a) (a on table) (b on table)
+                 (space on c) (space on b) (space on table))))
+    (assert-nil (gps start '((a on b) (b on c))))
+    (assert-nil (gps start '((b on c) (a on b))))))
+\nwused{\\{NWlJ9ZL-8artJ-1}}\nwendcode{}\nwbegindocs{109}\nwdocspar
+
 \section{Debugging}
 
-\nwenddocs{}\nwbegincode{104}\sublabel{NWlJ9ZL-3AihUJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3AihUJ-1}}}\moddef{Debugging usage~{\nwtagstyle{}\subpageref{NWlJ9ZL-3AihUJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{110}\sublabel{NWlJ9ZL-3AihUJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3AihUJ-1}}}\moddef{Debugging usage~{\nwtagstyle{}\subpageref{NWlJ9ZL-3AihUJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 ;; Example call
 (\nwlinkedidentc{dbg}{NWlJ9ZL-3LP9Za-1} :gps "The current goal is: ~a" goal)
 
@@ -579,9 +697,9 @@ To drive the son to school, the son must start at home and the car must work.
 
 ;; Turn off debugging
 (\nwlinkedidentc{undebug}{NWlJ9ZL-3LP9Za-1} :gps)
-\nwnotused{Debugging usage}\nwidentuses{\\{{\nwixident{dbg}}{dbg}}\\{{\nwixident{debug}}{debug}}\\{{\nwixident{undebug}}{undebug}}}\nwindexuse{\nwixident{dbg}}{dbg}{NWlJ9ZL-3AihUJ-1}\nwindexuse{\nwixident{debug}}{debug}{NWlJ9ZL-3AihUJ-1}\nwindexuse{\nwixident{undebug}}{undebug}{NWlJ9ZL-3AihUJ-1}\nwendcode{}\nwbegindocs{105}\nwdocspar
+\nwnotused{Debugging usage}\nwidentuses{\\{{\nwixident{dbg}}{dbg}}\\{{\nwixident{debug}}{debug}}\\{{\nwixident{undebug}}{undebug}}}\nwindexuse{\nwixident{dbg}}{dbg}{NWlJ9ZL-3AihUJ-1}\nwindexuse{\nwixident{debug}}{debug}{NWlJ9ZL-3AihUJ-1}\nwindexuse{\nwixident{undebug}}{undebug}{NWlJ9ZL-3AihUJ-1}\nwendcode{}\nwbegindocs{111}\nwdocspar
 
-\nwenddocs{}\nwbegincode{106}\sublabel{NWlJ9ZL-3LP9Za-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3LP9Za-1}}}\moddef{Print debugging information~{\nwtagstyle{}\subpageref{NWlJ9ZL-3LP9Za-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{112}\sublabel{NWlJ9ZL-3LP9Za-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3LP9Za-1}}}\moddef{Print debugging information~{\nwtagstyle{}\subpageref{NWlJ9ZL-3LP9Za-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defvar \nwlinkedidentc{*dbg-ids*}{NWlJ9ZL-3LP9Za-1} nil\nwindexdefn{\nwixident{*dbg-ids*}}{*dbg-ids*}{NWlJ9ZL-3LP9Za-1}
   "Identifiers used by \nwlinkedidentc{dbg}{NWlJ9ZL-3LP9Za-1}")
 
@@ -606,11 +724,11 @@ To drive the son to school, the son must start at home and the car must work.
     (fresh-line *debug-io*)
     (dotimes (i indent) (princ " " *debug-io*))
     (apply #'format *debug-io* format-string args)))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{*dbg-ids*}}{*dbg-ids*}}\\{{\nwixident{dbg}}{dbg}}\\{{\nwixident{dbg-indent}}{dbg-indent}}\\{{\nwixident{debug}}{debug}}\\{{\nwixident{undebug}}{undebug}}}\nwendcode{}\nwbegindocs{107}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{*dbg-ids*}}{*dbg-ids*}}\\{{\nwixident{dbg}}{dbg}}\\{{\nwixident{dbg-indent}}{dbg-indent}}\\{{\nwixident{debug}}{debug}}\\{{\nwixident{undebug}}{undebug}}}\nwendcode{}\nwbegindocs{113}\nwdocspar
 
 \section{Tests}
 
-\nwenddocs{}\nwbegincode{108}\sublabel{NWlJ9ZL-1ahSlC-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}}\moddef{GPS Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{114}\sublabel{NWlJ9ZL-1ahSlC-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}}\moddef{GPS Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (define-test complex
   (assert-equal
    (cons '(start)
@@ -646,11 +764,11 @@ To drive the son to school, the son must start at home and the car must work.
   (assert-nil (gps '(son-at-home car-needs-battery have-money have-phone-book)
                    '(have-money son-at-school)
                    \nwlinkedidentc{*school-ops*}{NWlJ9ZL-4Zg5N4-1})))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{*school-ops*}}{*school-ops*}}}\nwindexuse{\nwixident{*school-ops*}}{*school-ops*}{NWlJ9ZL-1ahSlC-1}\nwendcode{}\nwbegindocs{109}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{*school-ops*}}{*school-ops*}}}\nwindexuse{\nwixident{*school-ops*}}{*school-ops*}{NWlJ9ZL-1ahSlC-1}\nwendcode{}\nwbegindocs{115}\nwdocspar
 
 \chapter{Package}
 
-\nwenddocs{}\nwbegincode{110}\sublabel{NWlJ9ZL-34miW3-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\moddef{paip.asd~{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{116}\sublabel{NWlJ9ZL-34miW3-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\moddef{paip.asd~{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 ;;;; paip.asd
 
 (asdf:defsystem #:paip
@@ -668,11 +786,11 @@ To drive the son to school, the son must start at home and the car must work.
 (defpackage #:paip
   (:\nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} #:cl))
 (in-package #:paip)
-\nwnotused{paip.asd}\nwidentuses{\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-34miW3-1}\nwendcode{}\nwbegindocs{111}\nwdocspar
+\nwnotused{paip.asd}\nwidentuses{\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-34miW3-1}\nwendcode{}\nwbegindocs{117}\nwdocspar
 
 \chapter{Test Runner}
 
-\nwenddocs{}\nwbegincode{112}\sublabel{NWlJ9ZL-3QIFQJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\moddef{bin/runtests~{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{118}\sublabel{NWlJ9ZL-3QIFQJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\moddef{bin/runtests~{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 #! /usr/bin/env nix-shell
 #! nix-shell -i sh -p sbcl
 
@@ -686,9 +804,9 @@ sbcl --noinform --non-interactive \\
                     (status   (if (null failures) 0 1)))
                (lisp-unit:print-failures results)
                (sb-posix:exit status))"
-\nwnotused{bin/runtests}\nwendcode{}\nwbegindocs{113}\nwdocspar
+\nwnotused{bin/runtests}\nwendcode{}\nwbegindocs{119}\nwdocspar
 
-\nwenddocs{}\nwbegincode{114}\sublabel{NWlJ9ZL-40xICN-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\moddef{init.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{120}\sublabel{NWlJ9ZL-40xICN-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\moddef{init.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 #-quicklisp
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
                                        (user-homedir-pathname))))
@@ -709,6 +827,8 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{c}{{Apply operator to current state}{NWlJ9ZL-3nt6zV-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-3nt6zV-1}}}%
 \nwixlogsorted{c}{{Auxiliary Functions}{NWlJ9ZL-QzWjb-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-QzWjb-1}}}%
 \nwixlogsorted{c}{{bin/runtests}{NWlJ9ZL-3QIFQJ-1}{\nwixd{NWlJ9ZL-3QIFQJ-1}}}%
+\nwixlogsorted{c}{{Blocks World Tests}{NWlJ9ZL-8artJ-1}{\nwixu{NWlJ9ZL-1t2bMc-1}\nwixd{NWlJ9ZL-8artJ-1}}}%
+\nwixlogsorted{c}{{Blocks: The Sussman Anomaly}{NWlJ9ZL-2FEfPq-1}{\nwixu{NWlJ9ZL-8artJ-1}\nwixd{NWlJ9ZL-2FEfPq-1}}}%
 \nwixlogsorted{c}{{Convert an operator to use the executing convention}{NWlJ9ZL-3MvEWn-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-3MvEWn-1}}}%
 \nwixlogsorted{c}{{Convert existing operators}{NWlJ9ZL-yooUt-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-yooUt-1}}}%
 \nwixlogsorted{c}{{Create an operator}{NWlJ9ZL-aGgy4-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-aGgy4-1}}}%
@@ -752,6 +872,7 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{c}{{src/intro.lisp}{NWlJ9ZL-3M2WD4-1}{\nwixd{NWlJ9ZL-3M2WD4-1}}}%
 \nwixlogsorted{c}{{suffixes}{NWlJ9ZL-33GIZY-1}{\nwixu{NWlJ9ZL-4Wuo2N-1}\nwixd{NWlJ9ZL-33GIZY-1}}}%
 \nwixlogsorted{c}{{Test if an element is equal to a member of a list}{NWlJ9ZL-1aljzn-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-1aljzn-1}}}%
+\nwixlogsorted{c}{{The Blocks World Domain}{NWlJ9ZL-1t2bMc-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-1t2bMc-1}}}%
 \nwixlogsorted{c}{{the last element of a name is a suffix}{NWlJ9ZL-2t3lxE-1}{\nwixu{NWlJ9ZL-4Zlwoj-1}\nwixd{NWlJ9ZL-2t3lxE-1}}}%
 \nwixlogsorted{c}{{The Maze Searching Domain}{NWlJ9ZL-2DSCmQ-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-2DSCmQ-1}}}%
 \nwixlogsorted{c}{{then return the \code{}last-name\edoc{} of all but the last element of the name}{NWlJ9ZL-3W6gHs-1}{\nwixu{NWlJ9ZL-4Zlwoj-1}\nwixd{NWlJ9ZL-3W6gHs-1}}}%
@@ -765,8 +886,10 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{i}{{\nwixident{*titles*}}{*titles*}}%
 \nwixlogsorted{i}{{\nwixident{achieve}}{achieve}}%
 \nwixlogsorted{i}{{\nwixident{achieve-all}}{achieve-all}}%
+\nwixlogsorted{i}{{\nwixident{achieve-each}}{achieve-each}}%
 \nwixlogsorted{i}{{\nwixident{action-p}}{action-p}}%
 \nwixlogsorted{i}{{\nwixident{apply-op}}{apply-op}}%
+\nwixlogsorted{i}{{\nwixident{appropriate-ops}}{appropriate-ops}}%
 \nwixlogsorted{i}{{\nwixident{appropriate-p}}{appropriate-p}}%
 \nwixlogsorted{i}{{\nwixident{convert-op}}{convert-op}}%
 \nwixlogsorted{i}{{\nwixident{count-atoms}}{count-atoms}}%
@@ -779,17 +902,21 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{i}{{\nwixident{find-path}}{find-path}}%
 \nwixlogsorted{i}{{\nwixident{GPS}}{GPS}}%
 \nwixlogsorted{i}{{\nwixident{last-name}}{last-name}}%
+\nwixlogsorted{i}{{\nwixident{make-block-ops}}{make-block-ops}}%
 \nwixlogsorted{i}{{\nwixident{make-maze-op}}{make-maze-op}}%
 \nwixlogsorted{i}{{\nwixident{make-maze-ops}}{make-maze-ops}}%
 \nwixlogsorted{i}{{\nwixident{mappend}}{mappend}}%
 \nwixlogsorted{i}{{\nwixident{member-equal}}{member-equal}}%
+\nwixlogsorted{i}{{\nwixident{move-ons}}{move-ons}}%
+\nwixlogsorted{i}{{\nwixident{move-op}}{move-op}}%
 \nwixlogsorted{i}{{\nwixident{op}}{op}}%
+\nwixlogsorted{i}{{\nwixident{orderings}}{orderings}}%
 \nwixlogsorted{i}{{\nwixident{power}}{power}}%
 \nwixlogsorted{i}{{\nwixident{square}}{square}}%
 \nwixlogsorted{i}{{\nwixident{starts-with}}{starts-with}}%
 \nwixlogsorted{i}{{\nwixident{undebug}}{undebug}}%
 \nwixlogsorted{i}{{\nwixident{use}}{use}}%
-\nwbegindocs{115}\nwdocspar
+\nwbegindocs{121}\nwdocspar
 
 \chapter{Chunks}
 \nowebchunks

@@ -42,9 +42,23 @@
   (cond ((member-equal goal state)      state)
         ((member-equal goal goal-stack) nil)
         (t (some #'(lambda (op) (apply-op state goal op goal-stack))
-                 (find-all goal *ops* :test #'appropriate-p)))))
+                 (appropriate-ops goal state)))))
+
+(defun appropriate-ops (goal state)
+  "Return a list of appropriate operators,
+  sorted by the number of unfulfilled preconditions."
+  (sort (copy-list (find-all goal *ops* :test #'appropriate-p)) #'<
+        :key #'(lambda (op)
+                 (count-if #'(lambda (precond)
+                               (not (member-equal precond state)))
+                           (op-preconds op)))))
 
 (defun achieve-all (state goals goal-stack)
+  "Achieve each goal, trying several orderings."
+  (some #'(lambda (goals) (achieve-each state goals goal-stack))
+        (orderings goals)))
+
+(defun achieve-each (state goals goal-stack)
   "Try to achieve each goal, then make sure they still hold."
   (let ((current-state state))
     (if (and (every #'(lambda (g)
@@ -53,6 +67,11 @@
                     goals)
              (subsetp goals current-state :test #'equal))
         current-state)))
+
+(defun orderings (lst)
+  (if (> (length lst) 1)
+      (list lst (reverse lst))
+      (list lst)))
 
 (defun appropriate-p (goal op)
   "An op is appropriate to a goal if it is in its add list."
@@ -196,6 +215,88 @@
   (assert-equal (find-path 1 25) (reverse (find-path 25 1))))
 
 (mapc #'convert-op *school-ops*)
+
+(defun make-block-ops (blocks)
+  (let ((ops nil))
+    (dolist (a blocks)
+      (dolist (b blocks)
+        (unless (equal a b)
+          (dolist (c blocks)
+            (unless (or (equal c a)
+                        (equal c b))
+              (push (move-op a b c) ops)))
+          (push (move-op a 'table b) ops)
+          (push (move-op a b 'table) ops))))
+    ops))
+
+(defun move-op (a b c)
+  "Make an operator to move A from B to C."
+  (op `(move ,a from ,b to ,c)
+      :preconds `((space on ,a) (space on ,c) (,a on ,b))
+      :add-list (move-ons a b c)
+      :del-list (move-ons a c b)))
+
+(defun move-ons (a b c)
+  (if (eq b 'table)
+      `((,a on ,c))
+      `((,a on ,c) (space on ,b))))
+
+(define-test simplest-blocks-problem
+  (use (make-block-ops '(a b)))
+  (assert-equal '((start) (executing (move a from table to b)))
+                (gps '((a on table) (b on table) (space on a) (space on b)
+                       (space on table))
+                     '((a on b) (b on table)))))
+
+(define-test slighty-more-complex-blocks
+  (use (make-block-ops '(a b)))
+  (assert-equal '((start)
+                  (executing (move a from b to table))
+                  (executing (move b from table to a)))
+                (gps '((a on b) (b on table) (space on a) (space on table))
+                     '((b on a)))))
+
+(define-test blocks-goals-order-insignificant
+  (let ((ops (make-block-ops '(a b c))))
+    (let ((state '((a on b) (b on c) (c on table)
+                   (space on a) (space on table))))
+      (assert-equal '((start)
+                      (executing (move a from b to table))
+                      (executing (move b from c to a))
+                      (executing (move c from table to b)))
+                    (gps state '((b on a) (c on b)) ops))
+      (assert-equal '((start)
+                      (executing (move a from b to table))
+                      (executing (move b from c to a))
+                      (executing (move c from table to b)))
+                    (gps state '((c on b) (b on a)) ops)))))
+
+(define-test blocks-ops-ordered-intelligently
+  (let ((ops (make-block-ops '(a b c))))
+    (let ((state '((c on a) (a on table) (b on table)
+                   (space on c) (space on b) (space on table))))
+      (assert-equal '((start)
+                      (executing (move c from a to table))
+                      (executing (move a from table to b)))
+                    (gps state '((c on table) (a on b)) ops)))
+    (let ((state '((a on b) (b on c) (c on table)
+                   (space on a) (space on table))))
+      (assert-equal '((start)
+                      (executing (move a from b to table))
+                      (executing (move b from c to a))
+                      (executing (move c from table to b)))
+                    (gps state '((b on a) (c on b)) ops))
+      (assert-equal '((start)
+                      (executing (move a from b to table))
+                      (executing (move b from c to a))
+                      (executing (move c from table to b)))
+                    (gps state '((c on b) (b on a)) ops)))))
+
+(define-test blocks-the-sussman-anomaly
+  (let ((start '((c on a) (a on table) (b on table)
+                 (space on c) (space on b) (space on table))))
+    (assert-nil (gps start '((a on b) (b on c))))
+    (assert-nil (gps start '((b on c) (a on b))))))
 
 (defvar *dbg-ids* nil
   "Identifiers used by dbg")
