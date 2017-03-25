@@ -706,8 +706,7 @@ N.B. These results are undesirable and will be addressed in chapter 6.
 (defun \nwlinkedidentc{dbg}{NWlJ9ZL-3LP9Za-1} (id format-string &rest args)\nwindexdefn{\nwixident{dbg}}{dbg}{NWlJ9ZL-3LP9Za-1}
   "Print debugging info if (DEBUG ID) has been specified."
   (when (member id \nwlinkedidentc{*dbg-ids*}{NWlJ9ZL-3LP9Za-1})
-    (fresh-line *debug-io*)
-    (apply #'format *debug-io* format-string args)))
+    (format *debug-io* "~&~?" format-string args)))
 
 (defun \nwlinkedidentc{debug}{NWlJ9ZL-3LP9Za-1} (&rest ids)\nwindexdefn{\nwixident{debug}}{debug}{NWlJ9ZL-3LP9Za-1}
   "Start \nwlinkedidentc{dbg}{NWlJ9ZL-3LP9Za-1} output on the given ids."
@@ -721,9 +720,7 @@ N.B. These results are undesirable and will be addressed in chapter 6.
 (defun \nwlinkedidentc{dbg-indent}{NWlJ9ZL-3LP9Za-1} (id indent format-string &rest args)\nwindexdefn{\nwixident{dbg-indent}}{dbg-indent}{NWlJ9ZL-3LP9Za-1}
   "Print indented debugging info if (DEBUG ID) has been specified."
   (when (member id \nwlinkedidentc{*dbg-ids*}{NWlJ9ZL-3LP9Za-1})
-    (fresh-line *debug-io*)
-    (dotimes (i indent) (princ " " *debug-io*))
-    (apply #'format *debug-io* format-string args)))
+    (format *debug-io* "~&~V@T~?" (* 2 indent) format-string args)))
 \nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{*dbg-ids*}}{*dbg-ids*}}\\{{\nwixident{dbg}}{dbg}}\\{{\nwixident{dbg-indent}}{dbg-indent}}\\{{\nwixident{debug}}{debug}}\\{{\nwixident{undebug}}{undebug}}}\nwendcode{}\nwbegindocs{113}\nwdocspar
 
 \section{Tests}

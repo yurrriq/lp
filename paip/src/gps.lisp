@@ -304,8 +304,7 @@
 (defun dbg (id format-string &rest args)
   "Print debugging info if (DEBUG ID) has been specified."
   (when (member id *dbg-ids*)
-    (fresh-line *debug-io*)
-    (apply #'format *debug-io* format-string args)))
+    (format *debug-io* "~&~?" format-string args)))
 
 (defun debug (&rest ids)
   "Start dbg output on the given ids."
@@ -319,9 +318,7 @@
 (defun dbg-indent (id indent format-string &rest args)
   "Print indented debugging info if (DEBUG ID) has been specified."
   (when (member id *dbg-ids*)
-    (fresh-line *debug-io*)
-    (dotimes (i indent) (princ " " *debug-io*))
-    (apply #'format *debug-io* format-string args)))
+    (format *debug-io* "~&~V@T~?" (* 2 indent) format-string args)))
 
 (define-test complex
   (assert-equal
