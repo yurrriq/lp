@@ -10,7 +10,8 @@
                 :serial t
                 :components
                 ((:file "intro")
-                 (:file "gps")))))
+                 (:file "gps")
+                 (:file "eliza")))))
 
 (defpackage #:paip
   (:use #:cl))

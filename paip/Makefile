@@ -12,6 +12,7 @@ all: \
 	init.lisp \
 	src/intro.lisp \
 	src/gps.lisp \
+	src/eliza.lisp \
 	bin/runtests \
 	tex/paip.pdf
 
