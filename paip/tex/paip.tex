@@ -723,9 +723,23 @@ N.B. These results are undesirable and will be addressed in chapter 6.
     (format *debug-io* "~&~V@T~?" (* 2 indent) format-string args)))
 \nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{*dbg-ids*}}{*dbg-ids*}}\\{{\nwixident{dbg}}{dbg}}\\{{\nwixident{dbg-indent}}{dbg-indent}}\\{{\nwixident{debug}}{debug}}\\{{\nwixident{undebug}}{undebug}}}\nwendcode{}\nwbegindocs{113}\nwdocspar
 
+\section{Exercises}
+
+\subsection{Exercise 4.2}
+
+\nwenddocs{}\nwbegincode{114}\sublabel{NWlJ9ZL-4ArfbM-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-4ArfbM-1}}}\moddef{permutations~{\nwtagstyle{}\subpageref{NWlJ9ZL-4ArfbM-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+(defun \nwlinkedidentc{permutations}{NWlJ9ZL-4ArfbM-1} (xs)\nwindexdefn{\nwixident{permutations}}{permutations}{NWlJ9ZL-4ArfbM-1}
+  (if (endp (cdr xs))
+      (list xs)
+      (loop for x in xs
+            append (loop for ys in (\nwlinkedidentc{permutations}{NWlJ9ZL-4ArfbM-1} (remove x xs :count 1
+                                                              :test  #'eq))
+                         collect (cons x ys)))))
+\nwnotused{permutations}\nwidentdefs{\\{{\nwixident{permutations}}{permutations}}}\nwendcode{}\nwbegindocs{115}\nwdocspar
+
 \section{Tests}
 
-\nwenddocs{}\nwbegincode{114}\sublabel{NWlJ9ZL-1ahSlC-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}}\moddef{GPS Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{116}\sublabel{NWlJ9ZL-1ahSlC-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}}\moddef{GPS Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (define-test complex
   (assert-equal
    (cons '(start)
@@ -761,11 +775,11 @@ N.B. These results are undesirable and will be addressed in chapter 6.
   (assert-nil (gps '(son-at-home car-needs-battery have-money have-phone-book)
                    '(have-money son-at-school)
                    \nwlinkedidentc{*school-ops*}{NWlJ9ZL-4Zg5N4-1})))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{*school-ops*}}{*school-ops*}}}\nwindexuse{\nwixident{*school-ops*}}{*school-ops*}{NWlJ9ZL-1ahSlC-1}\nwendcode{}\nwbegindocs{115}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{*school-ops*}}{*school-ops*}}}\nwindexuse{\nwixident{*school-ops*}}{*school-ops*}{NWlJ9ZL-1ahSlC-1}\nwendcode{}\nwbegindocs{117}\nwdocspar
 
 \chapter{Package}
 
-\nwenddocs{}\nwbegincode{116}\sublabel{NWlJ9ZL-34miW3-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\moddef{paip.asd~{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{118}\sublabel{NWlJ9ZL-34miW3-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\moddef{paip.asd~{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 ;;;; paip.asd
 
 (asdf:defsystem #:paip
@@ -783,11 +797,11 @@ N.B. These results are undesirable and will be addressed in chapter 6.
 (defpackage #:paip
   (:\nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} #:cl))
 (in-package #:paip)
-\nwnotused{paip.asd}\nwidentuses{\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-34miW3-1}\nwendcode{}\nwbegindocs{117}\nwdocspar
+\nwnotused{paip.asd}\nwidentuses{\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-34miW3-1}\nwendcode{}\nwbegindocs{119}\nwdocspar
 
 \chapter{Test Runner}
 
-\nwenddocs{}\nwbegincode{118}\sublabel{NWlJ9ZL-3QIFQJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\moddef{bin/runtests~{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{120}\sublabel{NWlJ9ZL-3QIFQJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\moddef{bin/runtests~{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 #! /usr/bin/env nix-shell
 #! nix-shell -i sh -p sbcl
 
@@ -801,9 +815,9 @@ sbcl --noinform --non-interactive \\
                     (status   (if (null failures) 0 1)))
                (lisp-unit:print-failures results)
                (sb-posix:exit status))"
-\nwnotused{bin/runtests}\nwendcode{}\nwbegindocs{119}\nwdocspar
+\nwnotused{bin/runtests}\nwendcode{}\nwbegindocs{121}\nwdocspar
 
-\nwenddocs{}\nwbegincode{120}\sublabel{NWlJ9ZL-40xICN-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\moddef{init.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{122}\sublabel{NWlJ9ZL-40xICN-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\moddef{init.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 #-quicklisp
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
                                        (user-homedir-pathname))))
@@ -860,6 +874,7 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{c}{{otherwise add the count of the atoms in the first and rest of exp}{NWlJ9ZL-44AOMF-1}{\nwixu{NWlJ9ZL-2b8599-1}\nwixd{NWlJ9ZL-44AOMF-1}}}%
 \nwixlogsorted{c}{{otherwise return x times x to the power of n minus one}{NWlJ9ZL-1kE0RF-1}{\nwixu{NWlJ9ZL-3kZCB2-1}\nwixd{NWlJ9ZL-1kE0RF-1}}}%
 \nwixlogsorted{c}{{paip.asd}{NWlJ9ZL-34miW3-1}{\nwixd{NWlJ9ZL-34miW3-1}}}%
+\nwixlogsorted{c}{{permutations}{NWlJ9ZL-4ArfbM-1}{\nwixd{NWlJ9ZL-4ArfbM-1}}}%
 \nwixlogsorted{c}{{power}{NWlJ9ZL-3kZCB2-1}{\nwixu{NWlJ9ZL-2DHmDj-1}\nwixd{NWlJ9ZL-3kZCB2-1}}}%
 \nwixlogsorted{c}{{Print debugging information}{NWlJ9ZL-3LP9Za-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-3LP9Za-1}}}%
 \nwixlogsorted{c}{{Rex Morgan MD}{NWlJ9ZL-1iWMbJ-1}{\nwixu{NWlJ9ZL-29KvuZ-1}\nwixd{NWlJ9ZL-1iWMbJ-1}}}%
@@ -908,12 +923,13 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{i}{{\nwixident{move-op}}{move-op}}%
 \nwixlogsorted{i}{{\nwixident{op}}{op}}%
 \nwixlogsorted{i}{{\nwixident{orderings}}{orderings}}%
+\nwixlogsorted{i}{{\nwixident{permutations}}{permutations}}%
 \nwixlogsorted{i}{{\nwixident{power}}{power}}%
 \nwixlogsorted{i}{{\nwixident{square}}{square}}%
 \nwixlogsorted{i}{{\nwixident{starts-with}}{starts-with}}%
 \nwixlogsorted{i}{{\nwixident{undebug}}{undebug}}%
 \nwixlogsorted{i}{{\nwixident{use}}{use}}%
-\nwbegindocs{121}\nwdocspar
+\nwbegindocs{123}\nwdocspar
 
 \chapter{Chunks}
 \nowebchunks

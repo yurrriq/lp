@@ -723,6 +723,20 @@ N.B. These results are undesirable and will be addressed in chapter 6.
     (format *debug-io* "~&~V@T~?" (* 2 indent) format-string args)))
 @
 
+\section{Exercises}
+
+\subsection{Exercise 4.2}
+
+<<permutations>>=
+(defun permutations (xs)
+  (if (endp (cdr xs))
+      (list xs)
+      (loop for x in xs
+            append (loop for ys in (permutations (remove x xs :count 1
+                                                              :test  #'eq))
+                         collect (cons x ys)))))
+@
+
 \section{Tests}
 
 <<GPS Tests>>=
