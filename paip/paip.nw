@@ -257,6 +257,14 @@ Otherwise, it's the last name, so return it.
   (apply #'append (mapcar fn the-list)))
 @
 
+\chapter{A Simple Lisp Program}
+
+<<random-elt>>=
+(defun random-elt (choices)
+  "Choose an element from a list at random."
+  (elt choices (random (length choices))))
+@
+
 \chapter{Overview of Lisp}
 
 <<find-all>>=
@@ -779,59 +787,120 @@ N.B. These results are undesirable and will be addressed in chapter 6.
 
 \chapter{{\sc Eliza}: Dialog with a Machine}
 
+\marginnote[\baselineskip]{
+  {\sc Eliza}, one of the more well-known AI programs of the 1960s, simulates a
+  psychotherapist, by way of a REPL.
+}
+
 <<src/eliza.lisp>>=
 (in-package #:paip)
 (defpackage #:paip.eliza
   (:use #:cl #:lisp-unit))
 (in-package #:paip.eliza)
 
-<<eliza constants>>
+<<ELIZA: Constants>>
 
-<<Is the argument a list that starts with a given atom?>>
+<<ELIZA: Top-Level Function>>
 
-<<simple-equal>>
+<<ELIZA: Special Variables>>
 
+<<ELIZA: Data Types>>
+
+<<ELIZA: Functions>>
+@
+
+\section{Pattern Matching}
+
+\marginnote[\baselineskip]{
+  {\sc Eliza} makes heavy use of pattern matching, which is at once versatile
+  and limited.
+}
+
+<<ELIZA: Pattern Matching>>=
 <<pat-match>>
 
+<<match-variable>>
+
+<<segment-match>>
+
+<<segment-pattern-p>>
+
 <<variable-p>>
-
-<<eliza binding functions>>
 @
 
-<<simple-equal>>=
-(defun simple-equal (x y)
-  "Are x and y equal? (Don't check inside strings.)"
-  (if (or (atom x) (atom y))
-      (eql x y)
-      (and (simple-equal (first x) (first y))
-           (simple-equal (rest x) (rest y)))))
-@
+\subsection{Matching}
 
-<<pat-match>>=
-(defun pat-match (pattern input &optional (bindings no-bindings))
-  "Match pattern against input in the context of the bindings."
-  (cond ((eq bindings fail)          fail)
-        ((variable-p pattern)        (match-variable pattern input bindings))
-        ((eql pattern input)         bindings)
-        ((segment-pattern-p pattern) (segment-match pattern input bindings))
-        ((and (consp pattern) (consp input))
-         (pat-match (rest pattern) (rest input)
-                    (pat-match (first pattern) (first input)
-                               bindings)))
-        (t fail)))
+\marginnote[\baselineskip]{%
+  Verify \lsp{var} is bound to \lsp{input} in \lsp{bindings}. If bound to
+  another value, [[fail]]. If unbound, [[extend-bindings]].
+}
 
+<<match-variable>>=
 (defun match-variable (var input bindings)
   "Does VAR match input? Uses (or updates) and returns bindings."
   (let ((binding (get-binding var bindings)))
     (cond ((not binding) (extend-bindings var input bindings))
           ((equal input (binding-val binding)) bindings)
           (t fail))))
+@
 
-(defun segment-pattern-p (pattern)
-  "Is this a segment matching pattern: ((?* var) . pat)"
-  (and (consp pattern)
-       (starts-with (first pattern) '?*)))
+<<pat-match>>=
+(defun pat-match (pattern input &optional (bindings no-bindings))
+  "Match pattern against input in the context of the bindings."
+  (cond <<Fail if the binding list is \lsp{fail}>>
+        <<Match a variable>>
+        <<If \lsp{pattern} equals \lsp{input}, return \lsp{bindings}>>
+        <<Match a segment>>
+        <<Call [[pat-match]] recursively>>
+        (t fail)))
+@
 
+\marginnote[\baselineskip]{%
+  If the binding list is [[fail]], then the match fails, because some previous
+  match must have failed.
+}
+
+<<Fail if the binding list is \lsp{fail}>>=
+((eq bindings fail) fail)
+@
+
+\marginnote[\baselineskip]{%
+  If the \lsp{pattern} is a single variable, return the result of
+  [[match-variable]]; either \lsp{bindings} (possibly extended) or [[fail]].
+}
+
+<<Match a variable>>=
+((variable-p pattern) (match-variable pattern input bindings))
+@
+
+\marginnote[0.5\baselineskip]{%
+  If \lsp{pattern} equals \lsp{input}, return \lsp{bindings} as is.
+}
+
+<<If \lsp{pattern} equals \lsp{input}, return \lsp{bindings}>>=
+((eql pattern input) bindings)
+@
+
+\marginnote[\baselineskip]{%
+  When both \lsp{pattern} and \lsp{input} are lists and the \lsp{(car pattern)}
+  is a segment variable, match the variable to the initial part of the
+  \lsp{input} and attempt to match \lsp{(cdr pattern)} to the rest.
+}
+
+<<Match a segment>>=
+((segment-pattern-p pattern) (segment-match pattern input bindings))
+@
+
+<<Call [[pat-match]] recursively>>=
+((and (consp pattern) (consp input))
+ (pat-match (rest pattern) (rest input)
+            (pat-match (first pattern) (first input)
+                       bindings)))
+@
+
+
+
+<<segment-match>>=
 (defun segment-match (pattern input bindings &optional (start 0))
   "Match the segment pattern ((?* var) . pat) against input."
   (let ((var (second (first pattern)))
@@ -845,7 +914,16 @@ N.B. These results are undesirable and will be addressed in chapter 6.
               (let ((b2 (pat-match pat (subseq input pos) bindings)))
                 (if (eq b2 fail)
                     (segment-match pattern input bindings (+ pos 1))
-                    (match-variable var (subseq input 0 pos) bs))))))))
+                    (match-variable var (subseq input 0 pos) b2))))))))
+@
+
+\subsection{Predicates}
+
+<<segment-pattern-p>>=
+(defun segment-pattern-p (pattern)
+  "Is this a segment matching pattern: ((?* var) . pat)"
+  (and (consp pattern)
+       (starts-with (first pattern) '?*)))
 @
 
 <<variable-p>>=
@@ -855,7 +933,9 @@ N.B. These results are undesirable and will be addressed in chapter 6.
        (equal (char (symbol-name x) 0) #\?)))
 @
 
-<<eliza constants>>=
+\section{Constants}
+
+<<ELIZA: Constants>>=
 (defconstant fail nil
   "Indicates pat-match failure")
 
@@ -863,7 +943,7 @@ N.B. These results are undesirable and will be addressed in chapter 6.
   "Indicates pat-match success, with no variables.")
 @
 
-<<eliza binding functions>>=
+<<ELIZA: Binding Functions>>=
 (defun get-binding (var bindings)
   "Find a (variable . value) pair in a binding list."
   (assoc var bindings))
@@ -882,6 +962,93 @@ N.B. These results are undesirable and will be addressed in chapter 6.
         (if (eq bindings no-bindings)
             nil
             bindings)))
+@
+
+\section{Rules}
+
+<<ELIZA: Data Types>>=
+(defun rule-pattern (rule) (first rule))
+(defun rule-responses (rule) (rest rule))
+@
+
+<<ELIZA: Special Variables>>=
+(defparameter *eliza-rules*
+  '((((?* ?x) hello (?* ?y))
+     (How do you do.  Please state your problem.))
+    (((?* ?x) I want (?* ?y))
+     (What would it mean if you got ?y)
+     (Why do you want ?y) (Suppose you got ?y soon))
+    (((?* ?x) if (?* ?y))
+     (Do you really think its likely that ?y) (Do you wish that ?y)
+     (What do you think about ?y) (Really-- if ?y))
+    (((?* ?x) no (?* ?y))
+     (Why not?) (You are being a bit negative)
+     (Are you saying "NO" just to be negative?))
+    (((?* ?x) I was (?* ?y))
+     (Were you really?) (Perhaps I already knew you were ?y)
+     (Why do you tell me you were ?y now?))
+    (((?* ?x) I feel (?* ?y))
+     (Do you often feel ?y ?))
+    (((?* ?x) I felt (?* ?y))
+     (What other feelings do you have?))))
+@
+
+\section{{\sc Eliza} Proper}
+
+<<ELIZA: Top-Level Function>>=
+(defun eliza ()
+  "Respond to user input using pattern matching rules."
+  (loop
+    (print 'eliza>)
+    (write (flatten (use-eliza-rules (read))) :pretty t)))
+@
+
+<<ELIZA: Functions>>=
+<<use-eliza-rules>>
+
+<<switch-viewpoint>>
+
+<<ELIZA: Pattern Matching>>
+
+<<ELIZA: Binding Functions>>
+
+<<flatten>>
+
+<<random-elt>>
+
+<<mappend>>
+
+<<Is the argument a list that starts with a given atom?>>
+@
+
+<<use-eliza-rules>>=
+(defun use-eliza-rules (input)
+  "Find some rule with which to transform the input."
+  (some #'(lambda (rule)
+            (let ((result (pat-match (rule-pattern rule) input)))
+              (unless (eq result fail)
+                (sublis (switch-viewpoint result)
+                        (random-elt (rule-responses rule))))))
+        *eliza-rules*))
+@
+
+<<switch-viewpoint>>=
+(defun switch-viewpoint (words)
+  "Change I to you and vice versa, and so on."
+  (sublis '((I . you) (you . I) (me . you) (am . are))
+          words))
+@
+
+<<flatten>>=
+(defun flatten (the-list)
+  "Append together elements (or lists) in the list."
+  (mappend #'mklist the-list))
+
+(defun mklist (x)
+  "Return x if it is a list, otherwise (x)."
+  (if (listp x)
+      x
+      (list x)))
 @
 
 \chapter{Package}

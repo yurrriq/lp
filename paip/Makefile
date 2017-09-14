@@ -5,7 +5,6 @@ weave   = noweave -autodefs lisp -n -delay -index $< ${cpif} $@
 .SUFFIXES: .tex .pdf
 .tex.pdf:
 	latexmk --shell-escape -outdir=tex -pdf $<
-	@ cp $@ ../docs/$(notdir $@)
 
 all: \
 	paip.asd \

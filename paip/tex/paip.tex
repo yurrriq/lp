@@ -251,15 +251,23 @@ Otherwise, it's the last name, so return it.
 
 \section{Higher-Order Functions}
 
-\nwenddocs{}\nwbegincode{56}\sublabel{NWlJ9ZL-4BOcTg-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-4BOcTg-1}}}\moddef{mappend~{\nwtagstyle{}\subpageref{NWlJ9ZL-4BOcTg-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{56}\sublabel{NWlJ9ZL-4BOcTg-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-4BOcTg-1}}}\moddef{mappend~{\nwtagstyle{}\subpageref{NWlJ9ZL-4BOcTg-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}\\{NWlJ9ZL-4MxtLd-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{mappend}{NWlJ9ZL-4BOcTg-1} (fn the-list)\nwindexdefn{\nwixident{mappend}}{mappend}{NWlJ9ZL-4BOcTg-1}
   "Apply fn to each element of list and append the results."
   (apply #'append (mapcar fn the-list)))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{mappend}}{mappend}}}\nwendcode{}\nwbegindocs{57}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}\\{NWlJ9ZL-4MxtLd-1}}\nwidentdefs{\\{{\nwixident{mappend}}{mappend}}}\nwendcode{}\nwbegindocs{57}\nwdocspar
+
+\chapter{A Simple Lisp Program}
+
+\nwenddocs{}\nwbegincode{58}\sublabel{NWlJ9ZL-2bmzlG-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-2bmzlG-1}}}\moddef{random-elt~{\nwtagstyle{}\subpageref{NWlJ9ZL-2bmzlG-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-4MxtLd-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{random-elt}{NWlJ9ZL-2bmzlG-1} (choices)\nwindexdefn{\nwixident{random-elt}}{random-elt}{NWlJ9ZL-2bmzlG-1}
+  "Choose an element from a list at random."
+  (elt choices (random (length choices))))
+\nwused{\\{NWlJ9ZL-4MxtLd-1}}\nwidentdefs{\\{{\nwixident{random-elt}}{random-elt}}}\nwendcode{}\nwbegindocs{59}\nwdocspar
 
 \chapter{Overview of Lisp}
 
-\nwenddocs{}\nwbegincode{58}\sublabel{NWlJ9ZL-3sUrxR-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3sUrxR-1}}}\moddef{find-all~{\nwtagstyle{}\subpageref{NWlJ9ZL-3sUrxR-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{60}\sublabel{NWlJ9ZL-3sUrxR-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3sUrxR-1}}}\moddef{find-all~{\nwtagstyle{}\subpageref{NWlJ9ZL-3sUrxR-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{find-all}{NWlJ9ZL-3sUrxR-1} (item sequence &rest keyword-args\nwindexdefn{\nwixident{find-all}}{find-all}{NWlJ9ZL-3sUrxR-1}
                  &key (test #'eql) test-not &allow-other-keys)
   "Find all those elements of sequence that match item,
@@ -271,11 +279,11 @@ Otherwise, it's the last name, so return it.
              :test (complement test) keyword-args)))
 
 ;; (setf (symbol-function 'find-all-if) #'remove-if-not)
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{find-all}}{find-all}}}\nwendcode{}\nwbegindocs{59}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{find-all}}{find-all}}}\nwendcode{}\nwbegindocs{61}\nwdocspar
 
 \chapter{GPS: The General Problem Solver}
 
-\nwenddocs{}\nwbegincode{60}\sublabel{NWlJ9ZL-wDl5T-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-wDl5T-1}}}\moddef{src/gps.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-wDl5T-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{62}\sublabel{NWlJ9ZL-wDl5T-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-wDl5T-1}}}\moddef{src/gps.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-wDl5T-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 (in-package #:paip)
 (defpackage #:paip.gps
   (:\nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} #:cl #:lisp-unit)
@@ -318,29 +326,29 @@ Otherwise, it's the last name, so return it.
 \LA{}Print debugging information~{\nwtagstyle{}\subpageref{NWlJ9ZL-3LP9Za-1}}\RA{}
 
 \LA{}GPS Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}\RA{}
-\nwnotused{src/gps.lisp}\nwidentuses{\\{{\nwixident{debug}}{debug}}\\{{\nwixident{GPS}}{GPS}}\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{debug}}{debug}{NWlJ9ZL-wDl5T-1}\nwindexuse{\nwixident{GPS}}{GPS}{NWlJ9ZL-wDl5T-1}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-wDl5T-1}\nwendcode{}\nwbegindocs{61}\nwdocspar
+\nwnotused{src/gps.lisp}\nwidentuses{\\{{\nwixident{debug}}{debug}}\\{{\nwixident{GPS}}{GPS}}\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{debug}}{debug}{NWlJ9ZL-wDl5T-1}\nwindexuse{\nwixident{GPS}}{GPS}{NWlJ9ZL-wDl5T-1}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-wDl5T-1}\nwendcode{}\nwbegindocs{63}\nwdocspar
 
-\nwenddocs{}\nwbegincode{62}\sublabel{NWlJ9ZL-1JBQVW-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1JBQVW-1}}}\moddef{A list of available operators~{\nwtagstyle{}\subpageref{NWlJ9ZL-1JBQVW-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{64}\sublabel{NWlJ9ZL-1JBQVW-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1JBQVW-1}}}\moddef{A list of available operators~{\nwtagstyle{}\subpageref{NWlJ9ZL-1JBQVW-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defvar \nwlinkedidentc{*ops*}{NWlJ9ZL-1JBQVW-1} nil "A list of available operators.")\nwindexdefn{\nwixident{*ops*}}{*ops*}{NWlJ9ZL-1JBQVW-1}
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{*ops*}}{*ops*}}}\nwendcode{}\nwbegindocs{63}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{*ops*}}{*ops*}}}\nwendcode{}\nwbegindocs{65}\nwdocspar
 
-\nwenddocs{}\nwbegincode{64}\sublabel{NWlJ9ZL-2hGwYk-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-2hGwYk-1}}}\moddef{An operation with preconds, add-list and del-list~{\nwtagstyle{}\subpageref{NWlJ9ZL-2hGwYk-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{66}\sublabel{NWlJ9ZL-2hGwYk-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-2hGwYk-1}}}\moddef{An operation with preconds, add-list and del-list~{\nwtagstyle{}\subpageref{NWlJ9ZL-2hGwYk-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defstruct \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1}
   "An operation"
   (action nil)
   (preconds nil)
   (add-list nil)
   (del-list nil))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-2hGwYk-1}\nwendcode{}\nwbegindocs{65}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-2hGwYk-1}\nwendcode{}\nwbegindocs{67}\nwdocspar
 
-\nwenddocs{}\nwbegincode{66}\sublabel{NWlJ9ZL-30p2tX-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-30p2tX-1}}}\moddef{Solve a goal from a state using a list of operators~{\nwtagstyle{}\subpageref{NWlJ9ZL-30p2tX-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{68}\sublabel{NWlJ9ZL-30p2tX-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-30p2tX-1}}}\moddef{Solve a goal from a state using a list of operators~{\nwtagstyle{}\subpageref{NWlJ9ZL-30p2tX-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{GPS}{NWlJ9ZL-30p2tX-1} (state goals &optional (\nwlinkedidentc{*ops*}{NWlJ9ZL-1JBQVW-1} \nwlinkedidentc{*ops*}{NWlJ9ZL-1JBQVW-1}))\nwindexdefn{\nwixident{GPS}}{GPS}{NWlJ9ZL-30p2tX-1}
   "General Problem Solver: from state, \nwlinkedidentc{achieve}{NWlJ9ZL-1Tx3Kh-1} goals using *ops*."
   (remove-if-not #'\nwlinkedidentc{action-p}{NWlJ9ZL-lDJbR-1}
                  (\nwlinkedidentc{achieve-all}{NWlJ9ZL-23MH3b-1} (cons '(start) state) goals nil)))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{GPS}}{GPS}}}\nwidentuses{\\{{\nwixident{*ops*}}{*ops*}}\\{{\nwixident{achieve}}{achieve}}\\{{\nwixident{achieve-all}}{achieve-all}}\\{{\nwixident{action-p}}{action-p}}}\nwindexuse{\nwixident{*ops*}}{*ops*}{NWlJ9ZL-30p2tX-1}\nwindexuse{\nwixident{achieve}}{achieve}{NWlJ9ZL-30p2tX-1}\nwindexuse{\nwixident{achieve-all}}{achieve-all}{NWlJ9ZL-30p2tX-1}\nwindexuse{\nwixident{action-p}}{action-p}{NWlJ9ZL-30p2tX-1}\nwendcode{}\nwbegindocs{67}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{GPS}}{GPS}}}\nwidentuses{\\{{\nwixident{*ops*}}{*ops*}}\\{{\nwixident{achieve}}{achieve}}\\{{\nwixident{achieve-all}}{achieve-all}}\\{{\nwixident{action-p}}{action-p}}}\nwindexuse{\nwixident{*ops*}}{*ops*}{NWlJ9ZL-30p2tX-1}\nwindexuse{\nwixident{achieve}}{achieve}{NWlJ9ZL-30p2tX-1}\nwindexuse{\nwixident{achieve-all}}{achieve-all}{NWlJ9ZL-30p2tX-1}\nwindexuse{\nwixident{action-p}}{action-p}{NWlJ9ZL-30p2tX-1}\nwendcode{}\nwbegindocs{69}\nwdocspar
 
-\nwenddocs{}\nwbegincode{68}\sublabel{NWlJ9ZL-23MH3b-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-23MH3b-1}}}\moddef{Achieve all goals~{\nwtagstyle{}\subpageref{NWlJ9ZL-23MH3b-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{70}\sublabel{NWlJ9ZL-23MH3b-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-23MH3b-1}}}\moddef{Achieve all goals~{\nwtagstyle{}\subpageref{NWlJ9ZL-23MH3b-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{achieve-all}{NWlJ9ZL-23MH3b-1} (state goals goal-stack)\nwindexdefn{\nwixident{achieve-all}}{achieve-all}{NWlJ9ZL-23MH3b-1}
   "Achieve each goal, trying several orderings."
   (some #'(lambda (goals) (\nwlinkedidentc{achieve-each}{NWlJ9ZL-23MH3b-1} state goals goal-stack))
@@ -360,9 +368,9 @@ Otherwise, it's the last name, so return it.
   (if (> (length lst) 1)
       (list lst (reverse lst))
       (list lst)))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{achieve-all}}{achieve-all}}\\{{\nwixident{achieve-each}}{achieve-each}}\\{{\nwixident{orderings}}{orderings}}}\nwidentuses{\\{{\nwixident{achieve}}{achieve}}}\nwindexuse{\nwixident{achieve}}{achieve}{NWlJ9ZL-23MH3b-1}\nwendcode{}\nwbegindocs{69}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{achieve-all}}{achieve-all}}\\{{\nwixident{achieve-each}}{achieve-each}}\\{{\nwixident{orderings}}{orderings}}}\nwidentuses{\\{{\nwixident{achieve}}{achieve}}}\nwindexuse{\nwixident{achieve}}{achieve}{NWlJ9ZL-23MH3b-1}\nwendcode{}\nwbegindocs{71}\nwdocspar
 
-\nwenddocs{}\nwbegincode{70}\sublabel{NWlJ9ZL-1Tx3Kh-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1Tx3Kh-1}}}\moddef{Achieve an individual goal~{\nwtagstyle{}\subpageref{NWlJ9ZL-1Tx3Kh-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{72}\sublabel{NWlJ9ZL-1Tx3Kh-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1Tx3Kh-1}}}\moddef{Achieve an individual goal~{\nwtagstyle{}\subpageref{NWlJ9ZL-1Tx3Kh-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{achieve}{NWlJ9ZL-1Tx3Kh-1} (state goal goal-stack)\nwindexdefn{\nwixident{achieve}}{achieve}{NWlJ9ZL-1Tx3Kh-1}
   "A goal is achieved if it already holds,
   or if there is an appropriate \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1} for it that is applicable."
@@ -380,15 +388,15 @@ Otherwise, it's the last name, so return it.
                  (count-if #'(lambda (precond)
                                (not (\nwlinkedidentc{member-equal}{NWlJ9ZL-1aljzn-1} precond state)))
                            (op-preconds \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1})))))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{achieve}}{achieve}}\\{{\nwixident{appropriate-ops}}{appropriate-ops}}}\nwidentuses{\\{{\nwixident{*ops*}}{*ops*}}\\{{\nwixident{apply-op}}{apply-op}}\\{{\nwixident{appropriate-p}}{appropriate-p}}\\{{\nwixident{dbg-indent}}{dbg-indent}}\\{{\nwixident{find-all}}{find-all}}\\{{\nwixident{member-equal}}{member-equal}}\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{*ops*}}{*ops*}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{apply-op}}{apply-op}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{appropriate-p}}{appropriate-p}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{dbg-indent}}{dbg-indent}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{find-all}}{find-all}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{member-equal}}{member-equal}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-1Tx3Kh-1}\nwendcode{}\nwbegindocs{71}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{achieve}}{achieve}}\\{{\nwixident{appropriate-ops}}{appropriate-ops}}}\nwidentuses{\\{{\nwixident{*ops*}}{*ops*}}\\{{\nwixident{apply-op}}{apply-op}}\\{{\nwixident{appropriate-p}}{appropriate-p}}\\{{\nwixident{dbg-indent}}{dbg-indent}}\\{{\nwixident{find-all}}{find-all}}\\{{\nwixident{member-equal}}{member-equal}}\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{*ops*}}{*ops*}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{apply-op}}{apply-op}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{appropriate-p}}{appropriate-p}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{dbg-indent}}{dbg-indent}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{find-all}}{find-all}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{member-equal}}{member-equal}{NWlJ9ZL-1Tx3Kh-1}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-1Tx3Kh-1}\nwendcode{}\nwbegindocs{73}\nwdocspar
 
-\nwenddocs{}\nwbegincode{72}\sublabel{NWlJ9ZL-ocPeo-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-ocPeo-1}}}\moddef{Decide if an operator is appropriate for a goal~{\nwtagstyle{}\subpageref{NWlJ9ZL-ocPeo-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{74}\sublabel{NWlJ9ZL-ocPeo-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-ocPeo-1}}}\moddef{Decide if an operator is appropriate for a goal~{\nwtagstyle{}\subpageref{NWlJ9ZL-ocPeo-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{appropriate-p}{NWlJ9ZL-ocPeo-1} (goal \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1})\nwindexdefn{\nwixident{appropriate-p}}{appropriate-p}{NWlJ9ZL-ocPeo-1}
   "An \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1} is appropriate to a goal if it is in its add list."
   (\nwlinkedidentc{member-equal}{NWlJ9ZL-1aljzn-1} goal (op-add-list \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1})))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{appropriate-p}}{appropriate-p}}}\nwidentuses{\\{{\nwixident{member-equal}}{member-equal}}\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{member-equal}}{member-equal}{NWlJ9ZL-ocPeo-1}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-ocPeo-1}\nwendcode{}\nwbegindocs{73}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{appropriate-p}}{appropriate-p}}}\nwidentuses{\\{{\nwixident{member-equal}}{member-equal}}\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{member-equal}}{member-equal}{NWlJ9ZL-ocPeo-1}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-ocPeo-1}\nwendcode{}\nwbegindocs{75}\nwdocspar
 
-\nwenddocs{}\nwbegincode{74}\sublabel{NWlJ9ZL-3nt6zV-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3nt6zV-1}}}\moddef{Apply operator to current state~{\nwtagstyle{}\subpageref{NWlJ9ZL-3nt6zV-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{76}\sublabel{NWlJ9ZL-3nt6zV-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3nt6zV-1}}}\moddef{Apply operator to current state~{\nwtagstyle{}\subpageref{NWlJ9ZL-3nt6zV-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{apply-op}{NWlJ9ZL-3nt6zV-1} (state goal \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1} goal-stack)\nwindexdefn{\nwixident{apply-op}}{apply-op}{NWlJ9ZL-3nt6zV-1}
   "Return a new, transformed state if \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1} is applicable."
   (\nwlinkedidentc{dbg-indent}{NWlJ9ZL-3LP9Za-1} :gps (length goal-stack) "Consider: ~a" (op-action \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1}))
@@ -400,11 +408,11 @@ Otherwise, it's the last name, so return it.
                              (\nwlinkedidentc{member-equal}{NWlJ9ZL-1aljzn-1} x (op-del-list \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1})))
                          state*)
               (op-add-list \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1})))))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{apply-op}}{apply-op}}}\nwidentuses{\\{{\nwixident{achieve-all}}{achieve-all}}\\{{\nwixident{dbg-indent}}{dbg-indent}}\\{{\nwixident{member-equal}}{member-equal}}\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{achieve-all}}{achieve-all}{NWlJ9ZL-3nt6zV-1}\nwindexuse{\nwixident{dbg-indent}}{dbg-indent}{NWlJ9ZL-3nt6zV-1}\nwindexuse{\nwixident{member-equal}}{member-equal}{NWlJ9ZL-3nt6zV-1}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-3nt6zV-1}\nwendcode{}\nwbegindocs{75}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{apply-op}}{apply-op}}}\nwidentuses{\\{{\nwixident{achieve-all}}{achieve-all}}\\{{\nwixident{dbg-indent}}{dbg-indent}}\\{{\nwixident{member-equal}}{member-equal}}\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{achieve-all}}{achieve-all}{NWlJ9ZL-3nt6zV-1}\nwindexuse{\nwixident{dbg-indent}}{dbg-indent}{NWlJ9ZL-3nt6zV-1}\nwindexuse{\nwixident{member-equal}}{member-equal}{NWlJ9ZL-3nt6zV-1}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-3nt6zV-1}\nwendcode{}\nwbegindocs{77}\nwdocspar
 
 \section{Auxiliary Functions}
 
-\nwenddocs{}\nwbegincode{76}\sublabel{NWlJ9ZL-QzWjb-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-QzWjb-1}}}\moddef{Auxiliary Functions~{\nwtagstyle{}\subpageref{NWlJ9ZL-QzWjb-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{78}\sublabel{NWlJ9ZL-QzWjb-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-QzWjb-1}}}\moddef{Auxiliary Functions~{\nwtagstyle{}\subpageref{NWlJ9ZL-QzWjb-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 \LA{}Is a condition an executing form?~{\nwtagstyle{}\subpageref{NWlJ9ZL-3ZribA-1}}\RA{}
 
 \LA{}Is x an action?~{\nwtagstyle{}\subpageref{NWlJ9ZL-lDJbR-1}}\RA{}
@@ -418,69 +426,69 @@ Otherwise, it's the last name, so return it.
 \LA{}Use a list of of operators~{\nwtagstyle{}\subpageref{NWlJ9ZL-3V5be-1}}\RA{}
 
 \LA{}Test if an element is equal to a member of a list~{\nwtagstyle{}\subpageref{NWlJ9ZL-1aljzn-1}}\RA{}
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwendcode{}\nwbegindocs{77}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwendcode{}\nwbegindocs{79}\nwdocspar
 
-\nwenddocs{}\nwbegincode{78}\sublabel{NWlJ9ZL-3ZribA-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3ZribA-1}}}\moddef{Is a condition an executing form?~{\nwtagstyle{}\subpageref{NWlJ9ZL-3ZribA-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{80}\sublabel{NWlJ9ZL-3ZribA-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3ZribA-1}}}\moddef{Is a condition an executing form?~{\nwtagstyle{}\subpageref{NWlJ9ZL-3ZribA-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{executing-p}{NWlJ9ZL-3ZribA-1} (x)\nwindexdefn{\nwixident{executing-p}}{executing-p}{NWlJ9ZL-3ZribA-1}
   "Is x of the form: (executing ...) ?"
   (\nwlinkedidentc{starts-with}{NWlJ9ZL-26JY6E-1} x 'executing))
-\nwused{\\{NWlJ9ZL-QzWjb-1}}\nwidentdefs{\\{{\nwixident{executing-p}}{executing-p}}}\nwidentuses{\\{{\nwixident{starts-with}}{starts-with}}}\nwindexuse{\nwixident{starts-with}}{starts-with}{NWlJ9ZL-3ZribA-1}\nwendcode{}\nwbegindocs{79}\nwdocspar
+\nwused{\\{NWlJ9ZL-QzWjb-1}}\nwidentdefs{\\{{\nwixident{executing-p}}{executing-p}}}\nwidentuses{\\{{\nwixident{starts-with}}{starts-with}}}\nwindexuse{\nwixident{starts-with}}{starts-with}{NWlJ9ZL-3ZribA-1}\nwendcode{}\nwbegindocs{81}\nwdocspar
 
-\nwenddocs{}\nwbegincode{80}\sublabel{NWlJ9ZL-lDJbR-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-lDJbR-1}}}\moddef{Is x an action?~{\nwtagstyle{}\subpageref{NWlJ9ZL-lDJbR-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{82}\sublabel{NWlJ9ZL-lDJbR-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-lDJbR-1}}}\moddef{Is x an action?~{\nwtagstyle{}\subpageref{NWlJ9ZL-lDJbR-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{action-p}{NWlJ9ZL-lDJbR-1} (x)\nwindexdefn{\nwixident{action-p}}{action-p}{NWlJ9ZL-lDJbR-1}
   "Is x something that is (start) or (executing ...)?"
   (or (equal x '(start)) (\nwlinkedidentc{executing-p}{NWlJ9ZL-3ZribA-1} x)))
-\nwused{\\{NWlJ9ZL-QzWjb-1}}\nwidentdefs{\\{{\nwixident{action-p}}{action-p}}}\nwidentuses{\\{{\nwixident{executing-p}}{executing-p}}}\nwindexuse{\nwixident{executing-p}}{executing-p}{NWlJ9ZL-lDJbR-1}\nwendcode{}\nwbegindocs{81}\nwdocspar
+\nwused{\\{NWlJ9ZL-QzWjb-1}}\nwidentdefs{\\{{\nwixident{action-p}}{action-p}}}\nwidentuses{\\{{\nwixident{executing-p}}{executing-p}}}\nwindexuse{\nwixident{executing-p}}{executing-p}{NWlJ9ZL-lDJbR-1}\nwendcode{}\nwbegindocs{83}\nwdocspar
 
-\nwenddocs{}\nwbegincode{82}\sublabel{NWlJ9ZL-26JY6E-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-26JY6E-1}}}\moddef{Is the argument a list that starts with a given atom?~{\nwtagstyle{}\subpageref{NWlJ9ZL-26JY6E-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}\\{NWlJ9ZL-3P1OfB-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{84}\sublabel{NWlJ9ZL-26JY6E-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-26JY6E-1}}}\moddef{Is the argument a list that starts with a given atom?~{\nwtagstyle{}\subpageref{NWlJ9ZL-26JY6E-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}\\{NWlJ9ZL-4MxtLd-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{starts-with}{NWlJ9ZL-26JY6E-1} (list x)\nwindexdefn{\nwixident{starts-with}}{starts-with}{NWlJ9ZL-26JY6E-1}
   "Is this a list whose first element is x?"
   (and (consp list) (eql (first list) x)))
-\nwused{\\{NWlJ9ZL-QzWjb-1}\\{NWlJ9ZL-3P1OfB-1}}\nwidentdefs{\\{{\nwixident{starts-with}}{starts-with}}}\nwendcode{}\nwbegindocs{83}\nwdocspar
+\nwused{\\{NWlJ9ZL-QzWjb-1}\\{NWlJ9ZL-4MxtLd-1}}\nwidentdefs{\\{{\nwixident{starts-with}}{starts-with}}}\nwendcode{}\nwbegindocs{85}\nwdocspar
 
-\nwenddocs{}\nwbegincode{84}\sublabel{NWlJ9ZL-3MvEWn-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3MvEWn-1}}}\moddef{Convert an operator to use the executing convention~{\nwtagstyle{}\subpageref{NWlJ9ZL-3MvEWn-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{86}\sublabel{NWlJ9ZL-3MvEWn-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3MvEWn-1}}}\moddef{Convert an operator to use the executing convention~{\nwtagstyle{}\subpageref{NWlJ9ZL-3MvEWn-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{convert-op}{NWlJ9ZL-3MvEWn-1} (\nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1})\nwindexdefn{\nwixident{convert-op}}{convert-op}{NWlJ9ZL-3MvEWn-1}
   "Make \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1} conform to the (EXECUTING \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1}) convention."
   (unless (some #'\nwlinkedidentc{executing-p}{NWlJ9ZL-3ZribA-1} (op-add-list \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1}))
     (push (list 'executing (op-action \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1})) (op-add-list \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1})))
   \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1})
-\nwused{\\{NWlJ9ZL-QzWjb-1}}\nwidentdefs{\\{{\nwixident{convert-op}}{convert-op}}}\nwidentuses{\\{{\nwixident{executing-p}}{executing-p}}\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{executing-p}}{executing-p}{NWlJ9ZL-3MvEWn-1}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-3MvEWn-1}\nwendcode{}\nwbegindocs{85}\nwdocspar
+\nwused{\\{NWlJ9ZL-QzWjb-1}}\nwidentdefs{\\{{\nwixident{convert-op}}{convert-op}}}\nwidentuses{\\{{\nwixident{executing-p}}{executing-p}}\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{executing-p}}{executing-p}{NWlJ9ZL-3MvEWn-1}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-3MvEWn-1}\nwendcode{}\nwbegindocs{87}\nwdocspar
 
-\nwenddocs{}\nwbegincode{86}\sublabel{NWlJ9ZL-aGgy4-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-aGgy4-1}}}\moddef{Create an operator~{\nwtagstyle{}\subpageref{NWlJ9ZL-aGgy4-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{88}\sublabel{NWlJ9ZL-aGgy4-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-aGgy4-1}}}\moddef{Create an operator~{\nwtagstyle{}\subpageref{NWlJ9ZL-aGgy4-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1} (action &key preconds add-list del-list)\nwindexdefn{\nwixident{op}}{op}{NWlJ9ZL-aGgy4-1}
   "Make a new operator that obeys the (EXECUTING \nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1}) convention."
   (\nwlinkedidentc{convert-op}{NWlJ9ZL-3MvEWn-1} (make-op :action action
                        :preconds preconds
                        :add-list add-list
                        :del-list del-list)))
-\nwused{\\{NWlJ9ZL-QzWjb-1}}\nwidentdefs{\\{{\nwixident{op}}{op}}}\nwidentuses{\\{{\nwixident{convert-op}}{convert-op}}}\nwindexuse{\nwixident{convert-op}}{convert-op}{NWlJ9ZL-aGgy4-1}\nwendcode{}\nwbegindocs{87}\nwdocspar
+\nwused{\\{NWlJ9ZL-QzWjb-1}}\nwidentdefs{\\{{\nwixident{op}}{op}}}\nwidentuses{\\{{\nwixident{convert-op}}{convert-op}}}\nwindexuse{\nwixident{convert-op}}{convert-op}{NWlJ9ZL-aGgy4-1}\nwendcode{}\nwbegindocs{89}\nwdocspar
 
-\nwenddocs{}\nwbegincode{88}\sublabel{NWlJ9ZL-yooUt-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-yooUt-1}}}\moddef{Convert existing operators~{\nwtagstyle{}\subpageref{NWlJ9ZL-yooUt-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{90}\sublabel{NWlJ9ZL-yooUt-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-yooUt-1}}}\moddef{Convert existing operators~{\nwtagstyle{}\subpageref{NWlJ9ZL-yooUt-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (mapc #'\nwlinkedidentc{convert-op}{NWlJ9ZL-3MvEWn-1} \nwlinkedidentc{*school-ops*}{NWlJ9ZL-4Zg5N4-1})
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{*school-ops*}}{*school-ops*}}\\{{\nwixident{convert-op}}{convert-op}}}\nwindexuse{\nwixident{*school-ops*}}{*school-ops*}{NWlJ9ZL-yooUt-1}\nwindexuse{\nwixident{convert-op}}{convert-op}{NWlJ9ZL-yooUt-1}\nwendcode{}\nwbegindocs{89}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{*school-ops*}}{*school-ops*}}\\{{\nwixident{convert-op}}{convert-op}}}\nwindexuse{\nwixident{*school-ops*}}{*school-ops*}{NWlJ9ZL-yooUt-1}\nwindexuse{\nwixident{convert-op}}{convert-op}{NWlJ9ZL-yooUt-1}\nwendcode{}\nwbegindocs{91}\nwdocspar
 
-\nwenddocs{}\nwbegincode{90}\sublabel{NWlJ9ZL-3V5be-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3V5be-1}}}\moddef{Use a list of of operators~{\nwtagstyle{}\subpageref{NWlJ9ZL-3V5be-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{92}\sublabel{NWlJ9ZL-3V5be-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3V5be-1}}}\moddef{Use a list of of operators~{\nwtagstyle{}\subpageref{NWlJ9ZL-3V5be-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} (oplist)\nwindexdefn{\nwixident{use}}{use}{NWlJ9ZL-3V5be-1}
   "Use oplist as the default list of operators."
   (length (setf \nwlinkedidentc{*ops*}{NWlJ9ZL-1JBQVW-1} oplist)))
-\nwused{\\{NWlJ9ZL-QzWjb-1}}\nwidentdefs{\\{{\nwixident{use}}{use}}}\nwidentuses{\\{{\nwixident{*ops*}}{*ops*}}}\nwindexuse{\nwixident{*ops*}}{*ops*}{NWlJ9ZL-3V5be-1}\nwendcode{}\nwbegindocs{91}\nwdocspar
+\nwused{\\{NWlJ9ZL-QzWjb-1}}\nwidentdefs{\\{{\nwixident{use}}{use}}}\nwidentuses{\\{{\nwixident{*ops*}}{*ops*}}}\nwindexuse{\nwixident{*ops*}}{*ops*}{NWlJ9ZL-3V5be-1}\nwendcode{}\nwbegindocs{93}\nwdocspar
 
-\nwenddocs{}\nwbegincode{92}\sublabel{NWlJ9ZL-1aljzn-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1aljzn-1}}}\moddef{Test if an element is equal to a member of a list~{\nwtagstyle{}\subpageref{NWlJ9ZL-1aljzn-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{94}\sublabel{NWlJ9ZL-1aljzn-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1aljzn-1}}}\moddef{Test if an element is equal to a member of a list~{\nwtagstyle{}\subpageref{NWlJ9ZL-1aljzn-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-QzWjb-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{member-equal}{NWlJ9ZL-1aljzn-1} (item list)\nwindexdefn{\nwixident{member-equal}}{member-equal}{NWlJ9ZL-1aljzn-1}
   (member item list :test #'equal))
-\nwused{\\{NWlJ9ZL-QzWjb-1}}\nwidentdefs{\\{{\nwixident{member-equal}}{member-equal}}}\nwendcode{}\nwbegindocs{93}\nwdocspar
+\nwused{\\{NWlJ9ZL-QzWjb-1}}\nwidentdefs{\\{{\nwixident{member-equal}}{member-equal}}}\nwendcode{}\nwbegindocs{95}\nwdocspar
 
 \section{Nursery School Example}
 
 To drive the son to school, the son must start at home and the car must work.
-\nwenddocs{}\nwbegincode{94}\sublabel{NWlJ9ZL-31LYLP-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-31LYLP-1}}}\moddef{Drive son to school~{\nwtagstyle{}\subpageref{NWlJ9ZL-31LYLP-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-4Zg5N4-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{96}\sublabel{NWlJ9ZL-31LYLP-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-31LYLP-1}}}\moddef{Drive son to school~{\nwtagstyle{}\subpageref{NWlJ9ZL-31LYLP-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-4Zg5N4-1}}\nwenddeflinemarkup
 (make-op :action 'drive-son-to-school
          :preconds '(son-at-home car-works)
          :add-list '(son-at-school)
          :del-list '(son-at-home))
-\nwused{\\{NWlJ9ZL-4Zg5N4-1}}\nwendcode{}\nwbegindocs{95}\nwdocspar
+\nwused{\\{NWlJ9ZL-4Zg5N4-1}}\nwendcode{}\nwbegindocs{97}\nwdocspar
 
-\nwenddocs{}\nwbegincode{96}\sublabel{NWlJ9ZL-4Zg5N4-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-4Zg5N4-1}}}\moddef{Nursery School Example~{\nwtagstyle{}\subpageref{NWlJ9ZL-4Zg5N4-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{98}\sublabel{NWlJ9ZL-4Zg5N4-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-4Zg5N4-1}}}\moddef{Nursery School Example~{\nwtagstyle{}\subpageref{NWlJ9ZL-4Zg5N4-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defparameter \nwlinkedidentc{*school-ops*}{NWlJ9ZL-4Zg5N4-1}
   (list
    \LA{}Drive son to school~{\nwtagstyle{}\subpageref{NWlJ9ZL-31LYLP-1}}\RA{}
@@ -501,10 +509,10 @@ To drive the son to school, the son must start at home and the car must work.
             :add-list '(shop-has-money)
             :del-list '(have-money))))
 \nwindexdefn{\nwixident{*school-ops*}}{*school-ops*}{NWlJ9ZL-4Zg5N4-1}\eatline
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{*school-ops*}}{*school-ops*}}}\nwendcode{}\nwbegindocs{97}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{*school-ops*}}{*school-ops*}}}\nwendcode{}\nwbegindocs{99}\nwdocspar
 \section{Monkey and Bananas}
 
-\nwenddocs{}\nwbegincode{98}\sublabel{NWlJ9ZL-GNLBM-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-GNLBM-1}}}\moddef{Monkey and Bananas Example~{\nwtagstyle{}\subpageref{NWlJ9ZL-GNLBM-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{100}\sublabel{NWlJ9ZL-GNLBM-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-GNLBM-1}}}\moddef{Monkey and Bananas Example~{\nwtagstyle{}\subpageref{NWlJ9ZL-GNLBM-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defparameter *banana-ops*
   (list
    (\nwlinkedidentc{op}{NWlJ9ZL-aGgy4-1} 'climb-on-chair
@@ -531,11 +539,11 @@ To drive the son to school, the son must start at home and the car must work.
        :preconds '(has-bananas)
        :add-list '(empty-handed not-hungry)
        :del-list '(has-bananas hungry))))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-GNLBM-1}\nwendcode{}\nwbegindocs{99}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-GNLBM-1}\nwendcode{}\nwbegindocs{101}\nwdocspar
 
 \section{The Maze Searching Domain}
 
-\nwenddocs{}\nwbegincode{100}\sublabel{NWlJ9ZL-2DSCmQ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-2DSCmQ-1}}}\moddef{The Maze Searching Domain~{\nwtagstyle{}\subpageref{NWlJ9ZL-2DSCmQ-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{102}\sublabel{NWlJ9ZL-2DSCmQ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-2DSCmQ-1}}}\moddef{The Maze Searching Domain~{\nwtagstyle{}\subpageref{NWlJ9ZL-2DSCmQ-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{make-maze-ops}{NWlJ9ZL-2DSCmQ-1} (pair)\nwindexdefn{\nwixident{make-maze-ops}}{make-maze-ops}{NWlJ9ZL-2DSCmQ-1}
   "Make maze ops in both directions."
   (list (\nwlinkedidentc{make-maze-op}{NWlJ9ZL-2DSCmQ-1} (first pair) (second pair))
@@ -565,11 +573,11 @@ To drive the son to school, the son must start at home and the car must work.
 (defun \nwlinkedidentc{destination}{NWlJ9ZL-2DSCmQ-1} (action)\nwindexdefn{\nwixident{destination}}{destination}{NWlJ9ZL-2DSCmQ-1}
   "Find the Y in (executing (move from X to Y))."
   (fifth (second action)))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{destination}}{destination}}\\{{\nwixident{find-path}}{find-path}}\\{{\nwixident{make-maze-op}}{make-maze-op}}\\{{\nwixident{make-maze-ops}}{make-maze-ops}}}\nwidentuses{\\{{\nwixident{GPS}}{GPS}}\\{{\nwixident{mappend}}{mappend}}\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{GPS}}{GPS}{NWlJ9ZL-2DSCmQ-1}\nwindexuse{\nwixident{mappend}}{mappend}{NWlJ9ZL-2DSCmQ-1}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-2DSCmQ-1}\nwendcode{}\nwbegindocs{101}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{destination}}{destination}}\\{{\nwixident{find-path}}{find-path}}\\{{\nwixident{make-maze-op}}{make-maze-op}}\\{{\nwixident{make-maze-ops}}{make-maze-ops}}}\nwidentuses{\\{{\nwixident{GPS}}{GPS}}\\{{\nwixident{mappend}}{mappend}}\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{GPS}}{GPS}{NWlJ9ZL-2DSCmQ-1}\nwindexuse{\nwixident{mappend}}{mappend}{NWlJ9ZL-2DSCmQ-1}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-2DSCmQ-1}\nwendcode{}\nwbegindocs{103}\nwdocspar
 
 \subsection{Tests}
 
-\nwenddocs{}\nwbegincode{102}\sublabel{NWlJ9ZL-v1OUw-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-v1OUw-1}}}\moddef{Maze Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-v1OUw-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{104}\sublabel{NWlJ9ZL-v1OUw-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-v1OUw-1}}}\moddef{Maze Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-v1OUw-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (define-test maze
   (\nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} *maze-ops*)
   (assert-equal '(1 2 3 4 9 8 7 12 11 16 17 22 23 24 19 20 25)
@@ -582,7 +590,7 @@ To drive the son to school, the son must start at home and the car must work.
 (define-test maze-reverse
   (\nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} *maze-ops*)
   (assert-equal (\nwlinkedidentc{find-path}{NWlJ9ZL-2DSCmQ-1} 1 25) (reverse (\nwlinkedidentc{find-path}{NWlJ9ZL-2DSCmQ-1} 25 1))))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{find-path}}{find-path}}\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{find-path}}{find-path}{NWlJ9ZL-v1OUw-1}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-v1OUw-1}\nwendcode{}\nwbegindocs{103}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{find-path}}{find-path}}\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{find-path}}{find-path}{NWlJ9ZL-v1OUw-1}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-v1OUw-1}\nwendcode{}\nwbegindocs{105}\nwdocspar
 
 \begin{quote}
   The moral is that when a programmer uses puns—saying what's convenient instead
@@ -591,7 +599,7 @@ To drive the son to school, the son must start at home and the car must work.
 
 \section{The Blocks World Domain}
 
-\nwenddocs{}\nwbegincode{104}\sublabel{NWlJ9ZL-1t2bMc-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1t2bMc-1}}}\moddef{The Blocks World Domain~{\nwtagstyle{}\subpageref{NWlJ9ZL-1t2bMc-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{106}\sublabel{NWlJ9ZL-1t2bMc-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1t2bMc-1}}}\moddef{The Blocks World Domain~{\nwtagstyle{}\subpageref{NWlJ9ZL-1t2bMc-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{make-block-ops}{NWlJ9ZL-1t2bMc-1} (blocks)\nwindexdefn{\nwixident{make-block-ops}}{make-block-ops}{NWlJ9ZL-1t2bMc-1}
   (let ((ops nil))
     (dolist (a blocks)
@@ -618,9 +626,9 @@ To drive the son to school, the son must start at home and the car must work.
       `((,a on ,c) (space on ,b))))
 
 \LA{}Blocks World Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-8artJ-1}}\RA{}
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{make-block-ops}}{make-block-ops}}\\{{\nwixident{move-ons}}{move-ons}}\\{{\nwixident{move-op}}{move-op}}}\nwidentuses{\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-1t2bMc-1}\nwendcode{}\nwbegindocs{105}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{make-block-ops}}{make-block-ops}}\\{{\nwixident{move-ons}}{move-ons}}\\{{\nwixident{move-op}}{move-op}}}\nwidentuses{\\{{\nwixident{op}}{op}}}\nwindexuse{\nwixident{op}}{op}{NWlJ9ZL-1t2bMc-1}\nwendcode{}\nwbegindocs{107}\nwdocspar
 
-\nwenddocs{}\nwbegincode{106}\sublabel{NWlJ9ZL-8artJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-8artJ-1}}}\moddef{Blocks World Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-8artJ-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-1t2bMc-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{108}\sublabel{NWlJ9ZL-8artJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-8artJ-1}}}\moddef{Blocks World Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-8artJ-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-1t2bMc-1}}\nwenddeflinemarkup
 (define-test simplest-blocks-problem
   (\nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} (\nwlinkedidentc{make-block-ops}{NWlJ9ZL-1t2bMc-1} '(a b)))
   (assert-equal '((start) (executing (move a from table to b)))
@@ -673,22 +681,22 @@ To drive the son to school, the son must start at home and the car must work.
                     (gps state '((c on b) (b on a)) ops)))))
 
 \LA{}Blocks: The Sussman Anomaly~{\nwtagstyle{}\subpageref{NWlJ9ZL-2FEfPq-1}}\RA{}
-\nwused{\\{NWlJ9ZL-1t2bMc-1}}\nwidentuses{\\{{\nwixident{make-block-ops}}{make-block-ops}}\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{make-block-ops}}{make-block-ops}{NWlJ9ZL-8artJ-1}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-8artJ-1}\nwendcode{}\nwbegindocs{107}\nwdocspar
+\nwused{\\{NWlJ9ZL-1t2bMc-1}}\nwidentuses{\\{{\nwixident{make-block-ops}}{make-block-ops}}\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{make-block-ops}}{make-block-ops}{NWlJ9ZL-8artJ-1}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-8artJ-1}\nwendcode{}\nwbegindocs{109}\nwdocspar
 
 \subsection{The Sussman Anomaly}
 
 N.B. These results are undesirable and will be addressed in chapter 6.
-\nwenddocs{}\nwbegincode{108}\sublabel{NWlJ9ZL-2FEfPq-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-2FEfPq-1}}}\moddef{Blocks: The Sussman Anomaly~{\nwtagstyle{}\subpageref{NWlJ9ZL-2FEfPq-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-8artJ-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{110}\sublabel{NWlJ9ZL-2FEfPq-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-2FEfPq-1}}}\moddef{Blocks: The Sussman Anomaly~{\nwtagstyle{}\subpageref{NWlJ9ZL-2FEfPq-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-8artJ-1}}\nwenddeflinemarkup
 (define-test blocks-the-sussman-anomaly
   (let ((start '((c on a) (a on table) (b on table)
                  (space on c) (space on b) (space on table))))
     (assert-nil (gps start '((a on b) (b on c))))
     (assert-nil (gps start '((b on c) (a on b))))))
-\nwused{\\{NWlJ9ZL-8artJ-1}}\nwendcode{}\nwbegindocs{109}\nwdocspar
+\nwused{\\{NWlJ9ZL-8artJ-1}}\nwendcode{}\nwbegindocs{111}\nwdocspar
 
 \section{Debugging}
 
-\nwenddocs{}\nwbegincode{110}\sublabel{NWlJ9ZL-3AihUJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3AihUJ-1}}}\moddef{Debugging usage~{\nwtagstyle{}\subpageref{NWlJ9ZL-3AihUJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{112}\sublabel{NWlJ9ZL-3AihUJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3AihUJ-1}}}\moddef{Debugging usage~{\nwtagstyle{}\subpageref{NWlJ9ZL-3AihUJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 ;; Example call
 (\nwlinkedidentc{dbg}{NWlJ9ZL-3LP9Za-1} :gps "The current goal is: ~a" goal)
 
@@ -697,9 +705,9 @@ N.B. These results are undesirable and will be addressed in chapter 6.
 
 ;; Turn off debugging
 (\nwlinkedidentc{undebug}{NWlJ9ZL-3LP9Za-1} :gps)
-\nwnotused{Debugging usage}\nwidentuses{\\{{\nwixident{dbg}}{dbg}}\\{{\nwixident{debug}}{debug}}\\{{\nwixident{undebug}}{undebug}}}\nwindexuse{\nwixident{dbg}}{dbg}{NWlJ9ZL-3AihUJ-1}\nwindexuse{\nwixident{debug}}{debug}{NWlJ9ZL-3AihUJ-1}\nwindexuse{\nwixident{undebug}}{undebug}{NWlJ9ZL-3AihUJ-1}\nwendcode{}\nwbegindocs{111}\nwdocspar
+\nwnotused{Debugging usage}\nwidentuses{\\{{\nwixident{dbg}}{dbg}}\\{{\nwixident{debug}}{debug}}\\{{\nwixident{undebug}}{undebug}}}\nwindexuse{\nwixident{dbg}}{dbg}{NWlJ9ZL-3AihUJ-1}\nwindexuse{\nwixident{debug}}{debug}{NWlJ9ZL-3AihUJ-1}\nwindexuse{\nwixident{undebug}}{undebug}{NWlJ9ZL-3AihUJ-1}\nwendcode{}\nwbegindocs{113}\nwdocspar
 
-\nwenddocs{}\nwbegincode{112}\sublabel{NWlJ9ZL-3LP9Za-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3LP9Za-1}}}\moddef{Print debugging information~{\nwtagstyle{}\subpageref{NWlJ9ZL-3LP9Za-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{114}\sublabel{NWlJ9ZL-3LP9Za-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3LP9Za-1}}}\moddef{Print debugging information~{\nwtagstyle{}\subpageref{NWlJ9ZL-3LP9Za-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (defvar \nwlinkedidentc{*dbg-ids*}{NWlJ9ZL-3LP9Za-1} nil\nwindexdefn{\nwixident{*dbg-ids*}}{*dbg-ids*}{NWlJ9ZL-3LP9Za-1}
   "Identifiers used by \nwlinkedidentc{dbg}{NWlJ9ZL-3LP9Za-1}")
 
@@ -721,13 +729,13 @@ N.B. These results are undesirable and will be addressed in chapter 6.
   "Print indented debugging info if (DEBUG ID) has been specified."
   (when (member id \nwlinkedidentc{*dbg-ids*}{NWlJ9ZL-3LP9Za-1})
     (format *debug-io* "~&~V@T~?" (* 2 indent) format-string args)))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{*dbg-ids*}}{*dbg-ids*}}\\{{\nwixident{dbg}}{dbg}}\\{{\nwixident{dbg-indent}}{dbg-indent}}\\{{\nwixident{debug}}{debug}}\\{{\nwixident{undebug}}{undebug}}}\nwendcode{}\nwbegindocs{113}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentdefs{\\{{\nwixident{*dbg-ids*}}{*dbg-ids*}}\\{{\nwixident{dbg}}{dbg}}\\{{\nwixident{dbg-indent}}{dbg-indent}}\\{{\nwixident{debug}}{debug}}\\{{\nwixident{undebug}}{undebug}}}\nwendcode{}\nwbegindocs{115}\nwdocspar
 
 \section{Exercises}
 
 \subsection{Exercise 4.2}
 
-\nwenddocs{}\nwbegincode{114}\sublabel{NWlJ9ZL-4ArfbM-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-4ArfbM-1}}}\moddef{permutations~{\nwtagstyle{}\subpageref{NWlJ9ZL-4ArfbM-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{116}\sublabel{NWlJ9ZL-4ArfbM-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-4ArfbM-1}}}\moddef{permutations~{\nwtagstyle{}\subpageref{NWlJ9ZL-4ArfbM-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 (defun \nwlinkedidentc{permutations}{NWlJ9ZL-4ArfbM-1} (xs)\nwindexdefn{\nwixident{permutations}}{permutations}{NWlJ9ZL-4ArfbM-1}
   (if (endp (cdr xs))
       (list xs)
@@ -735,11 +743,11 @@ N.B. These results are undesirable and will be addressed in chapter 6.
             append (loop for ys in (\nwlinkedidentc{permutations}{NWlJ9ZL-4ArfbM-1} (remove x xs :count 1
                                                               :test  #'eq))
                          collect (cons x ys)))))
-\nwnotused{permutations}\nwidentdefs{\\{{\nwixident{permutations}}{permutations}}}\nwendcode{}\nwbegindocs{115}\nwdocspar
+\nwnotused{permutations}\nwidentdefs{\\{{\nwixident{permutations}}{permutations}}}\nwendcode{}\nwbegindocs{117}\nwdocspar
 
 \section{Tests}
 
-\nwenddocs{}\nwbegincode{116}\sublabel{NWlJ9ZL-1ahSlC-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}}\moddef{GPS Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{118}\sublabel{NWlJ9ZL-1ahSlC-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}}\moddef{GPS Tests~{\nwtagstyle{}\subpageref{NWlJ9ZL-1ahSlC-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-wDl5T-1}}\nwenddeflinemarkup
 (define-test complex
   (assert-equal
    (cons '(start)
@@ -775,118 +783,277 @@ N.B. These results are undesirable and will be addressed in chapter 6.
   (assert-nil (gps '(son-at-home car-needs-battery have-money have-phone-book)
                    '(have-money son-at-school)
                    \nwlinkedidentc{*school-ops*}{NWlJ9ZL-4Zg5N4-1})))
-\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{*school-ops*}}{*school-ops*}}}\nwindexuse{\nwixident{*school-ops*}}{*school-ops*}{NWlJ9ZL-1ahSlC-1}\nwendcode{}\nwbegindocs{117}\nwdocspar
+\nwused{\\{NWlJ9ZL-wDl5T-1}}\nwidentuses{\\{{\nwixident{*school-ops*}}{*school-ops*}}}\nwindexuse{\nwixident{*school-ops*}}{*school-ops*}{NWlJ9ZL-1ahSlC-1}\nwendcode{}\nwbegindocs{119}\nwdocspar
 
 \chapter{{\sc Eliza}: Dialog with a Machine}
 
-\nwenddocs{}\nwbegincode{118}\sublabel{NWlJ9ZL-3P1OfB-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3P1OfB-1}}}\moddef{src/eliza.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-3P1OfB-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\marginnote[\baselineskip]{
+  {\sc Eliza}, one of the more well-known AI programs of the 1960s, simulates a
+  psychotherapist, by way of a REPL.
+}
+
+\nwenddocs{}\nwbegincode{120}\sublabel{NWlJ9ZL-3P1OfB-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3P1OfB-1}}}\moddef{src/eliza.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-3P1OfB-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 (in-package #:paip)
 (defpackage #:paip.eliza
   (:\nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} #:cl #:lisp-unit))
 (in-package #:paip.eliza)
 
-\LA{}eliza constants~{\nwtagstyle{}\subpageref{NWlJ9ZL-1rgAdm-1}}\RA{}
+\LA{}ELIZA: Constants~{\nwtagstyle{}\subpageref{NWlJ9ZL-2EiFV2-1}}\RA{}
 
-\LA{}Is the argument a list that starts with a given atom?~{\nwtagstyle{}\subpageref{NWlJ9ZL-26JY6E-1}}\RA{}
+\LA{}ELIZA: Top-Level Function~{\nwtagstyle{}\subpageref{NWlJ9ZL-2T7eg6-1}}\RA{}
 
-\LA{}simple-equal~{\nwtagstyle{}\subpageref{NWlJ9ZL-3DwGES-1}}\RA{}
+\LA{}ELIZA: Special Variables~{\nwtagstyle{}\subpageref{NWlJ9ZL-24Hem4-1}}\RA{}
 
+\LA{}ELIZA: Data Types~{\nwtagstyle{}\subpageref{NWlJ9ZL-3jvCTM-1}}\RA{}
+
+\LA{}ELIZA: Functions~{\nwtagstyle{}\subpageref{NWlJ9ZL-4MxtLd-1}}\RA{}
+\nwnotused{src/eliza.lisp}\nwidentuses{\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-3P1OfB-1}\nwendcode{}\nwbegindocs{121}\nwdocspar
+
+\section{Pattern Matching}
+
+\marginnote[\baselineskip]{
+  {\sc Eliza} makes heavy use of pattern matching, which is at once versatile
+  and limited.
+}
+
+\nwenddocs{}\nwbegincode{122}\sublabel{NWlJ9ZL-fP7AE-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-fP7AE-1}}}\moddef{ELIZA: Pattern Matching~{\nwtagstyle{}\subpageref{NWlJ9ZL-fP7AE-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-4MxtLd-1}}\nwenddeflinemarkup
 \LA{}pat-match~{\nwtagstyle{}\subpageref{NWlJ9ZL-3nmfAz-1}}\RA{}
 
+\LA{}match-variable~{\nwtagstyle{}\subpageref{NWlJ9ZL-1BlMBi-1}}\RA{}
+
+\LA{}segment-match~{\nwtagstyle{}\subpageref{NWlJ9ZL-1VV14C-1}}\RA{}
+
+\LA{}segment-pattern-p~{\nwtagstyle{}\subpageref{NWlJ9ZL-Sl3Ms-1}}\RA{}
+
 \LA{}variable-p~{\nwtagstyle{}\subpageref{NWlJ9ZL-1JbiwF-1}}\RA{}
+\nwused{\\{NWlJ9ZL-4MxtLd-1}}\nwendcode{}\nwbegindocs{123}\nwdocspar
 
-\LA{}eliza binding functions~{\nwtagstyle{}\subpageref{NWlJ9ZL-3wKBbF-1}}\RA{}
-\nwnotused{src/eliza.lisp}\nwidentuses{\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-3P1OfB-1}\nwendcode{}\nwbegindocs{119}\nwdocspar
+\subsection{Matching}
 
-\nwenddocs{}\nwbegincode{120}\sublabel{NWlJ9ZL-3DwGES-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3DwGES-1}}}\moddef{simple-equal~{\nwtagstyle{}\subpageref{NWlJ9ZL-3DwGES-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3P1OfB-1}}\nwenddeflinemarkup
-(defun \nwlinkedidentc{simple-equal}{NWlJ9ZL-3DwGES-1} (x y)\nwindexdefn{\nwixident{simple-equal}}{simple-equal}{NWlJ9ZL-3DwGES-1}
-  "Are x and y equal? (Don't check inside strings.)"
-  (if (or (atom x) (atom y))
-      (eql x y)
-      (and (\nwlinkedidentc{simple-equal}{NWlJ9ZL-3DwGES-1} (first x) (first y))
-           (\nwlinkedidentc{simple-equal}{NWlJ9ZL-3DwGES-1} (rest x) (rest y)))))
-\nwused{\\{NWlJ9ZL-3P1OfB-1}}\nwidentdefs{\\{{\nwixident{simple-equal}}{simple-equal}}}\nwendcode{}\nwbegindocs{121}\nwdocspar
+\marginnote[\baselineskip]{%
+  Verify \lsp{var} is bound to \lsp{input} in \lsp{bindings}. If bound to
+  another value, {\Tt{}\nwlinkedidentq{fail}{NWlJ9ZL-2EiFV2-1}\nwendquote}. If unbound, {\Tt{}\nwlinkedidentq{extend-bindings}{NWlJ9ZL-JLGGa-1}\nwendquote}.
+}
 
-\nwenddocs{}\nwbegincode{122}\sublabel{NWlJ9ZL-3nmfAz-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3nmfAz-1}}}\moddef{pat-match~{\nwtagstyle{}\subpageref{NWlJ9ZL-3nmfAz-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3P1OfB-1}}\nwenddeflinemarkup
-(defun \nwlinkedidentc{pat-match}{NWlJ9ZL-3nmfAz-1} (pattern input &optional (bindings \nwlinkedidentc{no-bindings}{NWlJ9ZL-1rgAdm-1}))\nwindexdefn{\nwixident{pat-match}}{pat-match}{NWlJ9ZL-3nmfAz-1}
-  "Match pattern against input in the context of the bindings."
-  (cond ((eq bindings \nwlinkedidentc{fail}{NWlJ9ZL-1rgAdm-1})          \nwlinkedidentc{fail}{NWlJ9ZL-1rgAdm-1})
-        ((\nwlinkedidentc{variable-p}{NWlJ9ZL-1JbiwF-1} pattern)        (\nwlinkedidentc{match-variable}{NWlJ9ZL-3nmfAz-1} pattern input bindings))
-        ((eql pattern input)         bindings)
-        ((\nwlinkedidentc{segment-pattern-p}{NWlJ9ZL-3nmfAz-1} pattern) (\nwlinkedidentc{segment-match}{NWlJ9ZL-3nmfAz-1} pattern input bindings))
-        ((and (consp pattern) (consp input))
-         (\nwlinkedidentc{pat-match}{NWlJ9ZL-3nmfAz-1} (rest pattern) (rest input)
-                    (\nwlinkedidentc{pat-match}{NWlJ9ZL-3nmfAz-1} (first pattern) (first input)
-                               bindings)))
-        (t \nwlinkedidentc{fail}{NWlJ9ZL-1rgAdm-1})))
-
-(defun \nwlinkedidentc{match-variable}{NWlJ9ZL-3nmfAz-1} (var input bindings)\nwindexdefn{\nwixident{match-variable}}{match-variable}{NWlJ9ZL-3nmfAz-1}
+\nwenddocs{}\nwbegincode{124}\sublabel{NWlJ9ZL-1BlMBi-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1BlMBi-1}}}\moddef{match-variable~{\nwtagstyle{}\subpageref{NWlJ9ZL-1BlMBi-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-fP7AE-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{match-variable}{NWlJ9ZL-1BlMBi-1} (var input bindings)\nwindexdefn{\nwixident{match-variable}}{match-variable}{NWlJ9ZL-1BlMBi-1}
   "Does VAR match input? Uses (or updates) and returns bindings."
-  (let ((binding (\nwlinkedidentc{get-binding}{NWlJ9ZL-3wKBbF-1} var bindings)))
-    (cond ((not binding) (\nwlinkedidentc{extend-bindings}{NWlJ9ZL-3wKBbF-1} var input bindings))
-          ((equal input (\nwlinkedidentc{binding-val}{NWlJ9ZL-3wKBbF-1} binding)) bindings)
-          (t \nwlinkedidentc{fail}{NWlJ9ZL-1rgAdm-1}))))
+  (let ((binding (\nwlinkedidentc{get-binding}{NWlJ9ZL-JLGGa-1} var bindings)))
+    (cond ((not binding) (\nwlinkedidentc{extend-bindings}{NWlJ9ZL-JLGGa-1} var input bindings))
+          ((equal input (\nwlinkedidentc{binding-val}{NWlJ9ZL-JLGGa-1} binding)) bindings)
+          (t \nwlinkedidentc{fail}{NWlJ9ZL-2EiFV2-1}))))
+\nwused{\\{NWlJ9ZL-fP7AE-1}}\nwidentdefs{\\{{\nwixident{match-variable}}{match-variable}}}\nwidentuses{\\{{\nwixident{binding-val}}{binding-val}}\\{{\nwixident{extend-bindings}}{extend-bindings}}\\{{\nwixident{fail}}{fail}}\\{{\nwixident{get-binding}}{get-binding}}}\nwindexuse{\nwixident{binding-val}}{binding-val}{NWlJ9ZL-1BlMBi-1}\nwindexuse{\nwixident{extend-bindings}}{extend-bindings}{NWlJ9ZL-1BlMBi-1}\nwindexuse{\nwixident{fail}}{fail}{NWlJ9ZL-1BlMBi-1}\nwindexuse{\nwixident{get-binding}}{get-binding}{NWlJ9ZL-1BlMBi-1}\nwendcode{}\nwbegindocs{125}\nwdocspar
 
-(defun \nwlinkedidentc{segment-pattern-p}{NWlJ9ZL-3nmfAz-1} (pattern)\nwindexdefn{\nwixident{segment-pattern-p}}{segment-pattern-p}{NWlJ9ZL-3nmfAz-1}
-  "Is this a segment matching pattern: ((?* var) . pat)"
-  (and (consp pattern)
-       (\nwlinkedidentc{starts-with}{NWlJ9ZL-26JY6E-1} (first pattern) '?*)))
+\nwenddocs{}\nwbegincode{126}\sublabel{NWlJ9ZL-3nmfAz-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3nmfAz-1}}}\moddef{pat-match~{\nwtagstyle{}\subpageref{NWlJ9ZL-3nmfAz-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-fP7AE-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{pat-match}{NWlJ9ZL-3nmfAz-1} (pattern input &optional (bindings \nwlinkedidentc{no-bindings}{NWlJ9ZL-2EiFV2-1}))\nwindexdefn{\nwixident{pat-match}}{pat-match}{NWlJ9ZL-3nmfAz-1}
+  "Match pattern against input in the context of the bindings."
+  (cond \LA{}Fail if the binding list is \lsp{fail}~{\nwtagstyle{}\subpageref{NWlJ9ZL-1NgPsX-1}}\RA{}
+        \LA{}Match a variable~{\nwtagstyle{}\subpageref{NWlJ9ZL-1c11Uf-1}}\RA{}
+        \LA{}If \lsp{pattern} equals \lsp{input}, return \lsp{bindings}~{\nwtagstyle{}\subpageref{NWlJ9ZL-3hXqLN-1}}\RA{}
+        \LA{}Match a segment~{\nwtagstyle{}\subpageref{NWlJ9ZL-GZe9f-1}}\RA{}
+        \LA{}Call \code{}pat-match\edoc{} recursively~{\nwtagstyle{}\subpageref{NWlJ9ZL-4cCTse-1}}\RA{}
+        (t \nwlinkedidentc{fail}{NWlJ9ZL-2EiFV2-1})))
+\nwused{\\{NWlJ9ZL-fP7AE-1}}\nwidentdefs{\\{{\nwixident{pat-match}}{pat-match}}}\nwidentuses{\\{{\nwixident{fail}}{fail}}\\{{\nwixident{no-bindings}}{no-bindings}}}\nwindexuse{\nwixident{fail}}{fail}{NWlJ9ZL-3nmfAz-1}\nwindexuse{\nwixident{no-bindings}}{no-bindings}{NWlJ9ZL-3nmfAz-1}\nwendcode{}\nwbegindocs{127}\nwdocspar
 
-(defun \nwlinkedidentc{segment-match}{NWlJ9ZL-3nmfAz-1} (pattern input bindings &optional (start 0))\nwindexdefn{\nwixident{segment-match}}{segment-match}{NWlJ9ZL-3nmfAz-1}
+\marginnote[\baselineskip]{%
+  If the binding list is {\Tt{}\nwlinkedidentq{fail}{NWlJ9ZL-2EiFV2-1}\nwendquote}, then the match fails, because some previous
+  match must have failed.
+}
+
+\nwenddocs{}\nwbegincode{128}\sublabel{NWlJ9ZL-1NgPsX-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1NgPsX-1}}}\moddef{Fail if the binding list is \lsp{fail}~{\nwtagstyle{}\subpageref{NWlJ9ZL-1NgPsX-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3nmfAz-1}}\nwenddeflinemarkup
+((eq bindings \nwlinkedidentc{fail}{NWlJ9ZL-2EiFV2-1}) \nwlinkedidentc{fail}{NWlJ9ZL-2EiFV2-1})
+\nwused{\\{NWlJ9ZL-3nmfAz-1}}\nwidentuses{\\{{\nwixident{fail}}{fail}}}\nwindexuse{\nwixident{fail}}{fail}{NWlJ9ZL-1NgPsX-1}\nwendcode{}\nwbegindocs{129}\nwdocspar
+
+\marginnote[\baselineskip]{%
+  If the \lsp{pattern} is a single variable, return the result of
+  {\Tt{}\nwlinkedidentq{match-variable}{NWlJ9ZL-1BlMBi-1}\nwendquote}; either \lsp{bindings} (possibly extended) or {\Tt{}\nwlinkedidentq{fail}{NWlJ9ZL-2EiFV2-1}\nwendquote}.
+}
+
+\nwenddocs{}\nwbegincode{130}\sublabel{NWlJ9ZL-1c11Uf-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1c11Uf-1}}}\moddef{Match a variable~{\nwtagstyle{}\subpageref{NWlJ9ZL-1c11Uf-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3nmfAz-1}}\nwenddeflinemarkup
+((\nwlinkedidentc{variable-p}{NWlJ9ZL-1JbiwF-1} pattern) (\nwlinkedidentc{match-variable}{NWlJ9ZL-1BlMBi-1} pattern input bindings))
+\nwused{\\{NWlJ9ZL-3nmfAz-1}}\nwidentuses{\\{{\nwixident{match-variable}}{match-variable}}\\{{\nwixident{variable-p}}{variable-p}}}\nwindexuse{\nwixident{match-variable}}{match-variable}{NWlJ9ZL-1c11Uf-1}\nwindexuse{\nwixident{variable-p}}{variable-p}{NWlJ9ZL-1c11Uf-1}\nwendcode{}\nwbegindocs{131}\nwdocspar
+
+\marginnote[0.5\baselineskip]{%
+  If \lsp{pattern} equals \lsp{input}, return \lsp{bindings} as is.
+}
+
+\nwenddocs{}\nwbegincode{132}\sublabel{NWlJ9ZL-3hXqLN-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3hXqLN-1}}}\moddef{If \lsp{pattern} equals \lsp{input}, return \lsp{bindings}~{\nwtagstyle{}\subpageref{NWlJ9ZL-3hXqLN-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3nmfAz-1}}\nwenddeflinemarkup
+((eql pattern input) bindings)
+\nwused{\\{NWlJ9ZL-3nmfAz-1}}\nwendcode{}\nwbegindocs{133}\nwdocspar
+
+\marginnote[\baselineskip]{%
+  When both \lsp{pattern} and \lsp{input} are lists and the \lsp{(car pattern)}
+  is a segment variable, match the variable to the initial part of the
+  \lsp{input} and attempt to match \lsp{(cdr pattern)} to the rest.
+}
+
+\nwenddocs{}\nwbegincode{134}\sublabel{NWlJ9ZL-GZe9f-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-GZe9f-1}}}\moddef{Match a segment~{\nwtagstyle{}\subpageref{NWlJ9ZL-GZe9f-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3nmfAz-1}}\nwenddeflinemarkup
+((\nwlinkedidentc{segment-pattern-p}{NWlJ9ZL-Sl3Ms-1} pattern) (\nwlinkedidentc{segment-match}{NWlJ9ZL-1VV14C-1} pattern input bindings))
+\nwused{\\{NWlJ9ZL-3nmfAz-1}}\nwidentuses{\\{{\nwixident{segment-match}}{segment-match}}\\{{\nwixident{segment-pattern-p}}{segment-pattern-p}}}\nwindexuse{\nwixident{segment-match}}{segment-match}{NWlJ9ZL-GZe9f-1}\nwindexuse{\nwixident{segment-pattern-p}}{segment-pattern-p}{NWlJ9ZL-GZe9f-1}\nwendcode{}\nwbegindocs{135}\nwdocspar
+
+\nwenddocs{}\nwbegincode{136}\sublabel{NWlJ9ZL-4cCTse-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-4cCTse-1}}}\moddef{Call \code{}pat-match\edoc{} recursively~{\nwtagstyle{}\subpageref{NWlJ9ZL-4cCTse-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3nmfAz-1}}\nwenddeflinemarkup
+((and (consp pattern) (consp input))
+ (\nwlinkedidentc{pat-match}{NWlJ9ZL-3nmfAz-1} (rest pattern) (rest input)
+            (\nwlinkedidentc{pat-match}{NWlJ9ZL-3nmfAz-1} (first pattern) (first input)
+                       bindings)))
+\nwused{\\{NWlJ9ZL-3nmfAz-1}}\nwidentuses{\\{{\nwixident{pat-match}}{pat-match}}}\nwindexuse{\nwixident{pat-match}}{pat-match}{NWlJ9ZL-4cCTse-1}\nwendcode{}\nwbegindocs{137}\nwdocspar
+
+
+
+\nwenddocs{}\nwbegincode{138}\sublabel{NWlJ9ZL-1VV14C-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1VV14C-1}}}\moddef{segment-match~{\nwtagstyle{}\subpageref{NWlJ9ZL-1VV14C-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-fP7AE-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{segment-match}{NWlJ9ZL-1VV14C-1} (pattern input bindings &optional (start 0))\nwindexdefn{\nwixident{segment-match}}{segment-match}{NWlJ9ZL-1VV14C-1}
   "Match the segment pattern ((?* var) . pat) against input."
   (let ((var (second (first pattern)))
         (pat (rest pattern)))
     (if (null pat)
-        (\nwlinkedidentc{match-variable}{NWlJ9ZL-3nmfAz-1} var input bindings)
+        (\nwlinkedidentc{match-variable}{NWlJ9ZL-1BlMBi-1} var input bindings)
         (let ((pos (position (first pat) input
                              :start start :test #'equal)))
           (if (null pos)
-              \nwlinkedidentc{fail}{NWlJ9ZL-1rgAdm-1}
+              \nwlinkedidentc{fail}{NWlJ9ZL-2EiFV2-1}
               (let ((b2 (\nwlinkedidentc{pat-match}{NWlJ9ZL-3nmfAz-1} pat (subseq input pos) bindings)))
-                (if (eq b2 \nwlinkedidentc{fail}{NWlJ9ZL-1rgAdm-1})
-                    (\nwlinkedidentc{segment-match}{NWlJ9ZL-3nmfAz-1} pattern input bindings (+ pos 1))
-                    (\nwlinkedidentc{match-variable}{NWlJ9ZL-3nmfAz-1} var (subseq input 0 pos) bs))))))))
-\nwused{\\{NWlJ9ZL-3P1OfB-1}}\nwidentdefs{\\{{\nwixident{match-variable}}{match-variable}}\\{{\nwixident{pat-match}}{pat-match}}\\{{\nwixident{segment-match}}{segment-match}}\\{{\nwixident{segment-pattern-p}}{segment-pattern-p}}}\nwidentuses{\\{{\nwixident{binding-val}}{binding-val}}\\{{\nwixident{extend-bindings}}{extend-bindings}}\\{{\nwixident{fail}}{fail}}\\{{\nwixident{get-binding}}{get-binding}}\\{{\nwixident{no-bindings}}{no-bindings}}\\{{\nwixident{starts-with}}{starts-with}}\\{{\nwixident{variable-p}}{variable-p}}}\nwindexuse{\nwixident{binding-val}}{binding-val}{NWlJ9ZL-3nmfAz-1}\nwindexuse{\nwixident{extend-bindings}}{extend-bindings}{NWlJ9ZL-3nmfAz-1}\nwindexuse{\nwixident{fail}}{fail}{NWlJ9ZL-3nmfAz-1}\nwindexuse{\nwixident{get-binding}}{get-binding}{NWlJ9ZL-3nmfAz-1}\nwindexuse{\nwixident{no-bindings}}{no-bindings}{NWlJ9ZL-3nmfAz-1}\nwindexuse{\nwixident{starts-with}}{starts-with}{NWlJ9ZL-3nmfAz-1}\nwindexuse{\nwixident{variable-p}}{variable-p}{NWlJ9ZL-3nmfAz-1}\nwendcode{}\nwbegindocs{123}\nwdocspar
+                (if (eq b2 \nwlinkedidentc{fail}{NWlJ9ZL-2EiFV2-1})
+                    (\nwlinkedidentc{segment-match}{NWlJ9ZL-1VV14C-1} pattern input bindings (+ pos 1))
+                    (\nwlinkedidentc{match-variable}{NWlJ9ZL-1BlMBi-1} var (subseq input 0 pos) b2))))))))
+\nwused{\\{NWlJ9ZL-fP7AE-1}}\nwidentdefs{\\{{\nwixident{segment-match}}{segment-match}}}\nwidentuses{\\{{\nwixident{fail}}{fail}}\\{{\nwixident{match-variable}}{match-variable}}\\{{\nwixident{pat-match}}{pat-match}}}\nwindexuse{\nwixident{fail}}{fail}{NWlJ9ZL-1VV14C-1}\nwindexuse{\nwixident{match-variable}}{match-variable}{NWlJ9ZL-1VV14C-1}\nwindexuse{\nwixident{pat-match}}{pat-match}{NWlJ9ZL-1VV14C-1}\nwendcode{}\nwbegindocs{139}\nwdocspar
 
-\nwenddocs{}\nwbegincode{124}\sublabel{NWlJ9ZL-1JbiwF-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1JbiwF-1}}}\moddef{variable-p~{\nwtagstyle{}\subpageref{NWlJ9ZL-1JbiwF-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3P1OfB-1}}\nwenddeflinemarkup
+\subsection{Predicates}
+
+\nwenddocs{}\nwbegincode{140}\sublabel{NWlJ9ZL-Sl3Ms-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-Sl3Ms-1}}}\moddef{segment-pattern-p~{\nwtagstyle{}\subpageref{NWlJ9ZL-Sl3Ms-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-fP7AE-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{segment-pattern-p}{NWlJ9ZL-Sl3Ms-1} (pattern)\nwindexdefn{\nwixident{segment-pattern-p}}{segment-pattern-p}{NWlJ9ZL-Sl3Ms-1}
+  "Is this a segment matching pattern: ((?* var) . pat)"
+  (and (consp pattern)
+       (\nwlinkedidentc{starts-with}{NWlJ9ZL-26JY6E-1} (first pattern) '?*)))
+\nwused{\\{NWlJ9ZL-fP7AE-1}}\nwidentdefs{\\{{\nwixident{segment-pattern-p}}{segment-pattern-p}}}\nwidentuses{\\{{\nwixident{starts-with}}{starts-with}}}\nwindexuse{\nwixident{starts-with}}{starts-with}{NWlJ9ZL-Sl3Ms-1}\nwendcode{}\nwbegindocs{141}\nwdocspar
+
+\nwenddocs{}\nwbegincode{142}\sublabel{NWlJ9ZL-1JbiwF-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1JbiwF-1}}}\moddef{variable-p~{\nwtagstyle{}\subpageref{NWlJ9ZL-1JbiwF-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-fP7AE-1}}\nwenddeflinemarkup
 (defun \nwlinkedidentc{variable-p}{NWlJ9ZL-1JbiwF-1} (x)\nwindexdefn{\nwixident{variable-p}}{variable-p}{NWlJ9ZL-1JbiwF-1}
   "Is x a variable (a symbol beginning with '?')?"
   (and (symbolp x)
        (equal (char (symbol-name x) 0) #\\?)))
-\nwused{\\{NWlJ9ZL-3P1OfB-1}}\nwidentdefs{\\{{\nwixident{variable-p}}{variable-p}}}\nwendcode{}\nwbegindocs{125}\nwdocspar
+\nwused{\\{NWlJ9ZL-fP7AE-1}}\nwidentdefs{\\{{\nwixident{variable-p}}{variable-p}}}\nwendcode{}\nwbegindocs{143}\nwdocspar
 
-\nwenddocs{}\nwbegincode{126}\sublabel{NWlJ9ZL-1rgAdm-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1rgAdm-1}}}\moddef{eliza constants~{\nwtagstyle{}\subpageref{NWlJ9ZL-1rgAdm-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3P1OfB-1}}\nwenddeflinemarkup
-(defconstant \nwlinkedidentc{fail}{NWlJ9ZL-1rgAdm-1} nil\nwindexdefn{\nwixident{fail}}{fail}{NWlJ9ZL-1rgAdm-1}
+\section{Constants}
+
+\nwenddocs{}\nwbegincode{144}\sublabel{NWlJ9ZL-2EiFV2-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-2EiFV2-1}}}\moddef{ELIZA: Constants~{\nwtagstyle{}\subpageref{NWlJ9ZL-2EiFV2-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3P1OfB-1}}\nwenddeflinemarkup
+(defconstant \nwlinkedidentc{fail}{NWlJ9ZL-2EiFV2-1} nil\nwindexdefn{\nwixident{fail}}{fail}{NWlJ9ZL-2EiFV2-1}
   "Indicates \nwlinkedidentc{pat-match}{NWlJ9ZL-3nmfAz-1} failure")
 
-(defconstant \nwlinkedidentc{no-bindings}{NWlJ9ZL-1rgAdm-1} '((t . t))\nwindexdefn{\nwixident{no-bindings}}{no-bindings}{NWlJ9ZL-1rgAdm-1}
+(defconstant \nwlinkedidentc{no-bindings}{NWlJ9ZL-2EiFV2-1} '((t . t))\nwindexdefn{\nwixident{no-bindings}}{no-bindings}{NWlJ9ZL-2EiFV2-1}
   "Indicates \nwlinkedidentc{pat-match}{NWlJ9ZL-3nmfAz-1} success, with no variables.")
-\nwused{\\{NWlJ9ZL-3P1OfB-1}}\nwidentdefs{\\{{\nwixident{fail}}{fail}}\\{{\nwixident{no-bindings}}{no-bindings}}}\nwidentuses{\\{{\nwixident{pat-match}}{pat-match}}}\nwindexuse{\nwixident{pat-match}}{pat-match}{NWlJ9ZL-1rgAdm-1}\nwendcode{}\nwbegindocs{127}\nwdocspar
+\nwused{\\{NWlJ9ZL-3P1OfB-1}}\nwidentdefs{\\{{\nwixident{fail}}{fail}}\\{{\nwixident{no-bindings}}{no-bindings}}}\nwidentuses{\\{{\nwixident{pat-match}}{pat-match}}}\nwindexuse{\nwixident{pat-match}}{pat-match}{NWlJ9ZL-2EiFV2-1}\nwendcode{}\nwbegindocs{145}\nwdocspar
 
-\nwenddocs{}\nwbegincode{128}\sublabel{NWlJ9ZL-3wKBbF-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3wKBbF-1}}}\moddef{eliza binding functions~{\nwtagstyle{}\subpageref{NWlJ9ZL-3wKBbF-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3P1OfB-1}}\nwenddeflinemarkup
-(defun \nwlinkedidentc{get-binding}{NWlJ9ZL-3wKBbF-1} (var bindings)\nwindexdefn{\nwixident{get-binding}}{get-binding}{NWlJ9ZL-3wKBbF-1}
+\nwenddocs{}\nwbegincode{146}\sublabel{NWlJ9ZL-JLGGa-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-JLGGa-1}}}\moddef{ELIZA: Binding Functions~{\nwtagstyle{}\subpageref{NWlJ9ZL-JLGGa-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-4MxtLd-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{get-binding}{NWlJ9ZL-JLGGa-1} (var bindings)\nwindexdefn{\nwixident{get-binding}}{get-binding}{NWlJ9ZL-JLGGa-1}
   "Find a (variable . value) pair in a binding list."
   (assoc var bindings))
 
-(defun \nwlinkedidentc{binding-val}{NWlJ9ZL-3wKBbF-1} (binding)\nwindexdefn{\nwixident{binding-val}}{binding-val}{NWlJ9ZL-3wKBbF-1}
+(defun \nwlinkedidentc{binding-val}{NWlJ9ZL-JLGGa-1} (binding)\nwindexdefn{\nwixident{binding-val}}{binding-val}{NWlJ9ZL-JLGGa-1}
   "Get the value part of a single binding."
   (cdr binding))
 
-(defun \nwlinkedidentc{lookup}{NWlJ9ZL-3wKBbF-1} (var bindings)\nwindexdefn{\nwixident{lookup}}{lookup}{NWlJ9ZL-3wKBbF-1}
+(defun \nwlinkedidentc{lookup}{NWlJ9ZL-JLGGa-1} (var bindings)\nwindexdefn{\nwixident{lookup}}{lookup}{NWlJ9ZL-JLGGa-1}
   "Get the value part (for var) from a binding list."
-  (\nwlinkedidentc{binding-val}{NWlJ9ZL-3wKBbF-1} (\nwlinkedidentc{get-binding}{NWlJ9ZL-3wKBbF-1} var bindings)))
+  (\nwlinkedidentc{binding-val}{NWlJ9ZL-JLGGa-1} (\nwlinkedidentc{get-binding}{NWlJ9ZL-JLGGa-1} var bindings)))
 
-(defun \nwlinkedidentc{extend-bindings}{NWlJ9ZL-3wKBbF-1} (var val bindings)\nwindexdefn{\nwixident{extend-bindings}}{extend-bindings}{NWlJ9ZL-3wKBbF-1}
+(defun \nwlinkedidentc{extend-bindings}{NWlJ9ZL-JLGGa-1} (var val bindings)\nwindexdefn{\nwixident{extend-bindings}}{extend-bindings}{NWlJ9ZL-JLGGa-1}
   "Add a (var . value) pair to a binding list."
   (cons (cons var val)
-        (if (eq bindings \nwlinkedidentc{no-bindings}{NWlJ9ZL-1rgAdm-1})
+        (if (eq bindings \nwlinkedidentc{no-bindings}{NWlJ9ZL-2EiFV2-1})
             nil
             bindings)))
-\nwused{\\{NWlJ9ZL-3P1OfB-1}}\nwidentdefs{\\{{\nwixident{binding-val}}{binding-val}}\\{{\nwixident{extend-bindings}}{extend-bindings}}\\{{\nwixident{get-binding}}{get-binding}}\\{{\nwixident{lookup}}{lookup}}}\nwidentuses{\\{{\nwixident{no-bindings}}{no-bindings}}}\nwindexuse{\nwixident{no-bindings}}{no-bindings}{NWlJ9ZL-3wKBbF-1}\nwendcode{}\nwbegindocs{129}\nwdocspar
+\nwused{\\{NWlJ9ZL-4MxtLd-1}}\nwidentdefs{\\{{\nwixident{binding-val}}{binding-val}}\\{{\nwixident{extend-bindings}}{extend-bindings}}\\{{\nwixident{get-binding}}{get-binding}}\\{{\nwixident{lookup}}{lookup}}}\nwidentuses{\\{{\nwixident{no-bindings}}{no-bindings}}}\nwindexuse{\nwixident{no-bindings}}{no-bindings}{NWlJ9ZL-JLGGa-1}\nwendcode{}\nwbegindocs{147}\nwdocspar
+
+\section{Rules}
+
+\nwenddocs{}\nwbegincode{148}\sublabel{NWlJ9ZL-3jvCTM-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3jvCTM-1}}}\moddef{ELIZA: Data Types~{\nwtagstyle{}\subpageref{NWlJ9ZL-3jvCTM-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3P1OfB-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{rule-pattern}{NWlJ9ZL-3jvCTM-1} (rule) (first rule))\nwindexdefn{\nwixident{rule-pattern}}{rule-pattern}{NWlJ9ZL-3jvCTM-1}
+(defun \nwlinkedidentc{rule-responses}{NWlJ9ZL-3jvCTM-1} (rule) (rest rule))\nwindexdefn{\nwixident{rule-responses}}{rule-responses}{NWlJ9ZL-3jvCTM-1}
+\nwused{\\{NWlJ9ZL-3P1OfB-1}}\nwidentdefs{\\{{\nwixident{rule-pattern}}{rule-pattern}}\\{{\nwixident{rule-responses}}{rule-responses}}}\nwendcode{}\nwbegindocs{149}\nwdocspar
+
+\nwenddocs{}\nwbegincode{150}\sublabel{NWlJ9ZL-24Hem4-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-24Hem4-1}}}\moddef{ELIZA: Special Variables~{\nwtagstyle{}\subpageref{NWlJ9ZL-24Hem4-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3P1OfB-1}}\nwenddeflinemarkup
+(defparameter *eliza-rules*
+  '((((?* ?x) hello (?* ?y))
+     (How do you do.  Please state your problem.))
+    (((?* ?x) I want (?* ?y))
+     (What would it mean if you got ?y)
+     (Why do you want ?y) (Suppose you got ?y soon))
+    (((?* ?x) if (?* ?y))
+     (Do you really think its likely that ?y) (Do you wish that ?y)
+     (What do you think about ?y) (Really-- if ?y))
+    (((?* ?x) no (?* ?y))
+     (Why not?) (You are being a bit negative)
+     (Are you saying "NO" just to be negative?))
+    (((?* ?x) I was (?* ?y))
+     (Were you really?) (Perhaps I already knew you were ?y)
+     (Why do you tell me you were ?y now?))
+    (((?* ?x) I feel (?* ?y))
+     (Do you often feel ?y ?))
+    (((?* ?x) I felt (?* ?y))
+     (What other feelings do you have?))))
+\nwused{\\{NWlJ9ZL-3P1OfB-1}}\nwendcode{}\nwbegindocs{151}\nwdocspar
+
+\section{{\sc Eliza} Proper}
+
+\nwenddocs{}\nwbegincode{152}\sublabel{NWlJ9ZL-2T7eg6-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-2T7eg6-1}}}\moddef{ELIZA: Top-Level Function~{\nwtagstyle{}\subpageref{NWlJ9ZL-2T7eg6-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3P1OfB-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{eliza}{NWlJ9ZL-2T7eg6-1} ()\nwindexdefn{\nwixident{eliza}}{eliza}{NWlJ9ZL-2T7eg6-1}
+  "Respond to user input using pattern matching rules."
+  (loop
+    (print 'eliza>)
+    (write (\nwlinkedidentc{flatten}{NWlJ9ZL-4UXBSo-1} (\nwlinkedidentc{use-eliza-rules}{NWlJ9ZL-2Wo01b-1} (read))) :pretty t)))
+\nwused{\\{NWlJ9ZL-3P1OfB-1}}\nwidentdefs{\\{{\nwixident{eliza}}{eliza}}}\nwidentuses{\\{{\nwixident{flatten}}{flatten}}\\{{\nwixident{use-eliza-rules}}{use-eliza-rules}}}\nwindexuse{\nwixident{flatten}}{flatten}{NWlJ9ZL-2T7eg6-1}\nwindexuse{\nwixident{use-eliza-rules}}{use-eliza-rules}{NWlJ9ZL-2T7eg6-1}\nwendcode{}\nwbegindocs{153}\nwdocspar
+
+\nwenddocs{}\nwbegincode{154}\sublabel{NWlJ9ZL-4MxtLd-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-4MxtLd-1}}}\moddef{ELIZA: Functions~{\nwtagstyle{}\subpageref{NWlJ9ZL-4MxtLd-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-3P1OfB-1}}\nwenddeflinemarkup
+\LA{}use-eliza-rules~{\nwtagstyle{}\subpageref{NWlJ9ZL-2Wo01b-1}}\RA{}
+
+\LA{}switch-viewpoint~{\nwtagstyle{}\subpageref{NWlJ9ZL-1ms3Or-1}}\RA{}
+
+\LA{}ELIZA: Pattern Matching~{\nwtagstyle{}\subpageref{NWlJ9ZL-fP7AE-1}}\RA{}
+
+\LA{}ELIZA: Binding Functions~{\nwtagstyle{}\subpageref{NWlJ9ZL-JLGGa-1}}\RA{}
+
+\LA{}flatten~{\nwtagstyle{}\subpageref{NWlJ9ZL-4UXBSo-1}}\RA{}
+
+\LA{}random-elt~{\nwtagstyle{}\subpageref{NWlJ9ZL-2bmzlG-1}}\RA{}
+
+\LA{}mappend~{\nwtagstyle{}\subpageref{NWlJ9ZL-4BOcTg-1}}\RA{}
+
+\LA{}Is the argument a list that starts with a given atom?~{\nwtagstyle{}\subpageref{NWlJ9ZL-26JY6E-1}}\RA{}
+\nwused{\\{NWlJ9ZL-3P1OfB-1}}\nwendcode{}\nwbegindocs{155}\nwdocspar
+
+\nwenddocs{}\nwbegincode{156}\sublabel{NWlJ9ZL-2Wo01b-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-2Wo01b-1}}}\moddef{use-eliza-rules~{\nwtagstyle{}\subpageref{NWlJ9ZL-2Wo01b-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-4MxtLd-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{use-eliza-rules}{NWlJ9ZL-2Wo01b-1} (input)\nwindexdefn{\nwixident{use-eliza-rules}}{use-eliza-rules}{NWlJ9ZL-2Wo01b-1}
+  "Find some rule with which to transform the input."
+  (some #'(lambda (rule)
+            (let ((result (\nwlinkedidentc{pat-match}{NWlJ9ZL-3nmfAz-1} (\nwlinkedidentc{rule-pattern}{NWlJ9ZL-3jvCTM-1} rule) input)))
+              (unless (eq result \nwlinkedidentc{fail}{NWlJ9ZL-2EiFV2-1})
+                (sublis (\nwlinkedidentc{switch-viewpoint}{NWlJ9ZL-1ms3Or-1} result)
+                        (\nwlinkedidentc{random-elt}{NWlJ9ZL-2bmzlG-1} (\nwlinkedidentc{rule-responses}{NWlJ9ZL-3jvCTM-1} rule))))))
+        *eliza-rules*))
+\nwused{\\{NWlJ9ZL-4MxtLd-1}}\nwidentdefs{\\{{\nwixident{use-eliza-rules}}{use-eliza-rules}}}\nwidentuses{\\{{\nwixident{fail}}{fail}}\\{{\nwixident{pat-match}}{pat-match}}\\{{\nwixident{random-elt}}{random-elt}}\\{{\nwixident{rule-pattern}}{rule-pattern}}\\{{\nwixident{rule-responses}}{rule-responses}}\\{{\nwixident{switch-viewpoint}}{switch-viewpoint}}}\nwindexuse{\nwixident{fail}}{fail}{NWlJ9ZL-2Wo01b-1}\nwindexuse{\nwixident{pat-match}}{pat-match}{NWlJ9ZL-2Wo01b-1}\nwindexuse{\nwixident{random-elt}}{random-elt}{NWlJ9ZL-2Wo01b-1}\nwindexuse{\nwixident{rule-pattern}}{rule-pattern}{NWlJ9ZL-2Wo01b-1}\nwindexuse{\nwixident{rule-responses}}{rule-responses}{NWlJ9ZL-2Wo01b-1}\nwindexuse{\nwixident{switch-viewpoint}}{switch-viewpoint}{NWlJ9ZL-2Wo01b-1}\nwendcode{}\nwbegindocs{157}\nwdocspar
+
+\nwenddocs{}\nwbegincode{158}\sublabel{NWlJ9ZL-1ms3Or-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-1ms3Or-1}}}\moddef{switch-viewpoint~{\nwtagstyle{}\subpageref{NWlJ9ZL-1ms3Or-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-4MxtLd-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{switch-viewpoint}{NWlJ9ZL-1ms3Or-1} (words)\nwindexdefn{\nwixident{switch-viewpoint}}{switch-viewpoint}{NWlJ9ZL-1ms3Or-1}
+  "Change I to you and vice versa, and so on."
+  (sublis '((I . you) (you . I) (me . you) (am . are))
+          words))
+\nwused{\\{NWlJ9ZL-4MxtLd-1}}\nwidentdefs{\\{{\nwixident{switch-viewpoint}}{switch-viewpoint}}}\nwendcode{}\nwbegindocs{159}\nwdocspar
+
+\nwenddocs{}\nwbegincode{160}\sublabel{NWlJ9ZL-4UXBSo-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-4UXBSo-1}}}\moddef{flatten~{\nwtagstyle{}\subpageref{NWlJ9ZL-4UXBSo-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-4MxtLd-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{flatten}{NWlJ9ZL-4UXBSo-1} (the-list)\nwindexdefn{\nwixident{flatten}}{flatten}{NWlJ9ZL-4UXBSo-1}
+  "Append together elements (or lists) in the list."
+  (\nwlinkedidentc{mappend}{NWlJ9ZL-4BOcTg-1} #'\nwlinkedidentc{mklist}{NWlJ9ZL-4UXBSo-1} the-list))
+
+(defun \nwlinkedidentc{mklist}{NWlJ9ZL-4UXBSo-1} (x)\nwindexdefn{\nwixident{mklist}}{mklist}{NWlJ9ZL-4UXBSo-1}
+  "Return x if it is a list, otherwise (x)."
+  (if (listp x)
+      x
+      (list x)))
+\nwused{\\{NWlJ9ZL-4MxtLd-1}}\nwidentdefs{\\{{\nwixident{flatten}}{flatten}}\\{{\nwixident{mklist}}{mklist}}}\nwidentuses{\\{{\nwixident{mappend}}{mappend}}}\nwindexuse{\nwixident{mappend}}{mappend}{NWlJ9ZL-4UXBSo-1}\nwendcode{}\nwbegindocs{161}\nwdocspar
 
 \chapter{Package}
 
-\nwenddocs{}\nwbegincode{130}\sublabel{NWlJ9ZL-34miW3-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\moddef{paip.asd~{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{162}\sublabel{NWlJ9ZL-34miW3-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\moddef{paip.asd~{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 ;;;; paip.asd
 
 (asdf:defsystem #:paip
@@ -900,16 +1067,16 @@ N.B. These results are undesirable and will be addressed in chapter 6.
                 :components
                 ((:file "intro")
                  (:file "gps")
-                 (:file "eliza")))))
+                 (:file "\nwlinkedidentc{eliza}{NWlJ9ZL-2T7eg6-1}")))))
 
 (defpackage #:paip
   (:\nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} #:cl))
 (in-package #:paip)
-\nwnotused{paip.asd}\nwidentuses{\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-34miW3-1}\nwendcode{}\nwbegindocs{131}\nwdocspar
+\nwnotused{paip.asd}\nwidentuses{\\{{\nwixident{eliza}}{eliza}}\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{eliza}}{eliza}{NWlJ9ZL-34miW3-1}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-34miW3-1}\nwendcode{}\nwbegindocs{163}\nwdocspar
 
 \chapter{Test Runner}
 
-\nwenddocs{}\nwbegincode{132}\sublabel{NWlJ9ZL-3QIFQJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\moddef{bin/runtests~{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{164}\sublabel{NWlJ9ZL-3QIFQJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\moddef{bin/runtests~{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 #! /usr/bin/env nix-shell
 #! nix-shell -i sh -p sbcl
 
@@ -923,9 +1090,9 @@ sbcl --noinform --non-interactive \\
                     (status   (if (null failures) 0 1)))
                (lisp-unit:print-failures results)
                (sb-posix:exit status))"
-\nwnotused{bin/runtests}\nwendcode{}\nwbegindocs{133}\nwdocspar
+\nwnotused{bin/runtests}\nwendcode{}\nwbegindocs{165}\nwdocspar
 
-\nwenddocs{}\nwbegincode{134}\sublabel{NWlJ9ZL-40xICN-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\moddef{init.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{166}\sublabel{NWlJ9ZL-40xICN-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\moddef{init.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 #-quicklisp
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
                                        (user-homedir-pathname))))
@@ -948,14 +1115,20 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{c}{{bin/runtests}{NWlJ9ZL-3QIFQJ-1}{\nwixd{NWlJ9ZL-3QIFQJ-1}}}%
 \nwixlogsorted{c}{{Blocks World Tests}{NWlJ9ZL-8artJ-1}{\nwixu{NWlJ9ZL-1t2bMc-1}\nwixd{NWlJ9ZL-8artJ-1}}}%
 \nwixlogsorted{c}{{Blocks: The Sussman Anomaly}{NWlJ9ZL-2FEfPq-1}{\nwixu{NWlJ9ZL-8artJ-1}\nwixd{NWlJ9ZL-2FEfPq-1}}}%
+\nwixlogsorted{c}{{Call \code{}pat-match\edoc{} recursively}{NWlJ9ZL-4cCTse-1}{\nwixu{NWlJ9ZL-3nmfAz-1}\nwixd{NWlJ9ZL-4cCTse-1}}}%
 \nwixlogsorted{c}{{Convert an operator to use the executing convention}{NWlJ9ZL-3MvEWn-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-3MvEWn-1}}}%
 \nwixlogsorted{c}{{Convert existing operators}{NWlJ9ZL-yooUt-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-yooUt-1}}}%
 \nwixlogsorted{c}{{Create an operator}{NWlJ9ZL-aGgy4-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-aGgy4-1}}}%
 \nwixlogsorted{c}{{Debugging usage}{NWlJ9ZL-3AihUJ-1}{\nwixd{NWlJ9ZL-3AihUJ-1}}}%
 \nwixlogsorted{c}{{Decide if an operator is appropriate for a goal}{NWlJ9ZL-ocPeo-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-ocPeo-1}}}%
 \nwixlogsorted{c}{{Drive son to school}{NWlJ9ZL-31LYLP-1}{\nwixd{NWlJ9ZL-31LYLP-1}\nwixu{NWlJ9ZL-4Zg5N4-1}}}%
-\nwixlogsorted{c}{{eliza binding functions}{NWlJ9ZL-3wKBbF-1}{\nwixu{NWlJ9ZL-3P1OfB-1}\nwixd{NWlJ9ZL-3wKBbF-1}}}%
-\nwixlogsorted{c}{{eliza constants}{NWlJ9ZL-1rgAdm-1}{\nwixu{NWlJ9ZL-3P1OfB-1}\nwixd{NWlJ9ZL-1rgAdm-1}}}%
+\nwixlogsorted{c}{{ELIZA: Binding Functions}{NWlJ9ZL-JLGGa-1}{\nwixd{NWlJ9ZL-JLGGa-1}\nwixu{NWlJ9ZL-4MxtLd-1}}}%
+\nwixlogsorted{c}{{ELIZA: Constants}{NWlJ9ZL-2EiFV2-1}{\nwixu{NWlJ9ZL-3P1OfB-1}\nwixd{NWlJ9ZL-2EiFV2-1}}}%
+\nwixlogsorted{c}{{ELIZA: Data Types}{NWlJ9ZL-3jvCTM-1}{\nwixu{NWlJ9ZL-3P1OfB-1}\nwixd{NWlJ9ZL-3jvCTM-1}}}%
+\nwixlogsorted{c}{{ELIZA: Functions}{NWlJ9ZL-4MxtLd-1}{\nwixu{NWlJ9ZL-3P1OfB-1}\nwixd{NWlJ9ZL-4MxtLd-1}}}%
+\nwixlogsorted{c}{{ELIZA: Pattern Matching}{NWlJ9ZL-fP7AE-1}{\nwixd{NWlJ9ZL-fP7AE-1}\nwixu{NWlJ9ZL-4MxtLd-1}}}%
+\nwixlogsorted{c}{{ELIZA: Special Variables}{NWlJ9ZL-24Hem4-1}{\nwixu{NWlJ9ZL-3P1OfB-1}\nwixd{NWlJ9ZL-24Hem4-1}}}%
+\nwixlogsorted{c}{{ELIZA: Top-Level Function}{NWlJ9ZL-2T7eg6-1}{\nwixu{NWlJ9ZL-3P1OfB-1}\nwixd{NWlJ9ZL-2T7eg6-1}}}%
 \nwixlogsorted{c}{{else return the first element of the name}{NWlJ9ZL-16R8JG-1}{\nwixu{NWlJ9ZL-1xnn0Z-1}\nwixd{NWlJ9ZL-16R8JG-1}}}%
 \nwixlogsorted{c}{{else return the last element of the name}{NWlJ9ZL-2NIVBh-1}{\nwixu{NWlJ9ZL-4Zlwoj-1}\nwixd{NWlJ9ZL-2NIVBh-1}}}%
 \nwixlogsorted{c}{{Exercise 1.1}{NWlJ9ZL-4Wuo2N-1}{\nwixu{NWlJ9ZL-3M2WD4-1}\nwixd{NWlJ9ZL-4Wuo2N-1}}}%
@@ -963,9 +1136,12 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{c}{{Exercise 1.2}{NWlJ9ZL-2DHmDj-1}{\nwixu{NWlJ9ZL-3M2WD4-1}\nwixd{NWlJ9ZL-2DHmDj-1}}}%
 \nwixlogsorted{c}{{Exercise 1.2 tests}{NWlJ9ZL-Nfd08-1}{\nwixu{NWlJ9ZL-2DHmDj-1}\nwixd{NWlJ9ZL-Nfd08-1}}}%
 \nwixlogsorted{c}{{Exercise 1.3}{NWlJ9ZL-2b8599-1}{\nwixu{NWlJ9ZL-3M2WD4-1}\nwixd{NWlJ9ZL-2b8599-1}}}%
+\nwixlogsorted{c}{{Fail if the binding list is \lsp{fail}}{NWlJ9ZL-1NgPsX-1}{\nwixu{NWlJ9ZL-3nmfAz-1}\nwixd{NWlJ9ZL-1NgPsX-1}}}%
 \nwixlogsorted{c}{{find-all}{NWlJ9ZL-3sUrxR-1}{\nwixd{NWlJ9ZL-3sUrxR-1}\nwixu{NWlJ9ZL-wDl5T-1}}}%
+\nwixlogsorted{c}{{flatten}{NWlJ9ZL-4UXBSo-1}{\nwixu{NWlJ9ZL-4MxtLd-1}\nwixd{NWlJ9ZL-4UXBSo-1}}}%
 \nwixlogsorted{c}{{function first-name(name):}{NWlJ9ZL-4ONS4K-1}{\nwixu{NWlJ9ZL-1xnn0Z-1}\nwixd{NWlJ9ZL-4ONS4K-1}}}%
 \nwixlogsorted{c}{{GPS Tests}{NWlJ9ZL-1ahSlC-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-1ahSlC-1}}}%
+\nwixlogsorted{c}{{If \lsp{pattern} equals \lsp{input}, return \lsp{bindings}}{NWlJ9ZL-3hXqLN-1}{\nwixu{NWlJ9ZL-3nmfAz-1}\nwixd{NWlJ9ZL-3hXqLN-1}}}%
 \nwixlogsorted{c}{{if exp is an atom there is only one}{NWlJ9ZL-20ij8Y-1}{\nwixu{NWlJ9ZL-2b8599-1}\nwixd{NWlJ9ZL-20ij8Y-1}}}%
 \nwixlogsorted{c}{{if exp is nil there are no atoms}{NWlJ9ZL-2dHnrc-1}{\nwixu{NWlJ9ZL-2b8599-1}\nwixd{NWlJ9ZL-2dHnrc-1}}}%
 \nwixlogsorted{c}{{if n is even return x to the power of n over two, squared}{NWlJ9ZL-3Slm34-1}{\nwixu{NWlJ9ZL-3kZCB2-1}\nwixd{NWlJ9ZL-3Slm34-1}}}%
@@ -973,10 +1149,13 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{c}{{if the first element of name is a title}{NWlJ9ZL-Ix42V-1}{\nwixu{NWlJ9ZL-1xnn0Z-1}\nwixd{NWlJ9ZL-Ix42V-1}}}%
 \nwixlogsorted{c}{{init.lisp}{NWlJ9ZL-40xICN-1}{\nwixd{NWlJ9ZL-40xICN-1}}}%
 \nwixlogsorted{c}{{Is a condition an executing form?}{NWlJ9ZL-3ZribA-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-3ZribA-1}}}%
-\nwixlogsorted{c}{{Is the argument a list that starts with a given atom?}{NWlJ9ZL-26JY6E-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-26JY6E-1}\nwixu{NWlJ9ZL-3P1OfB-1}}}%
+\nwixlogsorted{c}{{Is the argument a list that starts with a given atom?}{NWlJ9ZL-26JY6E-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-26JY6E-1}\nwixu{NWlJ9ZL-4MxtLd-1}}}%
 \nwixlogsorted{c}{{Is x an action?}{NWlJ9ZL-lDJbR-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-lDJbR-1}}}%
 \nwixlogsorted{c}{{last-name}{NWlJ9ZL-4Zlwoj-1}{\nwixu{NWlJ9ZL-4Wuo2N-1}\nwixd{NWlJ9ZL-4Zlwoj-1}}}%
-\nwixlogsorted{c}{{mappend}{NWlJ9ZL-4BOcTg-1}{\nwixd{NWlJ9ZL-4BOcTg-1}\nwixu{NWlJ9ZL-wDl5T-1}}}%
+\nwixlogsorted{c}{{mappend}{NWlJ9ZL-4BOcTg-1}{\nwixd{NWlJ9ZL-4BOcTg-1}\nwixu{NWlJ9ZL-wDl5T-1}\nwixu{NWlJ9ZL-4MxtLd-1}}}%
+\nwixlogsorted{c}{{Match a segment}{NWlJ9ZL-GZe9f-1}{\nwixu{NWlJ9ZL-3nmfAz-1}\nwixd{NWlJ9ZL-GZe9f-1}}}%
+\nwixlogsorted{c}{{Match a variable}{NWlJ9ZL-1c11Uf-1}{\nwixu{NWlJ9ZL-3nmfAz-1}\nwixd{NWlJ9ZL-1c11Uf-1}}}%
+\nwixlogsorted{c}{{match-variable}{NWlJ9ZL-1BlMBi-1}{\nwixu{NWlJ9ZL-fP7AE-1}\nwixd{NWlJ9ZL-1BlMBi-1}}}%
 \nwixlogsorted{c}{{Maze Tests}{NWlJ9ZL-v1OUw-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-v1OUw-1}}}%
 \nwixlogsorted{c}{{Monkey and Bananas Example}{NWlJ9ZL-GNLBM-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-GNLBM-1}}}%
 \nwixlogsorted{c}{{Morton Downey, Jr}{NWlJ9ZL-189ElO-1}{\nwixu{NWlJ9ZL-29KvuZ-1}\nwixd{NWlJ9ZL-189ElO-1}}}%
@@ -984,18 +1163,21 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{c}{{otherwise add the count of the atoms in the first and rest of exp}{NWlJ9ZL-44AOMF-1}{\nwixu{NWlJ9ZL-2b8599-1}\nwixd{NWlJ9ZL-44AOMF-1}}}%
 \nwixlogsorted{c}{{otherwise return x times x to the power of n minus one}{NWlJ9ZL-1kE0RF-1}{\nwixu{NWlJ9ZL-3kZCB2-1}\nwixd{NWlJ9ZL-1kE0RF-1}}}%
 \nwixlogsorted{c}{{paip.asd}{NWlJ9ZL-34miW3-1}{\nwixd{NWlJ9ZL-34miW3-1}}}%
-\nwixlogsorted{c}{{pat-match}{NWlJ9ZL-3nmfAz-1}{\nwixu{NWlJ9ZL-3P1OfB-1}\nwixd{NWlJ9ZL-3nmfAz-1}}}%
+\nwixlogsorted{c}{{pat-match}{NWlJ9ZL-3nmfAz-1}{\nwixu{NWlJ9ZL-fP7AE-1}\nwixd{NWlJ9ZL-3nmfAz-1}}}%
 \nwixlogsorted{c}{{permutations}{NWlJ9ZL-4ArfbM-1}{\nwixd{NWlJ9ZL-4ArfbM-1}}}%
 \nwixlogsorted{c}{{power}{NWlJ9ZL-3kZCB2-1}{\nwixu{NWlJ9ZL-2DHmDj-1}\nwixd{NWlJ9ZL-3kZCB2-1}}}%
 \nwixlogsorted{c}{{Print debugging information}{NWlJ9ZL-3LP9Za-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-3LP9Za-1}}}%
+\nwixlogsorted{c}{{random-elt}{NWlJ9ZL-2bmzlG-1}{\nwixd{NWlJ9ZL-2bmzlG-1}\nwixu{NWlJ9ZL-4MxtLd-1}}}%
 \nwixlogsorted{c}{{Rex Morgan MD}{NWlJ9ZL-1iWMbJ-1}{\nwixu{NWlJ9ZL-29KvuZ-1}\nwixd{NWlJ9ZL-1iWMbJ-1}}}%
-\nwixlogsorted{c}{{simple-equal}{NWlJ9ZL-3DwGES-1}{\nwixu{NWlJ9ZL-3P1OfB-1}\nwixd{NWlJ9ZL-3DwGES-1}}}%
+\nwixlogsorted{c}{{segment-match}{NWlJ9ZL-1VV14C-1}{\nwixu{NWlJ9ZL-fP7AE-1}\nwixd{NWlJ9ZL-1VV14C-1}}}%
+\nwixlogsorted{c}{{segment-pattern-p}{NWlJ9ZL-Sl3Ms-1}{\nwixu{NWlJ9ZL-fP7AE-1}\nwixd{NWlJ9ZL-Sl3Ms-1}}}%
 \nwixlogsorted{c}{{Solve a goal from a state using a list of operators}{NWlJ9ZL-30p2tX-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-30p2tX-1}}}%
 \nwixlogsorted{c}{{square}{NWlJ9ZL-3NPSQP-1}{\nwixu{NWlJ9ZL-2DHmDj-1}\nwixd{NWlJ9ZL-3NPSQP-1}}}%
 \nwixlogsorted{c}{{src/eliza.lisp}{NWlJ9ZL-3P1OfB-1}{\nwixd{NWlJ9ZL-3P1OfB-1}}}%
 \nwixlogsorted{c}{{src/gps.lisp}{NWlJ9ZL-wDl5T-1}{\nwixd{NWlJ9ZL-wDl5T-1}}}%
 \nwixlogsorted{c}{{src/intro.lisp}{NWlJ9ZL-3M2WD4-1}{\nwixd{NWlJ9ZL-3M2WD4-1}}}%
 \nwixlogsorted{c}{{suffixes}{NWlJ9ZL-33GIZY-1}{\nwixu{NWlJ9ZL-4Wuo2N-1}\nwixd{NWlJ9ZL-33GIZY-1}}}%
+\nwixlogsorted{c}{{switch-viewpoint}{NWlJ9ZL-1ms3Or-1}{\nwixu{NWlJ9ZL-4MxtLd-1}\nwixd{NWlJ9ZL-1ms3Or-1}}}%
 \nwixlogsorted{c}{{Test if an element is equal to a member of a list}{NWlJ9ZL-1aljzn-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-1aljzn-1}}}%
 \nwixlogsorted{c}{{The Blocks World Domain}{NWlJ9ZL-1t2bMc-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-1t2bMc-1}}}%
 \nwixlogsorted{c}{{the last element of a name is a suffix}{NWlJ9ZL-2t3lxE-1}{\nwixu{NWlJ9ZL-4Zlwoj-1}\nwixd{NWlJ9ZL-2t3lxE-1}}}%
@@ -1004,7 +1186,8 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{c}{{then return the first-name of the rest of the name}{NWlJ9ZL-2nVNHx-1}{\nwixu{NWlJ9ZL-1xnn0Z-1}\nwixd{NWlJ9ZL-2nVNHx-1}}}%
 \nwixlogsorted{c}{{titles}{NWlJ9ZL-BpWdi-1}{\nwixd{NWlJ9ZL-BpWdi-1}\nwixu{NWlJ9ZL-3M2WD4-1}}}%
 \nwixlogsorted{c}{{Use a list of of operators}{NWlJ9ZL-3V5be-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-3V5be-1}}}%
-\nwixlogsorted{c}{{variable-p}{NWlJ9ZL-1JbiwF-1}{\nwixu{NWlJ9ZL-3P1OfB-1}\nwixd{NWlJ9ZL-1JbiwF-1}}}%
+\nwixlogsorted{c}{{use-eliza-rules}{NWlJ9ZL-2Wo01b-1}{\nwixu{NWlJ9ZL-4MxtLd-1}\nwixd{NWlJ9ZL-2Wo01b-1}}}%
+\nwixlogsorted{c}{{variable-p}{NWlJ9ZL-1JbiwF-1}{\nwixu{NWlJ9ZL-fP7AE-1}\nwixd{NWlJ9ZL-1JbiwF-1}}}%
 \nwixlogsorted{i}{{\nwixident{*dbg-ids*}}{*dbg-ids*}}%
 \nwixlogsorted{i}{{\nwixident{*ops*}}{*ops*}}%
 \nwixlogsorted{i}{{\nwixident{*school-ops*}}{*school-ops*}}%
@@ -1024,11 +1207,13 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{i}{{\nwixident{dbg-indent}}{dbg-indent}}%
 \nwixlogsorted{i}{{\nwixident{debug}}{debug}}%
 \nwixlogsorted{i}{{\nwixident{destination}}{destination}}%
+\nwixlogsorted{i}{{\nwixident{eliza}}{eliza}}%
 \nwixlogsorted{i}{{\nwixident{executing-p}}{executing-p}}%
 \nwixlogsorted{i}{{\nwixident{extend-bindings}}{extend-bindings}}%
 \nwixlogsorted{i}{{\nwixident{fail}}{fail}}%
 \nwixlogsorted{i}{{\nwixident{find-all}}{find-all}}%
 \nwixlogsorted{i}{{\nwixident{find-path}}{find-path}}%
+\nwixlogsorted{i}{{\nwixident{flatten}}{flatten}}%
 \nwixlogsorted{i}{{\nwixident{get-binding}}{get-binding}}%
 \nwixlogsorted{i}{{\nwixident{GPS}}{GPS}}%
 \nwixlogsorted{i}{{\nwixident{last-name}}{last-name}}%
@@ -1039,6 +1224,7 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{i}{{\nwixident{mappend}}{mappend}}%
 \nwixlogsorted{i}{{\nwixident{match-variable}}{match-variable}}%
 \nwixlogsorted{i}{{\nwixident{member-equal}}{member-equal}}%
+\nwixlogsorted{i}{{\nwixident{mklist}}{mklist}}%
 \nwixlogsorted{i}{{\nwixident{move-ons}}{move-ons}}%
 \nwixlogsorted{i}{{\nwixident{move-op}}{move-op}}%
 \nwixlogsorted{i}{{\nwixident{no-bindings}}{no-bindings}}%
@@ -1047,15 +1233,19 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{i}{{\nwixident{pat-match}}{pat-match}}%
 \nwixlogsorted{i}{{\nwixident{permutations}}{permutations}}%
 \nwixlogsorted{i}{{\nwixident{power}}{power}}%
+\nwixlogsorted{i}{{\nwixident{random-elt}}{random-elt}}%
+\nwixlogsorted{i}{{\nwixident{rule-pattern}}{rule-pattern}}%
+\nwixlogsorted{i}{{\nwixident{rule-responses}}{rule-responses}}%
 \nwixlogsorted{i}{{\nwixident{segment-match}}{segment-match}}%
 \nwixlogsorted{i}{{\nwixident{segment-pattern-p}}{segment-pattern-p}}%
-\nwixlogsorted{i}{{\nwixident{simple-equal}}{simple-equal}}%
 \nwixlogsorted{i}{{\nwixident{square}}{square}}%
 \nwixlogsorted{i}{{\nwixident{starts-with}}{starts-with}}%
+\nwixlogsorted{i}{{\nwixident{switch-viewpoint}}{switch-viewpoint}}%
 \nwixlogsorted{i}{{\nwixident{undebug}}{undebug}}%
 \nwixlogsorted{i}{{\nwixident{use}}{use}}%
+\nwixlogsorted{i}{{\nwixident{use-eliza-rules}}{use-eliza-rules}}%
 \nwixlogsorted{i}{{\nwixident{variable-p}}{variable-p}}%
-\nwbegindocs{135}\nwdocspar
+\nwbegindocs{167}\nwdocspar
 
 \chapter{Chunks}
 \nowebchunks
