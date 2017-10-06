@@ -48,8 +48,8 @@ idris: ${IDR_ALL}
 erlang: ${ERL_ALL}
 lol: ${LOL_ALL}
 paip:
-	@ ${MAKE} -C paip
-	@ ln -fs ../paip/tex/paip.pdf docs/
+	@ ${MAKE} -C $@
+	@ ln -fs ../$@/tex/$@.pdf docs/
 
 docs/%.html: src/%.html
 	@ mkdir -p $(dir $@)

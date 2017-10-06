@@ -11,7 +11,8 @@
                 :components
                 ((:file "intro")
                  (:file "gps")
-                 (:file "eliza")))))
+                 (:file "eliza")
+                 (:file "tools")))))
 
 (defpackage #:paip
   (:use #:cl))

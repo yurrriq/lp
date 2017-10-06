@@ -1051,6 +1051,51 @@ N.B. These results are undesirable and will be addressed in chapter 6.
       (list x)))
 @
 
+\chapter{Build Software Tools}
+
+\section{An Interactive Interpreter Tool}
+
+\begin{minted}[]{lisp}
+(defun program ()
+  (loop
+    (print prompt)
+    (print (transform (read)))))
+\end{minted}
+
+<<interactive-interpreter>>=
+(defun interactive-interpreter (prompt transformer)
+  "(`prompt' for and) read an expression, `transform' it and print the result."
+  (loop
+    (handler-case
+        (progn
+          (if (stringp prompt)
+              (print prompt)
+              (funcall prompt))
+          (print (funcall transformer (read))))
+      (error (condition)
+        (format t "~&;; Error ~a ignored. Back to top level."
+                condition)))))
+
+<<prompt-generator>>
+@
+
+<<prompt-generator>>=
+(defun prompt-generator (&optional (num 0) (ctl-string "[~d] "))
+  "Return a function that prints prompts like [1], [2], etc."
+  #'(lambda () (format t ctl-string (incf num))))
+@
+
+\section{Package}
+
+<<src/tools.lisp>>=
+(in-package #:paip)
+(defpackage #:paip.tools
+  (:use #:cl #:lisp-unit))
+(in-package #:paip.tools)
+
+<<interactive-interpreter>>
+@
+
 \chapter{Package}
 
 <<paip.asd>>=
@@ -1067,7 +1112,8 @@ N.B. These results are undesirable and will be addressed in chapter 6.
                 :components
                 ((:file "intro")
                  (:file "gps")
-                 (:file "eliza")))))
+                 (:file "eliza")
+                 (:file "tools")))))
 
 (defpackage #:paip
   (:use #:cl))

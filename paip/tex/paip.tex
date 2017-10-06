@@ -1051,9 +1051,54 @@ N.B. These results are undesirable and will be addressed in chapter 6.
       (list x)))
 \nwused{\\{NWlJ9ZL-4MxtLd-1}}\nwidentdefs{\\{{\nwixident{flatten}}{flatten}}\\{{\nwixident{mklist}}{mklist}}}\nwidentuses{\\{{\nwixident{mappend}}{mappend}}}\nwindexuse{\nwixident{mappend}}{mappend}{NWlJ9ZL-4UXBSo-1}\nwendcode{}\nwbegindocs{161}\nwdocspar
 
+\chapter{Build Software Tools}
+
+\section{An Interactive Interpreter Tool}
+
+\begin{minted}[]{lisp}
+(defun program ()
+  (loop
+    (print prompt)
+    (print (transform (read)))))
+\end{minted}
+
+\nwenddocs{}\nwbegincode{162}\sublabel{NWlJ9ZL-37Um9m-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-37Um9m-1}}}\moddef{interactive-interpreter~{\nwtagstyle{}\subpageref{NWlJ9ZL-37Um9m-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-rFUuu-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{interactive-interpreter}{NWlJ9ZL-37Um9m-1} (prompt transformer)\nwindexdefn{\nwixident{interactive-interpreter}}{interactive-interpreter}{NWlJ9ZL-37Um9m-1}
+  "(`prompt' for and) read an expression, `transform' it and print the result."
+  (loop
+    (handler-case
+        (progn
+          (if (stringp prompt)
+              (print prompt)
+              (funcall prompt))
+          (print (funcall transformer (read))))
+      (error (condition)
+        (format t "~&;; Error ~a ignored. Back to top level."
+                condition)))))
+
+\LA{}prompt-generator~{\nwtagstyle{}\subpageref{NWlJ9ZL-2r7hDu-1}}\RA{}
+\nwused{\\{NWlJ9ZL-rFUuu-1}}\nwidentdefs{\\{{\nwixident{interactive-interpreter}}{interactive-interpreter}}}\nwendcode{}\nwbegindocs{163}\nwdocspar
+
+\nwenddocs{}\nwbegincode{164}\sublabel{NWlJ9ZL-2r7hDu-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-2r7hDu-1}}}\moddef{prompt-generator~{\nwtagstyle{}\subpageref{NWlJ9ZL-2r7hDu-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWlJ9ZL-37Um9m-1}}\nwenddeflinemarkup
+(defun \nwlinkedidentc{prompt-generator}{NWlJ9ZL-2r7hDu-1} (&optional (num 0) (ctl-string "[~d] "))\nwindexdefn{\nwixident{prompt-generator}}{prompt-generator}{NWlJ9ZL-2r7hDu-1}
+  "Return a function that prints prompts like [1], [2], etc."
+  #'(lambda () (format t ctl-string (incf num))))
+\nwused{\\{NWlJ9ZL-37Um9m-1}}\nwidentdefs{\\{{\nwixident{prompt-generator}}{prompt-generator}}}\nwendcode{}\nwbegindocs{165}\nwdocspar
+
+\section{Package}
+
+\nwenddocs{}\nwbegincode{166}\sublabel{NWlJ9ZL-rFUuu-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-rFUuu-1}}}\moddef{src/tools.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-rFUuu-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+(in-package #:paip)
+(defpackage #:paip.tools
+  (:\nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} #:cl #:lisp-unit))
+(in-package #:paip.tools)
+
+\LA{}interactive-interpreter~{\nwtagstyle{}\subpageref{NWlJ9ZL-37Um9m-1}}\RA{}
+\nwnotused{src/tools.lisp}\nwidentuses{\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-rFUuu-1}\nwendcode{}\nwbegindocs{167}\nwdocspar
+
 \chapter{Package}
 
-\nwenddocs{}\nwbegincode{162}\sublabel{NWlJ9ZL-34miW3-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\moddef{paip.asd~{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{168}\sublabel{NWlJ9ZL-34miW3-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\moddef{paip.asd~{\nwtagstyle{}\subpageref{NWlJ9ZL-34miW3-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 ;;;; paip.asd
 
 (asdf:defsystem #:paip
@@ -1067,16 +1112,17 @@ N.B. These results are undesirable and will be addressed in chapter 6.
                 :components
                 ((:file "intro")
                  (:file "gps")
-                 (:file "\nwlinkedidentc{eliza}{NWlJ9ZL-2T7eg6-1}")))))
+                 (:file "\nwlinkedidentc{eliza}{NWlJ9ZL-2T7eg6-1}")
+                 (:file "tools")))))
 
 (defpackage #:paip
   (:\nwlinkedidentc{use}{NWlJ9ZL-3V5be-1} #:cl))
 (in-package #:paip)
-\nwnotused{paip.asd}\nwidentuses{\\{{\nwixident{eliza}}{eliza}}\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{eliza}}{eliza}{NWlJ9ZL-34miW3-1}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-34miW3-1}\nwendcode{}\nwbegindocs{163}\nwdocspar
+\nwnotused{paip.asd}\nwidentuses{\\{{\nwixident{eliza}}{eliza}}\\{{\nwixident{use}}{use}}}\nwindexuse{\nwixident{eliza}}{eliza}{NWlJ9ZL-34miW3-1}\nwindexuse{\nwixident{use}}{use}{NWlJ9ZL-34miW3-1}\nwendcode{}\nwbegindocs{169}\nwdocspar
 
 \chapter{Test Runner}
 
-\nwenddocs{}\nwbegincode{164}\sublabel{NWlJ9ZL-3QIFQJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\moddef{bin/runtests~{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{170}\sublabel{NWlJ9ZL-3QIFQJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\moddef{bin/runtests~{\nwtagstyle{}\subpageref{NWlJ9ZL-3QIFQJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 #! /usr/bin/env nix-shell
 #! nix-shell -i sh -p sbcl
 
@@ -1090,9 +1136,9 @@ sbcl --noinform --non-interactive \\
                     (status   (if (null failures) 0 1)))
                (lisp-unit:print-failures results)
                (sb-posix:exit status))"
-\nwnotused{bin/runtests}\nwendcode{}\nwbegindocs{165}\nwdocspar
+\nwnotused{bin/runtests}\nwendcode{}\nwbegindocs{171}\nwdocspar
 
-\nwenddocs{}\nwbegincode{166}\sublabel{NWlJ9ZL-40xICN-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\moddef{init.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{172}\sublabel{NWlJ9ZL-40xICN-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\moddef{init.lisp~{\nwtagstyle{}\subpageref{NWlJ9ZL-40xICN-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 #-quicklisp
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
                                        (user-homedir-pathname))))
@@ -1148,6 +1194,7 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{c}{{if n is zero return 1}{NWlJ9ZL-2y88rI-1}{\nwixu{NWlJ9ZL-3kZCB2-1}\nwixd{NWlJ9ZL-2y88rI-1}}}%
 \nwixlogsorted{c}{{if the first element of name is a title}{NWlJ9ZL-Ix42V-1}{\nwixu{NWlJ9ZL-1xnn0Z-1}\nwixd{NWlJ9ZL-Ix42V-1}}}%
 \nwixlogsorted{c}{{init.lisp}{NWlJ9ZL-40xICN-1}{\nwixd{NWlJ9ZL-40xICN-1}}}%
+\nwixlogsorted{c}{{interactive-interpreter}{NWlJ9ZL-37Um9m-1}{\nwixd{NWlJ9ZL-37Um9m-1}\nwixu{NWlJ9ZL-rFUuu-1}}}%
 \nwixlogsorted{c}{{Is a condition an executing form?}{NWlJ9ZL-3ZribA-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-3ZribA-1}}}%
 \nwixlogsorted{c}{{Is the argument a list that starts with a given atom?}{NWlJ9ZL-26JY6E-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-26JY6E-1}\nwixu{NWlJ9ZL-4MxtLd-1}}}%
 \nwixlogsorted{c}{{Is x an action?}{NWlJ9ZL-lDJbR-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-lDJbR-1}}}%
@@ -1167,6 +1214,7 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{c}{{permutations}{NWlJ9ZL-4ArfbM-1}{\nwixd{NWlJ9ZL-4ArfbM-1}}}%
 \nwixlogsorted{c}{{power}{NWlJ9ZL-3kZCB2-1}{\nwixu{NWlJ9ZL-2DHmDj-1}\nwixd{NWlJ9ZL-3kZCB2-1}}}%
 \nwixlogsorted{c}{{Print debugging information}{NWlJ9ZL-3LP9Za-1}{\nwixu{NWlJ9ZL-wDl5T-1}\nwixd{NWlJ9ZL-3LP9Za-1}}}%
+\nwixlogsorted{c}{{prompt-generator}{NWlJ9ZL-2r7hDu-1}{\nwixu{NWlJ9ZL-37Um9m-1}\nwixd{NWlJ9ZL-2r7hDu-1}}}%
 \nwixlogsorted{c}{{random-elt}{NWlJ9ZL-2bmzlG-1}{\nwixd{NWlJ9ZL-2bmzlG-1}\nwixu{NWlJ9ZL-4MxtLd-1}}}%
 \nwixlogsorted{c}{{Rex Morgan MD}{NWlJ9ZL-1iWMbJ-1}{\nwixu{NWlJ9ZL-29KvuZ-1}\nwixd{NWlJ9ZL-1iWMbJ-1}}}%
 \nwixlogsorted{c}{{segment-match}{NWlJ9ZL-1VV14C-1}{\nwixu{NWlJ9ZL-fP7AE-1}\nwixd{NWlJ9ZL-1VV14C-1}}}%
@@ -1176,6 +1224,7 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{c}{{src/eliza.lisp}{NWlJ9ZL-3P1OfB-1}{\nwixd{NWlJ9ZL-3P1OfB-1}}}%
 \nwixlogsorted{c}{{src/gps.lisp}{NWlJ9ZL-wDl5T-1}{\nwixd{NWlJ9ZL-wDl5T-1}}}%
 \nwixlogsorted{c}{{src/intro.lisp}{NWlJ9ZL-3M2WD4-1}{\nwixd{NWlJ9ZL-3M2WD4-1}}}%
+\nwixlogsorted{c}{{src/tools.lisp}{NWlJ9ZL-rFUuu-1}{\nwixd{NWlJ9ZL-rFUuu-1}}}%
 \nwixlogsorted{c}{{suffixes}{NWlJ9ZL-33GIZY-1}{\nwixu{NWlJ9ZL-4Wuo2N-1}\nwixd{NWlJ9ZL-33GIZY-1}}}%
 \nwixlogsorted{c}{{switch-viewpoint}{NWlJ9ZL-1ms3Or-1}{\nwixu{NWlJ9ZL-4MxtLd-1}\nwixd{NWlJ9ZL-1ms3Or-1}}}%
 \nwixlogsorted{c}{{Test if an element is equal to a member of a list}{NWlJ9ZL-1aljzn-1}{\nwixu{NWlJ9ZL-QzWjb-1}\nwixd{NWlJ9ZL-1aljzn-1}}}%
@@ -1216,6 +1265,7 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{i}{{\nwixident{flatten}}{flatten}}%
 \nwixlogsorted{i}{{\nwixident{get-binding}}{get-binding}}%
 \nwixlogsorted{i}{{\nwixident{GPS}}{GPS}}%
+\nwixlogsorted{i}{{\nwixident{interactive-interpreter}}{interactive-interpreter}}%
 \nwixlogsorted{i}{{\nwixident{last-name}}{last-name}}%
 \nwixlogsorted{i}{{\nwixident{lookup}}{lookup}}%
 \nwixlogsorted{i}{{\nwixident{make-block-ops}}{make-block-ops}}%
@@ -1233,6 +1283,7 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{i}{{\nwixident{pat-match}}{pat-match}}%
 \nwixlogsorted{i}{{\nwixident{permutations}}{permutations}}%
 \nwixlogsorted{i}{{\nwixident{power}}{power}}%
+\nwixlogsorted{i}{{\nwixident{prompt-generator}}{prompt-generator}}%
 \nwixlogsorted{i}{{\nwixident{random-elt}}{random-elt}}%
 \nwixlogsorted{i}{{\nwixident{rule-pattern}}{rule-pattern}}%
 \nwixlogsorted{i}{{\nwixident{rule-responses}}{rule-responses}}%
@@ -1245,7 +1296,7 @@ sbcl --noinform --non-interactive \\
 \nwixlogsorted{i}{{\nwixident{use}}{use}}%
 \nwixlogsorted{i}{{\nwixident{use-eliza-rules}}{use-eliza-rules}}%
 \nwixlogsorted{i}{{\nwixident{variable-p}}{variable-p}}%
-\nwbegindocs{167}\nwdocspar
+\nwbegindocs{173}\nwdocspar
 
 \chapter{Chunks}
 \nowebchunks
