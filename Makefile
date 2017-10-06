@@ -50,6 +50,9 @@ lol: ${LOL_ALL}
 paip:
 	@ ${MAKE} -C $@
 	@ ln -fs ../$@/tex/$@.pdf docs/
+aaig:
+	@ ${MAKE} -C $@
+	@ ln -fs ../$@/tex/$@.pdf docs/
 
 docs/%.html: src/%.html
 	@ mkdir -p $(dir $@)

@@ -1,0 +1,167 @@
+% -*- ess-noweb-default-code-mode: gap-mode; -*-
+\documentclass[titlepage,sfsidenotes,nols]{tufte-book}
+
+\usepackage{fontspec}
+\setmonofont{Iosevka}
+
+\usepackage{noweb}
+
+\usepackage{color}
+% https://commons.wikimedia.org/wiki/File:Erlang_logo.svg
+\definecolor{ErlangRed}{HTML}{A90533}
+
+\hypersetup{
+  bookmarks=true,
+  pdffitwindow=true,
+  pdfstartview={FitH},
+  pdftitle={Abstract Algebra in GAP: Exercises},
+  pdfauthor={Eric Bailey <eric@ericb.me>},
+  pdfsubject={Abstract Algebra in GAP},
+  pdfkeywords={abstract algebra, GAP, literate programming, noweb},
+  colorlinks=true,
+  linkcolor=ErlangRed,
+  urlcolor=ErlangRed
+}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\mathtoolsset{centercolon}
+
+\usepackage[outputdir=tex]{minted}
+
+% NOTE: Use Tufte instead of noweb page style.
+% \pagestyle{noweb}
+% NOTE: Use shift option for wide code.
+% \noweboptions{smallcode,shortxref,webnumbering,english}
+\noweboptions{smallcode,shortxref}
+
+
+\title{Abstract Algebra in GAP}
+
+\author{Eric Bailey}
+
+% \date{October 1, 2017}
+
+\newcommand{\stylehook}{\marginpar{\raggedright\sl Style hook}}
+
+\newmintinline[gap]{gap}{}
+
+\begin{document}
+\maketitle
+@
+
+\tableofcontents
+\newpage
+
+\chapter{Basic System Interaction}
+
+\section{Exercise 1}
+
+\begin{enumerate}[a]
+
+\item [[IsPerfectInt]] is a function that takes a positive integer \gap{n} and
+returns \gap{true} if \gap{n} is perfect and \gap{false} otherwise.
+
+We could define a function to compute the aliquot sum of a positive integer $n$:
+\marginnote[\baselineskip]{%
+  \[
+    s(n) \equiv \sigma(n) - n
+  \]
+}
+<<Compute the aliquot sum of a positive integer>>=
+`AliquotSum := n -> Sum(DivisorsInt(n)) - n;
+@
+
+Then, using that definition, we could write a function to determine whether a
+positive integer $n$ is perfect:
+<<Determine whether a positive integer is perfect>>=
+IsPerfectInt := n -> n = AliquotSum(n);
+@
+
+Conveniently, GAP ships with \gap{Sigma}, which we can use instead.
+\marginnote[-1\baselineskip]{%
+  \begin{align*}
+    \sigma(n) &= \sum_{d|n} d \\
+    [[IsPerfectInt]](n) := \sigma(n) &= 2n
+  \end{align*}
+}
+<<Determine whether a positive integer is perfect, using Sigma>>=
+`IsPerfectInt := n -> Sigma(n) = 2*n;
+@
+
+\item To find all perfect numbers less than $1000$, run the following:
+\marginnote[2\baselineskip]{%
+  \[
+    \left\{n \in \mathbb{Z}^+\ |\ 1 \leq n < 1000,\ [[IsPerfectInt]](n)\right\}
+  \]
+}
+
+<<Find all perfect numbers less than 1000>>=
+Filtered([1..999], IsPerfectInt);
+@
+
+... which results in:
+<<All perfect numbers less than 1000>>=
+[ 6, 28, 496 ]
+@
+
+\item Not all numbers of the form $2^n(2^{n+1} - 1)$, for some positive integer
+  $n$, are perfect.
+
+<<Not all perfect>>=
+gap> ForAll( PositiveIntegers,
+>            n -> IsPerfectInt(2^n * (2^(n+1) - 1)) );
+false
+@
+
+\item In Euclid's formation rule (IX.36), he proved $\frac{q(q+1)}{2}$ is an
+  even perfect number where $q$ is a prime of the form $2^p - 1$ for prime $p$,
+  a.k.a. a Mersenne prime.
+
+<<Euclid's IX.36>>=
+gap> MersennePrimes := Filtered( List( Primes{[1..50]},
+                                       p -> 2^p - 1 ),
+                                 IsPrime );
+[ 3, 7, 31, 127, 8191, 131071, 524287, 2147483647,
+  2305843009213693951, 618970019642690137449562111,
+  162259276829213363391578010288127,
+  170141183460469231731687303715884105727 ]
+gap> ForAll( MersennePrimes, q -> IsPerfectInt(q * (q + 1) / 2) );
+true
+@
+
+\item TODO: Prove it.
+
+\end{enumerate}
+
+
+\subsection{Code}
+<<src/PerfectNumbers.g>>=
+<<Determine whether a positive integer is perfect, using Sigma>>
+@
+
+
+\subsection{Tests}
+
+To run the tests, make sure the code is loaded
+(\gap{Read("./src/PerfectNumbers.g");}), then run \gap{Test("src/PerfectNumbers.tst");}.
+
+<<src/PerfectNumbers.tst>>=
+# Perfect Number Tests
+
+# Perfect numbers less than 1000
+gap> <<Find all perfect numbers less than 1000>>
+<<All perfect numbers less than 1000>>
+@
+
+\chapter{Chunks}
+\nowebchunks
+
+\chapter{Index}
+\nowebindex
+
+\bibliography{aaig}
+\bibliographystyle{plainnat}
+
+\end{document}
