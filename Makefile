@@ -49,10 +49,10 @@ erlang: ${ERL_ALL}
 lol: ${LOL_ALL}
 paip:
 	@ ${MAKE} -C $@
-	@ ln -fs ../$@/tex/$@.pdf docs/
+	@ ln -f $@/tex/$@.pdf docs/
 aaig:
 	@ ${MAKE} -C $@
-	@ ln -fs ../$@/tex/$@.pdf docs/
+	@ ln -f $@/tex/$@.pdf docs/
 
 docs/%.html: src/%.html
 	@ mkdir -p $(dir $@)
