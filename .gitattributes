@@ -1,3 +1,7 @@
+aaig/doc/*.css linguist-vendored
+aaig/doc/*.html linguist-documentation
+aaig/doc/*.js linguist-vendored
+aaig/tex/*.tex linguist-generated
 aaig/tex/aaig.tex linguist-generated
 docs/idris/hello.html linguist-generated
 paip/tex/paip.tex linguist-generated
