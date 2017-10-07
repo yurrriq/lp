@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<Chapter Label="Chapter_PerfectNumbers">
+<Heading>PerfectNumbers</Heading>
+
+<Section Label="Chapter_PerfectNumbers_Section_The_IsPerfect_Operation">
+<Heading>The IsPerfect() Operation</Heading>
+
+<ManSection>
+  <Oper Arg="int" Name="IsPerfect" Label="for IsInt and IsPosInt"/>
+ <Description>
+Determine whether a positive <A>int</A> is perfect.
+ </Description>
+</ManSection>
+
+
+<Example><![CDATA[
+gap> Filtered([1..999], IsPerfect);
+[ 6, 28, 496 ]
+]]></Example>
+
+
+</Section>
+
+
+</Chapter>
+

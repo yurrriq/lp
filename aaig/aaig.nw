@@ -60,7 +60,7 @@
 
 \begin{enumerate}[a]
 
-\item [[IsPerfectInt]] is a function that takes a positive integer \gap{n} and
+\item [[IsPerfect]] is a function that takes a positive integer \gap{n} and
 returns \gap{true} if \gap{n} is perfect and \gap{false} otherwise.
 
 We could define a function to compute the aliquot sum of a positive integer $n$:
@@ -76,29 +76,29 @@ We could define a function to compute the aliquot sum of a positive integer $n$:
 Then, using that definition, we could write a function to determine whether a
 positive integer $n$ is perfect:
 <<Determine whether a positive integer is perfect>>=
-IsPerfectInt := n -> n = AliquotSum(n);
+IsPerfect := n -> n = AliquotSum(n);
 @
 
 Conveniently, GAP ships with \gap{Sigma}, which we can use instead.
 \marginnote[-1\baselineskip]{%
   \begin{align*}
     \sigma(n) &= \sum_{d|n} d \\
-    [[IsPerfectInt]](n) := \sigma(n) &= 2n
+    [[IsPerfect]](n) := \sigma(n) &= 2n
   \end{align*}
 }
 <<Determine whether a positive integer is perfect, using Sigma>>=
-`IsPerfectInt := n -> Sigma(n) = 2*n;
+n -> Sigma(n) = 2*n
 @
 
 \item To find all perfect numbers less than $1000$, run the following:
 \marginnote[2\baselineskip]{%
   \[
-    \left\{n \in \mathbb{Z}^+\ |\ 1 \leq n < 1000,\ [[IsPerfectInt]](n)\right\}
+    \left\{n \in \mathbb{Z}^+\ |\ 1 \leq n < 1000,\ [[IsPerfect]](n)\right\}
   \]
 }
 
 <<Find all perfect numbers less than 1000>>=
-Filtered([1..999], IsPerfectInt);
+Filtered([1..999], IsPerfect);
 @
 
 ... which results in:
@@ -111,7 +111,7 @@ Filtered([1..999], IsPerfectInt);
 
 <<Not all perfect>>=
 gap> ForAll( PositiveIntegers,
->            n -> IsPerfectInt(2^n * (2^(n+1) - 1)) );
+>            n -> IsPerfect(2^n * (2^(n+1) - 1)) );
 false
 @
 
@@ -127,7 +127,7 @@ gap> MersennePrimes := Filtered( List( Primes{[1..50]},
   2305843009213693951, 618970019642690137449562111,
   162259276829213363391578010288127,
   170141183460469231731687303715884105727 ]
-gap> ForAll( MersennePrimes, q -> IsPerfectInt(q * (q + 1) / 2) );
+gap> ForAll( MersennePrimes, q -> IsPerfect(q * (q + 1) / 2) );
 true
 @
 
@@ -137,22 +137,54 @@ true
 
 
 \subsection{Code}
-<<src/PerfectNumbers.g>>=
-<<Determine whether a positive integer is perfect, using Sigma>>
+
+<<Filter for positive integers>>=
+IsInt and IsPosInt
+@
+
+<<lib/PerfectNumbers.gd>>=
+#! @Chapter PerfectNumbers
+
+#! @Section The IsPerfect() Operation
+
+#! @Description
+#!  Determine whether a positive <A>int</A> is perfect.
+#! @Arguments int
+DeclareOperation( "IsPerfect",
+    [ <<Filter for positive integers>> ] );
+@
+
+<<lib/PerfectNumbers.gi>>=
+#! @Chapter PerfectNumbers
+
+#! @Section The IsPerfect() Operation
+
+InstallMethod( `IsPerfect,
+    "for a positive integer",
+    [ <<Filter for positive integers>> ],
+    <<Determine whether a positive integer is perfect, using Sigma>> );
+
+#! @BeginExample
+<<Find all perfect numbers less than 1000>>
+#! <<All perfect numbers less than 1000>>
+#! @EndExample
 @
 
 
 \subsection{Tests}
 
-To run the tests, make sure the code is loaded
-(\gap{Read("./src/PerfectNumbers.g");}), then run \gap{Test("src/PerfectNumbers.tst");}.
+<<<Run the tests>>=
+gap> Test("tst/PerfectNumbers.tst");
+@
 
-<<src/PerfectNumbers.tst>>=
-# Perfect Number Tests
-
-# Perfect numbers less than 1000
+<<tst/PerfectNumbers.tst>>=
+gap> START_TEST("AAIG package: PerfectNumbers.tst");
+gap> LoadPackage("AAIG", false);
+#I  method installed for IsPerfect matches more than one declaration
+true
 gap> <<Find all perfect numbers less than 1000>>
 <<All perfect numbers less than 1000>>
+gap> STOP_TEST( "PerfectNumbers.tst", 10000 );
 @
 
 \chapter{Chunks}

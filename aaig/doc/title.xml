@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    AAIG
+  </Title>
+  <Subtitle>
+    Abstract Algebra in &GAP;
+  </Subtitle>
+  <Version>
+    0.0.1
+  </Version>
+  <Author>
+    Eric Bailey<Alt Only="LaTeX"><Br/></Alt>
+<Email>eric@ericb.me</Email>
+
+  </Author>
+  <Date>
+    6 October 2017
+  </Date>
+  </TitlePage>
