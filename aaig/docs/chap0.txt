@@ -1,0 +1,32 @@
+  
+  
+                                     [1X AAIG [101X
+  
+  
+                           [1X Abstract Algebra in [5XGAP[105X [101X
+  
+  
+                                     0.0.1
+  
+  
+                                 6 October 2017
+  
+  
+                                  Eric Bailey
+  
+  
+  
+  Eric Bailey
+      Email:    [7Xmailto:eric@ericb.me[107X
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (AAIG)[101X
+  
+  1 [33X[0;0YPerfectNumbers[133X
+    1.1 [33X[0;0YThe IsPerfect() Operation[133X
+      1.1-1 IsPerfect
+  
+  
+  [32X
