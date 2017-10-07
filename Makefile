@@ -42,7 +42,7 @@ tangle     = notangle -R'$(basename $(notdir $<))' -filter btdefn $< >$@
 all: idris erlang
 	@ ln -sf idris/hello.html docs/index.html
 
-.PHONY: idris erlang
+.PHONY: idris erlang paip aaig
 
 idris: ${IDR_ALL}
 erlang: ${ERL_ALL}
@@ -50,9 +50,13 @@ lol: ${LOL_ALL}
 paip:
 	@ ${MAKE} -C $@
 	@ ln -f $@/tex/$@.pdf docs/
+
+# git remote add -f aaig git@github.com:yurrriq/abstract-algebra-in-gap.git
+# git subtree add --prefix aaig aaig master --squash
 aaig:
-	@ ${MAKE} -C $@
-	@ ln -f $@/tex/$@.pdf docs/
+	@ git fetch $@ master
+	@ git subtree pull --prefix $@ $@ master --squash
+	@ ln -f $@/docs/$@.pdf docs/
 
 docs/%.html: src/%.html
 	@ mkdir -p $(dir $@)
