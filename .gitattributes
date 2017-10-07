@@ -1,0 +1,5 @@
+docs/*.css linguist-vendored
+docs/*.html linguist-documentation
+docs/*.js linguist-vendored
+tex/*.tex linguist-generated
+tex/aaig.tex linguist-generated

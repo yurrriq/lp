@@ -1,0 +1,364 @@
+% -*- ess-noweb-default-code-mode: gap-mode; -*-
+\documentclass[titlepage,sfsidenotes,nols]{tufte-book}
+
+\usepackage{fontspec}
+\setmonofont{Iosevka}
+
+\usepackage{noweb}
+
+\usepackage{color}
+% https://commons.wikimedia.org/wiki/File:Erlang_logo.svg
+\definecolor{ErlangRed}{HTML}{A90533}
+
+\hypersetup{
+  bookmarks=true,
+  pdffitwindow=true,
+  pdfstartview={FitH},
+  pdftitle={Abstract Algebra in GAP: Exercises},
+  pdfauthor={Eric Bailey <eric@ericb.me>},
+  pdfsubject={Abstract Algebra in GAP},
+  pdfkeywords={abstract algebra, GAP, literate programming, noweb},
+  colorlinks=true,
+  linkcolor=ErlangRed,
+  urlcolor=ErlangRed
+}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\mathtoolsset{centercolon}
+
+\usepackage[outputdir=tex]{minted}
+
+\usepackage{todonotes}
+
+% NOTE: Use Tufte instead of noweb page style.
+% \pagestyle{noweb}
+% NOTE: Use shift option for wide code.
+% \noweboptions{smallcode,shortxref,webnumbering,english}
+\noweboptions{smallcode,shortxref}
+
+
+\title{Abstract Algebra in GAP}
+
+\author{Eric Bailey}
+
+% \date{October 1, 2017}
+
+\newcommand{\stylehook}{\marginpar{\raggedright\sl Style hook}}
+
+\newmintinline[gap]{gap}{}
+
+\begin{document}
+\maketitle
+@
+
+\tableofcontents
+\newpage
+
+\chapter{Basic System Interaction}
+
+\section{Exercise 1}
+
+\begin{enumerate}[a)]
+
+\item {\sl Write a function that takes a positive integer $n$ as input and
+    returns \gap{true} if $n$ is perfect and \gap{false} if $n$ is not perfect.}
+
+We could define a function to compute the aliquot sum of a positive integer $n$:
+\marginnote[\baselineskip]{%
+  \[
+    s(n) \equiv \sigma(n) - n
+  \]
+}
+
+<<Compute the aliquot sum of a positive integer>>=
+`AliquotSum := n -> Sum(DivisorsInt(n)) - n;
+@
+
+Then, using that definition, we could write a function to determine whether a
+positive integer $n$ is perfect:
+
+<<Determine whether a positive integer is perfect>>=
+IsPerfect := n -> n = AliquotSum(n);
+@
+
+Conveniently, GAP ships with \gap{Sigma}, which we can use instead.
+
+\marginnote[-1\baselineskip]{%
+  \begin{align*}
+    \sigma(n) &= \sum_{d|n} d \\
+    [[IsPerfect]](n) := \sigma(n) &= 2n
+  \end{align*}
+}
+
+<<Determine whether a positive integer is perfect, using Sigma>>=
+n -> Sigma(n) = 2*n
+@
+
+\item {\sl Use your function to find all perfect numbers less than 1000.}
+
+\marginnote[2\baselineskip]{%
+  \[
+    \left\{n \in \mathbb{Z}^+\ |\ 1 \leq n \leq 999,\ [[IsPerfect]](n)\right\}
+  \]
+}
+
+<<Find all perfect numbers less than 1000>>=
+Filtered([1..999], IsPerfect);
+@
+
+... which results in:
+
+<<All perfect numbers less than 1000>>=
+[ 6, 28, 496 ]
+@
+
+\item {\sl Notice that all of the numbers you found have a certain form, namely
+    $2^n(2^{n+1} − 1)$ for some integer $n$. Are all numbers of this form
+    perfect?}
+
+No, using GAP we can show not all such numbers are perfect.
+
+<<not all such numbers are perfect>>=
+gap> ForAll( PositiveIntegers,
+>            n -> IsPerfect(2^n * (2^(n+1) - 1)) );
+false
+@
+
+\item {\sl By experimenting in GAP, conjecture a necessary and sufficient
+    condition for $2^n(2^{n+1} − 1)$ to be a perfect number.}
+
+In Euclid's formation rule (IX.36), he proved $\frac{q(q+1)}{2}$ is an even
+perfect number where $q$ is a prime of the form $2^p - 1$ for prime $p$,
+a.k.a. a Mersenne prime.
+
+<<Euclid's IX.36>>=
+gap> MersennePrimes := Filtered( List( Primes{[1..50]},
+                                       p -> 2^p - 1 ),
+                                 IsPrime );
+[ 3, 7, 31, 127, 8191, 131071, 524287, 2147483647,
+  2305843009213693951, 618970019642690137449562111,
+  162259276829213363391578010288127,
+  170141183460469231731687303715884105727 ]
+gap> ForAll( MersennePrimes, q -> IsPerfect(q * (q + 1) / 2) );
+true
+@
+
+\item {\sl Prove your conjecture is correct.}
+\todo[inline]{Prove it}
+
+\end{enumerate}
+
+
+\subsection{Code}
+
+For [[IsPerfect]], use the following filter, since we only care about integers,
+or more specifically, positive integers.
+
+<<Filter for positive integers>>=
+IsInt and IsPosInt
+@
+
+<<gap/PerfectNumbers.gd>>=
+#! @Chapter PerfectNumbers
+
+#! @Section The IsPerfect() Operation
+
+#! @Description
+#!  Determine whether a positive <A>int</A> is perfect.
+#! @Arguments int
+DeclareOperation( "IsPerfect",
+    [ <<Filter for positive integers>> ] );
+@
+
+<<gap/PerfectNumbers.gi>>=
+#! @Chapter PerfectNumbers
+
+#! @Section The IsPerfect() Operation
+
+InstallMethod( `IsPerfect,
+    "for a positive integer",
+    [ <<Filter for positive integers>> ],
+    <<Determine whether a positive integer is perfect, using Sigma>> );
+
+#! @BeginExample
+<<Find all perfect numbers less than 1000>>
+#! <<All perfect numbers less than 1000>>
+#! @EndExample
+@
+
+
+\subsection{Tests}
+
+\todo[inline]{Describe this}
+
+<<tst/PerfectNumbers.tst>>=
+gap> START_TEST("AAIG package: PerfectNumbers.tst");
+
+gap> <<Find all perfect numbers less than 1000>>
+<<All perfect numbers less than 1000>>
+
+gap> STOP_TEST( "AAIG package: PerfectNumbers.tst", 10000 );
+@
+
+
+To test the package, create a file {\tt tst/testall.g}.
+
+<<tst/testall.g>>=
+<<Load the package>>
+
+<<Call TestDirectory>>
+
+<<Force quit GAP>>
+@
+
+First load the package:
+
+<<Load the package>>=
+LoadPackage( "AAIG" );
+@
+
+Then get the list of directory objects for the {\tt tst} directory of the
+AAIG package:
+
+<<The list of directory objects>>=
+DirectoriesPackageLibrary("AAIG", "tst"),
+@
+
+... and call \gap{TestDirectory} on it, with the following options:
+
+<<TestDirectory options record>>=
+rec( exitGAP := true,
+     testOptions := rec(compareFunction := "uptowhitespace") )
+@
+
+<<Call TestDirectory>>=
+TestDirectory( <<The list of directory objects>>
+               <<TestDirectory options record>> );
+@
+
+Finally, force quit GAP, in case it hasn't exited already:
+
+<<Force quit GAP>>=
+FORCE_QUIT_GAP(1);
+@
+
+\chapter{Miscellaneous}
+
+<<PackageInfo.g>>=
+SetPackageInfo( rec(
+    PackageName := "AAIG",
+    Subtitle := "Abstract Algebra in GAP",
+    Version := "0.0.1",
+    Date := "06/10/2017", # NOTE: dd/mm/yyyy
+    PackageWWWHome :=
+        Concatenation( "https://yurrriq.github.io/",
+                       LowercaseString( ~.PackageName ) ),
+    SourceRepository := rec(
+        Type := "git",
+        URL := "https://github.com/yurrriq/abstract-algebra-in-gap"
+    ),
+    IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
+    SupportEmail := "eric@ericb.me",
+    Persons := [
+        rec(
+          LastName := "Bailey",
+          FirstNames := "Eric",
+          IsAuthor := true,
+          IsMaintainer := true,
+          Email := ~.SupportEmail,
+          # WWWHome := ...,
+          # PostalAddress := ...,
+          # Place := ...,
+          # Institution := ...
+        )
+    ],
+    Status := "other",
+    README_URL := Concatenation( ~.PackageWWWHome, "/README.md" ),
+    PackageInfoURL := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
+    # TODO: AbstractHTML := ...,
+    PackageDoc := rec(
+      BookName := "AAIG",
+      ArchiveURLSubset := ["docs"],
+      HTMLStart := "docs/chap0.html",
+      PDFFile := "docs/manual.pdf",
+      SixFile := "docs/manual.six",
+      LongTitle := "Abstract Algebra in GAP"
+    ),
+    Dependencies := rec(
+      GAP := "4.8.8",
+      NeededOtherPackages := [],
+      SuggestedOtherPackages := [],
+      ExternalConditions := []
+    ),
+    AvailabilityTest := ReturnTrue,
+    TestFile := "tst/testall.g",
+    Autoload := false,
+    # Keywords := [ ... ],
+    # BannerString := ...
+));
+@
+
+<<init.g>>=
+ReadPackage( "AAIG", "gap/PerfectNumbers.gd" );
+@
+
+<<makedoc.g>>=
+LoadPackage( "AutoDoc" );
+AutoDoc( rec( autodoc := true,
+              dir := "docs",
+              scaffold := true ) );
+
+QUIT;
+@
+
+<<read.g>>=
+ReadPackage( "AAIG", "gap/PerfectNumbers.gi" );
+@
+
+<<default.nix>>=
+with import <nixpkgs> {};
+
+
+let
+
+  gap = callPackage ./nix/gap.nix {};
+
+in
+
+
+stdenv.mkDerivation rec {
+  name = "howtogap-${version}";
+  version = builtins.readFile ./VERSION;
+  src = ./.;
+
+  buildInputs = [
+    gap
+
+    # coreutils
+    less
+    # which
+  ];
+
+  checkFlags = [ "GAPROOT=${gap}/share/gap/build-dir" ];
+
+  installPhase = ''
+    ${gap}/bin/gap.sh -b makedoc.g
+    local pkgdir=$out/share/gap/build-dir/pkg/aiig
+    mkdir -p $pkgdir
+    cp -R {PackageInfo,init,makedoc,read}.g docs/ gap/ tst/ $pkgdir
+  '';
+}
+@
+
+\chapter{Chunks}
+\nowebchunks
+
+\chapter{Index}
+\nowebindex
+
+\bibliography{aaig}
+\bibliographystyle{plainnat}
+
+\end{document}

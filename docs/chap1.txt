@@ -1,0 +1,17 @@
+  
+  [1X1 [33X[0;0YPerfectNumbers[133X[101X
+  
+  
+  [1X1.1 [33X[0;0YThe IsPerfect() Operation[133X[101X
+  
+  [1X1.1-1 IsPerfect[101X
+  
+  [29X[2XIsPerfect[102X( [3Xint[103X ) [32X operation
+  
+  [33X[0;0YDetermine whether a positive [3Xint[103X is perfect.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XFiltered([1..999], IsPerfect);[127X[104X
+    [4X[28X[ 6, 28, 496 ][128X[104X
+  [4X[32X[104X
+  
