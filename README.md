@@ -1,6 +1,6 @@
 # Literate Programming
 
-* `aaig`: [Abstract Algebra in GAP][aaig]
+* `aaig`: [Abstract Algebra in GAP][aaig] ([repo][aaig-repo])
 * `paip`: [Paradigms of Artificial Intelligence Programming][paip]
 * `src/erlang`: [Joe Armstrong's Favorite Erlang Program][fav1]
 * `src/lol`: [The Guess-My-Number Game][guess]
@@ -8,6 +8,7 @@
 
 <!-- Named Links -->
 [aaig]: http://yurrriq.codes/lp/aaig.pdf
+[aaig-repo]: https://github.com/yurrriq/abstract-algebra-in-gap
 [paip]: http://yurrriq.codes/lp/paip.pdf
 [fav1]: http://yurrriq.codes/lp/erlang/fav1.pdf
 [guess]: http://yurrriq.codes/lp/lol/guess.pdf
