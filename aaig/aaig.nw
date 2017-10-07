@@ -30,6 +30,8 @@
 
 \usepackage[outputdir=tex]{minted}
 
+\usepackage{todonotes}
+
 % NOTE: Use Tufte instead of noweb page style.
 % \pagestyle{noweb}
 % NOTE: Use shift option for wide code.
@@ -58,10 +60,10 @@
 
 \section{Exercise 1}
 
-\begin{enumerate}[a]
+\begin{enumerate}[a)]
 
-\item [[IsPerfect]] is a function that takes a positive integer \gap{n} and
-returns \gap{true} if \gap{n} is perfect and \gap{false} otherwise.
+\item {\sl Write a function that takes a positive integer $n$ as input and
+    returns \gap{true} if $n$ is perfect and \gap{false} if $n$ is not perfect.}
 
 We could define a function to compute the aliquot sum of a positive integer $n$:
 \marginnote[\baselineskip]{%
@@ -69,31 +71,36 @@ We could define a function to compute the aliquot sum of a positive integer $n$:
     s(n) \equiv \sigma(n) - n
   \]
 }
+
 <<Compute the aliquot sum of a positive integer>>=
 `AliquotSum := n -> Sum(DivisorsInt(n)) - n;
 @
 
 Then, using that definition, we could write a function to determine whether a
 positive integer $n$ is perfect:
+
 <<Determine whether a positive integer is perfect>>=
 IsPerfect := n -> n = AliquotSum(n);
 @
 
 Conveniently, GAP ships with \gap{Sigma}, which we can use instead.
+
 \marginnote[-1\baselineskip]{%
   \begin{align*}
     \sigma(n) &= \sum_{d|n} d \\
     [[IsPerfect]](n) := \sigma(n) &= 2n
   \end{align*}
 }
+
 <<Determine whether a positive integer is perfect, using Sigma>>=
 n -> Sigma(n) = 2*n
 @
 
-\item To find all perfect numbers less than $1000$, run the following:
+\item {\sl Use your function to find all perfect numbers less than 1000.}
+
 \marginnote[2\baselineskip]{%
   \[
-    \left\{n \in \mathbb{Z}^+\ |\ 1 \leq n < 1000,\ [[IsPerfect]](n)\right\}
+    \left\{n \in \mathbb{Z}^+\ |\ 1 \leq n \leq 999,\ [[IsPerfect]](n)\right\}
   \]
 }
 
@@ -102,22 +109,29 @@ Filtered([1..999], IsPerfect);
 @
 
 ... which results in:
+
 <<All perfect numbers less than 1000>>=
 [ 6, 28, 496 ]
 @
 
-\item Not all numbers of the form $2^n(2^{n+1} - 1)$, for some positive integer
-  $n$, are perfect.
+\item {\sl Notice that all of the numbers you found have a certain form, namely
+    $2^n(2^{n+1} − 1)$ for some integer $n$. Are all numbers of this form
+    perfect?}
 
-<<Not all perfect>>=
+No, using GAP we can show not all such numbers are perfect.
+
+<<not all such numbers are perfect>>=
 gap> ForAll( PositiveIntegers,
 >            n -> IsPerfect(2^n * (2^(n+1) - 1)) );
 false
 @
 
-\item In Euclid's formation rule (IX.36), he proved $\frac{q(q+1)}{2}$ is an
-  even perfect number where $q$ is a prime of the form $2^p - 1$ for prime $p$,
-  a.k.a. a Mersenne prime.
+\item {\sl By experimenting in GAP, conjecture a necessary and sufficient
+    condition for $2^n(2^{n+1} − 1)$ to be a perfect number.}
+
+In Euclid's formation rule (IX.36), he proved $\frac{q(q+1)}{2}$ is an even
+perfect number where $q$ is a prime of the form $2^p - 1$ for prime $p$,
+a.k.a. a Mersenne prime.
 
 <<Euclid's IX.36>>=
 gap> MersennePrimes := Filtered( List( Primes{[1..50]},
@@ -131,12 +145,16 @@ gap> ForAll( MersennePrimes, q -> IsPerfect(q * (q + 1) / 2) );
 true
 @
 
-\item TODO: Prove it.
+\item {\sl Prove your conjecture is correct.}
+\todo[inline]{Prove it}
 
 \end{enumerate}
 
 
 \subsection{Code}
+
+For [[IsPerfect]], use the following filter, since we only care about integers,
+or more specifically, positive integers.
 
 <<Filter for positive integers>>=
 IsInt and IsPosInt
@@ -173,18 +191,57 @@ InstallMethod( `IsPerfect,
 
 \subsection{Tests}
 
-<<<Run the tests>>=
-gap> Test("tst/PerfectNumbers.tst");
-@
+\todo[inline]{Describe this}
 
 <<tst/PerfectNumbers.tst>>=
 gap> START_TEST("AAIG package: PerfectNumbers.tst");
-gap> LoadPackage("AAIG", false);
-#I  method installed for IsPerfect matches more than one declaration
-true
+
 gap> <<Find all perfect numbers less than 1000>>
 <<All perfect numbers less than 1000>>
-gap> STOP_TEST( "PerfectNumbers.tst", 10000 );
+
+gap> STOP_TEST( "AAIG package: PerfectNumbers.tst", 10000 );
+@
+
+
+To test the package, create a file {\tt tst/testall.g}.
+
+<<tst/testall.g>>=
+<<Load the package>>
+
+<<Call TestDirectory>>
+
+<<Force quit GAP>>
+@
+
+First load the package:
+
+<<Load the package>>=
+LoadPackage( "AAIG" );
+@
+
+Then get the list of directory objects for the {\tt tst} directory of the
+AAIG package:
+
+<<The list of directory objects>>=
+DirectoriesPackageLibrary("AAIG", "tst"),
+@
+
+... and call \gap{TestDirectory} on it, with the following options:
+
+<<TestDirectory options record>>=
+rec( exitGAP := true,
+     testOptions := rec(compareFunction := "uptowhitespace") )
+@
+
+<<Call TestDirectory>>=
+TestDirectory( <<The list of directory objects>>
+               <<TestDirectory options record>> );
+@
+
+Finally, force quit GAP, in case it hasn't exited already:
+
+<<Force quit GAP>>=
+FORCE_QUIT_GAP(1);
 @
 
 \chapter{Chunks}

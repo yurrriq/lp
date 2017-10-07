@@ -30,6 +30,8 @@
 
 \usepackage[outputdir=tex]{minted}
 
+\usepackage{todonotes}
+
 % NOTE: Use Tufte instead of noweb page style.
 % \pagestyle{noweb}
 % NOTE: Use shift option for wide code.
@@ -58,10 +60,10 @@
 
 \section{Exercise 1}
 
-\begin{enumerate}[a]
+\begin{enumerate}[a)]
 
-\item {\Tt{}\nwlinkedidentq{IsPerfect}{NWVU3sy-2xVIrD-1}\nwendquote} is a function that takes a positive integer \gap{n} and
-returns \gap{true} if \gap{n} is perfect and \gap{false} otherwise.
+\item {\sl Write a function that takes a positive integer $n$ as input and
+    returns \gap{true} if $n$ is perfect and \gap{false} if $n$ is not perfect.}
 
 We could define a function to compute the aliquot sum of a positive integer $n$:
 \marginnote[\baselineskip]{%
@@ -69,31 +71,36 @@ We could define a function to compute the aliquot sum of a positive integer $n$:
     s(n) \equiv \sigma(n) - n
   \]
 }
+
 \nwenddocs{}\nwbegincode{2}\sublabel{NWVU3sy-xApnh-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-xApnh-1}}}\moddef{Compute the aliquot sum of a positive integer~{\nwtagstyle{}\subpageref{NWVU3sy-xApnh-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 \nwindexdefn{\nwixident{AliquotSum}}{AliquotSum}{NWVU3sy-xApnh-1}\nwlinkedidentc{AliquotSum}{NWVU3sy-xApnh-1} := n -> Sum(DivisorsInt(n)) - n;
 \nwnotused{Compute the aliquot sum of a positive integer}\nwidentdefs{\\{{\nwixident{AliquotSum}}{AliquotSum}}}\nwendcode{}\nwbegindocs{3}\nwdocspar
 
 Then, using that definition, we could write a function to determine whether a
 positive integer $n$ is perfect:
+
 \nwenddocs{}\nwbegincode{4}\sublabel{NWVU3sy-3gU79I-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-3gU79I-1}}}\moddef{Determine whether a positive integer is perfect~{\nwtagstyle{}\subpageref{NWVU3sy-3gU79I-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 \nwlinkedidentc{IsPerfect}{NWVU3sy-2xVIrD-1} := n -> n = \nwlinkedidentc{AliquotSum}{NWVU3sy-xApnh-1}(n);
 \nwnotused{Determine whether a positive integer is perfect}\nwidentuses{\\{{\nwixident{AliquotSum}}{AliquotSum}}\\{{\nwixident{IsPerfect}}{IsPerfect}}}\nwindexuse{\nwixident{AliquotSum}}{AliquotSum}{NWVU3sy-3gU79I-1}\nwindexuse{\nwixident{IsPerfect}}{IsPerfect}{NWVU3sy-3gU79I-1}\nwendcode{}\nwbegindocs{5}\nwdocspar
 
 Conveniently, GAP ships with \gap{Sigma}, which we can use instead.
+
 \marginnote[-1\baselineskip]{%
   \begin{align*}
     \sigma(n) &= \sum_{d|n} d \\
     {\Tt{}\nwlinkedidentq{IsPerfect}{NWVU3sy-2xVIrD-1}\nwendquote}(n) := \sigma(n) &= 2n
   \end{align*}
 }
+
 \nwenddocs{}\nwbegincode{6}\sublabel{NWVU3sy-1Ey6ln-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-1Ey6ln-1}}}\moddef{Determine whether a positive integer is perfect, using Sigma~{\nwtagstyle{}\subpageref{NWVU3sy-1Ey6ln-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWVU3sy-2xVIrD-1}}\nwenddeflinemarkup
 n -> Sigma(n) = 2*n
 \nwused{\\{NWVU3sy-2xVIrD-1}}\nwendcode{}\nwbegindocs{7}\nwdocspar
 
-\item To find all perfect numbers less than $1000$, run the following:
+\item {\sl Use your function to find all perfect numbers less than 1000.}
+
 \marginnote[2\baselineskip]{%
   \[
-    \left\{n \in \mathbb{Z}^+\ |\ 1 \leq n < 1000,\ {\Tt{}\nwlinkedidentq{IsPerfect}{NWVU3sy-2xVIrD-1}\nwendquote}(n)\right\}
+    \left\{n \in \mathbb{Z}^+\ |\ 1 \leq n \leq 999,\ {\Tt{}\nwlinkedidentq{IsPerfect}{NWVU3sy-2xVIrD-1}\nwendquote}(n)\right\}
   \]
 }
 
@@ -102,22 +109,29 @@ Filtered([1..999], \nwlinkedidentc{IsPerfect}{NWVU3sy-2xVIrD-1});
 \nwused{\\{NWVU3sy-2xVIrD-1}\\{NWVU3sy-2W1Ke-1}}\nwidentuses{\\{{\nwixident{IsPerfect}}{IsPerfect}}}\nwindexuse{\nwixident{IsPerfect}}{IsPerfect}{NWVU3sy-h8dy6-1}\nwendcode{}\nwbegindocs{9}\nwdocspar
 
 ... which results in:
+
 \nwenddocs{}\nwbegincode{10}\sublabel{NWVU3sy-1gKlN7-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-1gKlN7-1}}}\moddef{All perfect numbers less than 1000~{\nwtagstyle{}\subpageref{NWVU3sy-1gKlN7-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWVU3sy-2xVIrD-1}\\{NWVU3sy-2W1Ke-1}}\nwenddeflinemarkup
 [ 6, 28, 496 ]
 \nwused{\\{NWVU3sy-2xVIrD-1}\\{NWVU3sy-2W1Ke-1}}\nwendcode{}\nwbegindocs{11}\nwdocspar
 
-\item Not all numbers of the form $2^n(2^{n+1} - 1)$, for some positive integer
-  $n$, are perfect.
+\item {\sl Notice that all of the numbers you found have a certain form, namely
+    $2^n(2^{n+1} − 1)$ for some integer $n$. Are all numbers of this form
+    perfect?}
 
-\nwenddocs{}\nwbegincode{12}\sublabel{NWVU3sy-2uZKeV-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-2uZKeV-1}}}\moddef{Not all perfect~{\nwtagstyle{}\subpageref{NWVU3sy-2uZKeV-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+No, using GAP we can show not all such numbers are perfect.
+
+\nwenddocs{}\nwbegincode{12}\sublabel{NWVU3sy-13ZiKJ-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-13ZiKJ-1}}}\moddef{not all such numbers are perfect~{\nwtagstyle{}\subpageref{NWVU3sy-13ZiKJ-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 gap> ForAll( PositiveIntegers,
 >            n -> \nwlinkedidentc{IsPerfect}{NWVU3sy-2xVIrD-1}(2^n * (2^(n+1) - 1)) );
 false
-\nwnotused{Not all perfect}\nwidentuses{\\{{\nwixident{IsPerfect}}{IsPerfect}}}\nwindexuse{\nwixident{IsPerfect}}{IsPerfect}{NWVU3sy-2uZKeV-1}\nwendcode{}\nwbegindocs{13}\nwdocspar
+\nwnotused{not all such numbers are perfect}\nwidentuses{\\{{\nwixident{IsPerfect}}{IsPerfect}}}\nwindexuse{\nwixident{IsPerfect}}{IsPerfect}{NWVU3sy-13ZiKJ-1}\nwendcode{}\nwbegindocs{13}\nwdocspar
 
-\item In Euclid's formation rule (IX.36), he proved $\frac{q(q+1)}{2}$ is an
-  even perfect number where $q$ is a prime of the form $2^p - 1$ for prime $p$,
-  a.k.a. a Mersenne prime.
+\item {\sl By experimenting in GAP, conjecture a necessary and sufficient
+    condition for $2^n(2^{n+1} − 1)$ to be a perfect number.}
+
+In Euclid's formation rule (IX.36), he proved $\frac{q(q+1)}{2}$ is an even
+perfect number where $q$ is a prime of the form $2^p - 1$ for prime $p$,
+a.k.a. a Mersenne prime.
 
 \nwenddocs{}\nwbegincode{14}\sublabel{NWVU3sy-hWGw1-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-hWGw1-1}}}\moddef{Euclid's IX.36~{\nwtagstyle{}\subpageref{NWVU3sy-hWGw1-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 gap> MersennePrimes := Filtered( List( Primes\{[1..50]\},
@@ -131,12 +145,16 @@ gap> ForAll( MersennePrimes, q -> \nwlinkedidentc{IsPerfect}{NWVU3sy-2xVIrD-1}(q
 true
 \nwnotused{Euclid's IX.36}\nwidentuses{\\{{\nwixident{IsPerfect}}{IsPerfect}}}\nwindexuse{\nwixident{IsPerfect}}{IsPerfect}{NWVU3sy-hWGw1-1}\nwendcode{}\nwbegindocs{15}\nwdocspar
 
-\item TODO: Prove it.
+\item {\sl Prove your conjecture is correct.}
+\todo[inline]{Prove it}
 
 \end{enumerate}
 
 
 \subsection{Code}
+
+For {\Tt{}\nwlinkedidentq{IsPerfect}{NWVU3sy-2xVIrD-1}\nwendquote}, use the following filter, since we only care about integers,
+or more specifically, positive integers.
 
 \nwenddocs{}\nwbegincode{16}\sublabel{NWVU3sy-2Kurrx-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-2Kurrx-1}}}\moddef{Filter for positive integers~{\nwtagstyle{}\subpageref{NWVU3sy-2Kurrx-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWVU3sy-2BftRL-1}\\{NWVU3sy-2xVIrD-1}}\nwenddeflinemarkup
 IsInt and IsPosInt
@@ -173,35 +191,79 @@ DeclareOperation( "\nwlinkedidentc{IsPerfect}{NWVU3sy-2xVIrD-1}",
 
 \subsection{Tests}
 
-\nwenddocs{}\nwbegincode{22}\sublabel{NWVU3sy-36UFYc-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-36UFYc-1}}}\moddef{<Run the tests~{\nwtagstyle{}\subpageref{NWVU3sy-36UFYc-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
-gap> Test("tst/PerfectNumbers.tst");
-\nwnotused{<Run the tests}\nwendcode{}\nwbegindocs{23}\nwdocspar
+\todo[inline]{Describe this}
 
-\nwenddocs{}\nwbegincode{24}\sublabel{NWVU3sy-2W1Ke-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-2W1Ke-1}}}\moddef{tst/PerfectNumbers.tst~{\nwtagstyle{}\subpageref{NWVU3sy-2W1Ke-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\nwenddocs{}\nwbegincode{22}\sublabel{NWVU3sy-2W1Ke-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-2W1Ke-1}}}\moddef{tst/PerfectNumbers.tst~{\nwtagstyle{}\subpageref{NWVU3sy-2W1Ke-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
 gap> START_TEST("AAIG package: PerfectNumbers.tst");
-gap> LoadPackage("AAIG", false);
-#I  method installed for \nwlinkedidentc{IsPerfect}{NWVU3sy-2xVIrD-1} matches more than one declaration
-true
+
 gap> \LA{}Find all perfect numbers less than 1000~{\nwtagstyle{}\subpageref{NWVU3sy-h8dy6-1}}\RA{}
 \LA{}All perfect numbers less than 1000~{\nwtagstyle{}\subpageref{NWVU3sy-1gKlN7-1}}\RA{}
-gap> STOP_TEST( "PerfectNumbers.tst", 10000 );
-\nwnotused{tst/PerfectNumbers.tst}\nwidentuses{\\{{\nwixident{IsPerfect}}{IsPerfect}}}\nwindexuse{\nwixident{IsPerfect}}{IsPerfect}{NWVU3sy-2W1Ke-1}\nwendcode{}
 
-\nwixlogsorted{c}{{<Run the tests}{NWVU3sy-36UFYc-1}{\nwixd{NWVU3sy-36UFYc-1}}}%
+gap> STOP_TEST( "AAIG package: PerfectNumbers.tst", 10000 );
+\nwnotused{tst/PerfectNumbers.tst}\nwendcode{}\nwbegindocs{23}\nwdocspar
+
+
+To test the package, create a file {\tt tst/testall.g}.
+
+\nwenddocs{}\nwbegincode{24}\sublabel{NWVU3sy-2kG11m-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-2kG11m-1}}}\moddef{tst/testall.g~{\nwtagstyle{}\subpageref{NWVU3sy-2kG11m-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\LA{}Load the package~{\nwtagstyle{}\subpageref{NWVU3sy-1Gte5o-1}}\RA{}
+
+\LA{}Call TestDirectory~{\nwtagstyle{}\subpageref{NWVU3sy-Tx3aY-1}}\RA{}
+
+\LA{}Force quit GAP~{\nwtagstyle{}\subpageref{NWVU3sy-1eZIR9-1}}\RA{}
+\nwnotused{tst/testall.g}\nwendcode{}\nwbegindocs{25}\nwdocspar
+
+First load the package:
+
+\nwenddocs{}\nwbegincode{26}\sublabel{NWVU3sy-1Gte5o-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-1Gte5o-1}}}\moddef{Load the package~{\nwtagstyle{}\subpageref{NWVU3sy-1Gte5o-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWVU3sy-2kG11m-1}}\nwenddeflinemarkup
+LoadPackage( "AAIG" );
+\nwused{\\{NWVU3sy-2kG11m-1}}\nwendcode{}\nwbegindocs{27}\nwdocspar
+
+Then get the list of directory objects for the {\tt tst} directory of the
+AAIG package:
+
+\nwenddocs{}\nwbegincode{28}\sublabel{NWVU3sy-2elpU5-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-2elpU5-1}}}\moddef{The list of directory objects~{\nwtagstyle{}\subpageref{NWVU3sy-2elpU5-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWVU3sy-Tx3aY-1}}\nwenddeflinemarkup
+DirectoriesPackageLibrary("AAIG", "tst"),
+\nwused{\\{NWVU3sy-Tx3aY-1}}\nwendcode{}\nwbegindocs{29}\nwdocspar
+
+... and call \gap{TestDirectory} on it, with the following options:
+
+\nwenddocs{}\nwbegincode{30}\sublabel{NWVU3sy-1SF58G-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-1SF58G-1}}}\moddef{TestDirectory options record~{\nwtagstyle{}\subpageref{NWVU3sy-1SF58G-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWVU3sy-Tx3aY-1}}\nwenddeflinemarkup
+rec( exitGAP := true,
+     testOptions := rec(compareFunction := "uptowhitespace") )
+\nwused{\\{NWVU3sy-Tx3aY-1}}\nwendcode{}\nwbegindocs{31}\nwdocspar
+
+\nwenddocs{}\nwbegincode{32}\sublabel{NWVU3sy-Tx3aY-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-Tx3aY-1}}}\moddef{Call TestDirectory~{\nwtagstyle{}\subpageref{NWVU3sy-Tx3aY-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWVU3sy-2kG11m-1}}\nwenddeflinemarkup
+TestDirectory( \LA{}The list of directory objects~{\nwtagstyle{}\subpageref{NWVU3sy-2elpU5-1}}\RA{}
+               \LA{}TestDirectory options record~{\nwtagstyle{}\subpageref{NWVU3sy-1SF58G-1}}\RA{} );
+\nwused{\\{NWVU3sy-2kG11m-1}}\nwendcode{}\nwbegindocs{33}\nwdocspar
+
+Finally, force quit GAP, in case it hasn't exited already:
+
+\nwenddocs{}\nwbegincode{34}\sublabel{NWVU3sy-1eZIR9-1}\nwmargintag{{\nwtagstyle{}\subpageref{NWVU3sy-1eZIR9-1}}}\moddef{Force quit GAP~{\nwtagstyle{}\subpageref{NWVU3sy-1eZIR9-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NWVU3sy-2kG11m-1}}\nwenddeflinemarkup
+FORCE_QUIT_GAP(1);
+\nwused{\\{NWVU3sy-2kG11m-1}}\nwendcode{}
+
 \nwixlogsorted{c}{{All perfect numbers less than 1000}{NWVU3sy-1gKlN7-1}{\nwixd{NWVU3sy-1gKlN7-1}\nwixu{NWVU3sy-2xVIrD-1}\nwixu{NWVU3sy-2W1Ke-1}}}%
+\nwixlogsorted{c}{{Call TestDirectory}{NWVU3sy-Tx3aY-1}{\nwixu{NWVU3sy-2kG11m-1}\nwixd{NWVU3sy-Tx3aY-1}}}%
 \nwixlogsorted{c}{{Compute the aliquot sum of a positive integer}{NWVU3sy-xApnh-1}{\nwixd{NWVU3sy-xApnh-1}}}%
 \nwixlogsorted{c}{{Determine whether a positive integer is perfect}{NWVU3sy-3gU79I-1}{\nwixd{NWVU3sy-3gU79I-1}}}%
 \nwixlogsorted{c}{{Determine whether a positive integer is perfect, using Sigma}{NWVU3sy-1Ey6ln-1}{\nwixd{NWVU3sy-1Ey6ln-1}\nwixu{NWVU3sy-2xVIrD-1}}}%
 \nwixlogsorted{c}{{Euclid's IX.36}{NWVU3sy-hWGw1-1}{\nwixd{NWVU3sy-hWGw1-1}}}%
 \nwixlogsorted{c}{{Filter for positive integers}{NWVU3sy-2Kurrx-1}{\nwixd{NWVU3sy-2Kurrx-1}\nwixu{NWVU3sy-2BftRL-1}\nwixu{NWVU3sy-2xVIrD-1}}}%
 \nwixlogsorted{c}{{Find all perfect numbers less than 1000}{NWVU3sy-h8dy6-1}{\nwixd{NWVU3sy-h8dy6-1}\nwixu{NWVU3sy-2xVIrD-1}\nwixu{NWVU3sy-2W1Ke-1}}}%
+\nwixlogsorted{c}{{Force quit GAP}{NWVU3sy-1eZIR9-1}{\nwixu{NWVU3sy-2kG11m-1}\nwixd{NWVU3sy-1eZIR9-1}}}%
 \nwixlogsorted{c}{{lib/PerfectNumbers.gd}{NWVU3sy-2BftRL-1}{\nwixd{NWVU3sy-2BftRL-1}}}%
 \nwixlogsorted{c}{{lib/PerfectNumbers.gi}{NWVU3sy-2xVIrD-1}{\nwixd{NWVU3sy-2xVIrD-1}}}%
-\nwixlogsorted{c}{{Not all perfect}{NWVU3sy-2uZKeV-1}{\nwixd{NWVU3sy-2uZKeV-1}}}%
+\nwixlogsorted{c}{{Load the package}{NWVU3sy-1Gte5o-1}{\nwixu{NWVU3sy-2kG11m-1}\nwixd{NWVU3sy-1Gte5o-1}}}%
+\nwixlogsorted{c}{{not all such numbers are perfect}{NWVU3sy-13ZiKJ-1}{\nwixd{NWVU3sy-13ZiKJ-1}}}%
+\nwixlogsorted{c}{{TestDirectory options record}{NWVU3sy-1SF58G-1}{\nwixd{NWVU3sy-1SF58G-1}\nwixu{NWVU3sy-Tx3aY-1}}}%
+\nwixlogsorted{c}{{The list of directory objects}{NWVU3sy-2elpU5-1}{\nwixd{NWVU3sy-2elpU5-1}\nwixu{NWVU3sy-Tx3aY-1}}}%
 \nwixlogsorted{c}{{tst/PerfectNumbers.tst}{NWVU3sy-2W1Ke-1}{\nwixd{NWVU3sy-2W1Ke-1}}}%
+\nwixlogsorted{c}{{tst/testall.g}{NWVU3sy-2kG11m-1}{\nwixd{NWVU3sy-2kG11m-1}}}%
 \nwixlogsorted{i}{{\nwixident{AliquotSum}}{AliquotSum}}%
 \nwixlogsorted{i}{{\nwixident{IsPerfect}}{IsPerfect}}%
-\nwbegindocs{25}\nwdocspar
+\nwbegindocs{35}\nwdocspar
 
 \chapter{Chunks}
 \nowebchunks

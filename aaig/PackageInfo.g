@@ -47,7 +47,7 @@ Dependencies := rec(
   ExternalConditions := []
 ),
 AvailabilityTest := ReturnTrue,
-TestFile := "tst/PerfectNumbers.tst",
+TestFile := "tst/testall.g",
 Autoload := false,
 # Keywords := [ ... ],
 # BannerString := ...
