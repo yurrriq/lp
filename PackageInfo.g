@@ -38,7 +38,7 @@ SetPackageInfo( rec(
       LongTitle := "Abstract Algebra in GAP"
     ),
     Dependencies := rec(
-      GAP := "4.8.8",
+      GAP := "4.8.3",
       NeededOtherPackages := [],
       SuggestedOtherPackages := [],
       ExternalConditions := []

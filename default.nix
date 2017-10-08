@@ -3,7 +3,7 @@ with import <nixpkgs> {};
 
 let
 
-  gap = callPackage ./nix/gap.nix {};
+  # gap = callPackage ./nix/gap.nix {};
 
 in
 
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     # which
   ];
 
-  checkFlags = [ "GAPROOT=${gap}/share/gap/build-dir" ];
+  buildFlags = [ "GAPROOT=${gap}/share/gap/build-dir" ];
 
   installPhase = ''
     ${gap}/bin/gap.sh -b makedoc.g
