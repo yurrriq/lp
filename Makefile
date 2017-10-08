@@ -17,14 +17,6 @@ ERL_SRCS  := ${ERL} ${ERL_TEX} ${ERL_PDF} # ${ERL_HTML}
 ERL_DOCS  := $(patsubst src/%,docs/%,${ERL_PDF})
 ERL_ALL   := ${ERL_SRCS} ${ERL_DOCS}
 
-LOL_NW    := $(wildcard src/lol/*.nw)
-LOL       := ${LOL_NW:.nw=.lisp}
-LOL_TEX   := ${LOL_NW:.nw=.tex}
-LOL_PDF   := ${LOL_NW:.nw=.pdf}
-LOL_SRCS  := ${LOL} ${LOL_TEX} ${LOL_PDF}
-LOL_DOCS  := $(patsubst src/%,docs/%,${LOL_PDF})
-LOL_ALL   := ${LOL_SRCS} ${LOL_DOCS}
-
 # http://stackoverflow.com/a/17807510
 dirname    = $(patsubst %/,%,$(dir $1))
 
@@ -46,7 +38,6 @@ all: idris erlang
 
 idris: ${IDR_ALL}
 erlang: ${ERL_ALL}
-lol: ${LOL_ALL}
 paip:
 	@ ${MAKE} -C $@
 	@ ln -f $@/tex/$@.pdf docs/
