@@ -1,8 +1,10 @@
-aaig/doc/*.css linguist-vendored
-aaig/doc/*.html linguist-documentation
-aaig/doc/*.js linguist-vendored
+aaig/docs/*.css linguist-vendored
+aaig/docs/*.html linguist-documentation
+aaig/docs/*.js linguist-vendored
 aaig/tex/*.tex linguist-generated
+docs/*.html linguist-generated
 docs/idris/hello.html linguist-generated
+lp/docs/*.html linguist-generated
 paip/tex/paip.tex linguist-generated
 src/erlang/fav1.tex linguist-generated
 src/idris/hello.tex linguist-generated
