@@ -1,30 +1,8 @@
 % -*- mode: noweb; ess-noweb-default-code-mode: lisp-mode; -*-
 \documentclass{tufte-handout}
 
-\usepackage{fontspec}
-\setmonofont{Iosevka}
+\input{preamble.tex}
 
-% HACK: https://tex.stackexchange.com/a/200725/45537
-\usepackage{ifxetex}
-\ifxetex
-  \newcommand{\textls}[2][5]{%
-    \begingroup\addfontfeatures{LetterSpace=#1}#2\endgroup
-  }
-  \renewcommand{\allcapsspacing}[1]{\textls[15]{#1}}
-  \renewcommand{\smallcapsspacing}[1]{\textls[10]{#1}}
-  \renewcommand{\allcaps}[1]{\textls[15]{\MakeTextUppercase{#1}}}
-  \renewcommand{\smallcaps}[1]{\smallcapsspacing{\scshape\MakeTextLowercase{#1}}}
-  \renewcommand{\textsc}[1]{\smallcapsspacing{\textsmallcaps{#1}}}
-\fi
-
-\usepackage{noweb}
-\noweboptions{nomargintag,smallcode,longxref,webnumbering,longchunks,english}
-
-\usepackage{color}
-% https://commons.wikimedia.org/wiki/File:Erlang_logo.svg
-\definecolor{ErlangRed}{HTML}{A90533}
-
-\usepackage{hyperref}
 \hypersetup{
   pdffitwindow=true,
   pdfstartview={FitH},
@@ -37,34 +15,15 @@
   urlcolor=ErlangRed
 }
 
-\usepackage{amsmath}
-\usepackage{amssymb}
-
-\usepackage{mathtools}
-\mathtoolsset{centercolon}
-\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
-
-\usepackage{dirtytalk}
-
-\usepackage[english]{fancyref}
-
-\usepackage[outputdir=src]{minted}
-
-
 \title{%
   The Guess-My-Number Game%
   \thanks{\cite{barski2010land-ch2}}
 }
 
-\author{Eric Bailey}
-
 \date{%
   January 14, 2017
   \thanks{Last updated \today}
 }
-
-\newmintinline[lsp]{lisp}{}
-\newmintinline[cee]{c}{}
 
 \begin{document}
 \maketitle
@@ -78,61 +37,8 @@
 % \tableofcontents
 % \newpage
 
-\section{Outline}
-
-\marginnote{%
-  As the name suggests, this chunk gets tangled into
-  \href{https://github.com/yurrriq/land-of-lisp/blob/master/src/guess.lisp}{[[src/guess.lisp]]}.
-}
-
-<<src/guess.lisp>>=
-<<reset the global state>>
-
-
-<<define the [[guess-my-number]] function>>
-
-
-<<define the [[smaller]] function>>
-
-
-<<define the [[bigger]] function>>
-
-
-<<define the [[start-over]] function>>
-@
-
-\section{Example Session}
-
-After loading [[<<src/guess.lisp>>]], you might have [[<<a session>>]] like this:
-
-\begin{marginfigure}
-\begin{minted}{shell-session}
-$ rlwrap sbcl --load src/guess.lisp
-\end{minted}
-\end{marginfigure}
-
-% \begin{minted}{lisp}
-<<a session>>=
-> (start-over)
-50
-> (smaller)
-25
-> (bigger)
-37
-> (bigger)
-43
-> (smaller)
-40
-> (bigger)
-41
-> (bigger)
-42
-@
-% \end{minted}
-
 
 \section{Defining the Small and Big Variables}
-\label{sec:top-level-defs}
 
 To give the computer a range of numbers in which to guess, we define the lower
 and upper limits, [[*small*]] and [[*big*]], respectively. We'll need to
@@ -148,8 +54,15 @@ and upper limits, [[*small*]] and [[*big*]], respectively. We'll need to
 (defparameter *big* 100)
 @
 
+\begin{marginfigure}
+<<*>>=
+<<reset the global state>>
+
+
+@
+\end{marginfigure}
+
 \section{Defining the Guess-My-Number Function}
-\label{sec:guess-my-number}
 
 With [[*small*]] and [[*big*]] defined, we can tell the computer how to guess a
 number ([[guess-my-number]]) within those limits.
@@ -172,23 +85,28 @@ return sum
   \label{fig:guessing-algorithm}
 \end{marginfigure}
 
-To [[<<define the [[guess-my-number]] function>>]], we simply implement the
-algorithm described in pseudocode in \Fref{fig:guessing-algorithm}.
+To define the [[guess-my-number]] function, we simply implement the algorithm
+described in pseudocode in \Fref{fig:guessing-algorithm}.
 
 <<halve the sum of the limits and shorten the result>>=
 (ash (+ *small* *big*) -1)
 @
 
-<<define the [[guess-my-number]] function>>=
-(defun guess-my-number ()
-  <<halve the sum of the limits and shorten the result>>)
-@
-
+\begin{marginfigure}
 Now, when we want to [[<<have the computer guess a number>>]], we simply call
 [[guess-my-number]] as follows.
 <<have the computer guess a number>>=
 (guess-my-number)
 @
+\end{marginfigure}
+
+<<*>>=
+(defun guess-my-number ()
+  <<halve the sum of the limits and shorten the result>>)
+
+
+@
+
 
 \section{Defining the Smaller and Bigger Functions}
 
@@ -203,7 +121,7 @@ Now, when we want to [[<<have the computer guess a number>>]], we simply call
 @
 \end{marginfigure}
 
-To [[<<define the [[smaller]] function>>]], we need to update the global state
+To define the [[smaller]] function, we need to update the global state
 such that the next guess is {\em smaller} than the last, i.e.
 [[<<set [[*big*]] to one less than the last guess>>]] then
 [[<<have the computer guess a number>>]].
@@ -212,10 +130,12 @@ such that the next guess is {\em smaller} than the last, i.e.
 (setf *big* <<subtract one from the most recent guess>>)
 @
 
-<<define the [[smaller]] function>>=
+<<*>>=
 (defun smaller ()
   <<set [[*big*]] to one less than the last guess>>
   <<have the computer guess a number>>)
+
+
 @
 
 \marginnote{%
@@ -229,7 +149,7 @@ such that the next guess is {\em smaller} than the last, i.e.
 @
 \end{marginfigure}
 
-To [[<<define the [[bigger]] function>>]], we need to update the global state
+To define the [[bigger]] function, we need to update the global state
 such that the next guess is {\em bigger} than the last, i.e.
 [[<<set [[*small*]] to one greater than the last guess>>]] then
 [[<<have the computer guess a number>>]].
@@ -238,29 +158,68 @@ such that the next guess is {\em bigger} than the last, i.e.
 (setq *small* <<add one to the most recent guess>>)
 @
 
-<<define the [[bigger]] function>>=
+<<*>>=
 (defun bigger ()
   <<set [[*small*]] to one greater than the last guess>>
   <<have the computer guess a number>>)
+
+
 @
+
 
 \section{Defining the Start-Over Function}
 
-At this point, to [[<<define the [[start-over]] function>>]] is trivial:
-we simply [[<<reset the global state>>]] then
-[[<<have the computer guess a number>>]].
+At this point, to define the [[start-over]] function is trivial. We simply
+[[<<reset the global state>>]] then [[<<have the computer guess a number>>]].
 
-<<define the [[start-over]] function>>=
+<<*>>=
 (defun start-over ()
   <<reset the global state>>
   <<have the computer guess a number>>)
 @
 
-\section{Chunks}
-\nowebchunks
+
+\section{Full Listing}
+
+\inputminted{lisp}{src/guess.lisp}
+
+
+\section{Example Session}
+
+After loading \srclink{src/guess.lisp},
+you might have [[<<a session>>]] like this:
+
+\begin{marginfigure}
+\begin{minted}{shell-session}
+$ rlwrap sbcl --load src/guess.lisp
+\end{minted}
+\end{marginfigure}
+
+<<a session>>=
+> (start-over)
+50
+> (smaller)
+25
+> (bigger)
+37
+> (bigger)
+43
+> (smaller)
+40
+> (bigger)
+41
+> (bigger)
+42
+@
+
 
 \section{Index}
 \nowebindex
+
+
+\section{Chunks}
+\nowebchunks
+
 
 \bibliography{guess}
 \bibliographystyle{plainnat}
