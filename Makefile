@@ -58,6 +58,10 @@ lol:
 	@ ln -f $@/docs/*.pdf docs/$@/
 
 
+docs/index.html: README.md
+	pandoc -f markdown_github -t html5 -s $< -o $@
+
+
 docs/%.html: src/%.html
 	@ mkdir -p $(dir $@)
 	@ mv $< $@
