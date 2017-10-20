@@ -1,0 +1,21 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i sh -p sbcl
+
+
+sbcl --noinform --non-interactive --userinit init.lisp \
+     --eval "(asdf:load-system :lol-test)" \
+     --eval "(require :sb-cover)" \
+     --eval "(declaim (optimize sb-cover:store-coverage-data))" \
+     --eval "(asdf:oos 'asdf:load-op :lol :force t)" \
+     --eval "(prove:run :lol-test)" \
+     --eval '(sb-cover:report "docs/coverage/")' \
+     --eval "(declaim (optimize (sb-cover:store-coverage-data 0)))" \
+     --eval "(uiop:quit 0)"
+
+
+mv docs/coverage/cover-index.html docs/coverage/index.html
+
+
+# Local Variables:
+# mode: sh
+# End:
