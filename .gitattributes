@@ -5,6 +5,7 @@ aaig/tex/*.tex linguist-generated
 docs/*.html linguist-generated
 docs/idris/hello.html linguist-generated
 lol/docs/*.html linguist-generated
+lol/docs/coverage/*.html linguist-generated
 lol/src/guess.tex linguist-generated
 lol/src/pudding.tex linguist-generated
 paip/tex/paip.tex linguist-generated
