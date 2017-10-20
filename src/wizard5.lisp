@@ -1,3 +1,13 @@
+(in-package :cl-user)
+(defpackage lol.wizard5
+  (:use :cl)
+  (:export :look
+           :walk
+           :pickup
+           :inventory))
+(in-package :lol.wizard5)
+
+
 (defparameter *nodes*
   '((living-room (you are in the living room.
                   a wizard is snoring loudly on the couch.))
@@ -69,7 +79,7 @@
   (if (member object (objects-at *location* *objects* *object-locations*))
       (progn (push (list object 'body) *object-locations*)
              `(you are now carrying the ,object))
-      '(you cannot get that)))
+      '(you cannot get that.)))
 
 
 (defun inventory ()
