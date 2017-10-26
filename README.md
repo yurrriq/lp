@@ -6,6 +6,7 @@
     - Chapter 4: [Pudding Eater][lol/pudding.pdf]
     - Chapter 5: [The Wizard's Adventure Game][lol/wizard5.pdf]
     - Chapter 6: [The Wizard's Adventure Game REPL][lol/wizard6.pdf]
+- `pandoc-minted`: [A pandoc filter to render LaTeX code blocks using minted][pandoc-minted] ([repo][pandoc-minted/repo])
 - `paip`: :book: [Paradigms of Artificial Intelligence Programming][paip]
 - `src/erlang`: [Joe Armstrong's Favorite Erlang Program][fav1]
 - `src/idris`: [Hello, noweb!][hello]
@@ -21,5 +22,7 @@
 [lol/wizard5.pdf]: https://yurrriq.github.io/lp/lol/wizard5.pdf
 [lol/wizard6.pdf]: https://yurrriq.github.io/lp/lol/wizard6.pdf
 [paip]: https://yurrriq.github.io/lp/paip.pdf
+[pandoc-minted]: https://yurrriq.github.io/lp/pandoc-minted.pdf
+[pandoc-minted/repo]: https://github.com/yurrriq/pandoc-minted
 [fav1]: https://yurrriq.github.io/lp/erlang/fav1.pdf
 [hello]: https://yurrriq.github.io/lp/idris/hello.pdf
