@@ -22,6 +22,30 @@ dirname    = $(patsubst %/,%,$(dir $1))
 
 tangle     = notangle -R'$(basename $(notdir $<))' -filter btdefn $< >$@
 
+define subtree_pull =
+	git fetch $@ master
+	git subtree pull --prefix $@ $@ master --squash
+endef
+
+define subtree_pdf =
+	$(call subtree_pull)
+	ln -f $@/docs/$@.pdf docs/
+	$(call add_docs_amend)
+endef
+
+define subtree_dir =
+	$(call subtree_pull)
+	mkdir -p docs/$@
+	ln -f $@/docs/*.pdf docs/$@/
+	$(call add_docs_amend)
+endef
+
+define add_docs_amend =
+	git add docs
+	git commit --amend --no-edit
+endef
+
+
 .SUFFIXES: .nw .erl .idr .html .lisp .pdf .tex
 .nw.erl: ; ${tangle}
 .nw.idr: ; ${tangle}
@@ -45,26 +69,19 @@ paip:
 # git remote add -f aaig git@github.com:yurrriq/abstract-algebra-in-gap.git
 # git subtree add --prefix aaig aaig master --squash
 aaig:
-	@ git fetch $@ master
-	@ git subtree pull --prefix $@ $@ master --squash
-	@ ln -f $@/docs/$@.pdf docs/
+	$(call subtree_pdf)
+
 
 # git remote add -f lol git@github.com:yurrriq/land-of-lisp.git
 # git subtree add --prefix lol lol master --squash
 lol:
-	@ git fetch $@ master
-	@ git subtree pull --prefix $@ $@ master --squash
-	@ mkdir -p docs/$@
-	@ ln -f $@/docs/*.pdf docs/$@/
+	$(call subtree_dir)
 
 
 # git remote add -f pandoc-minted git@github.com:yurrriq/pandoc-minted.git
 # git subtree add --prefix pandoc-minted pandoc-minted master --squash
 pandoc-minted:
-	@ git fetch $@ master
-	@ git subtree pull --prefix $@ $@ master --squash
-	@ mkdir -p docs/$@
-	@ ln -f $@/docs/*.pdf docs/$@/
+	$(call subtree_pdf)
 
 
 docs/index.html: README.md
