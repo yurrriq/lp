@@ -34,7 +34,7 @@ tangle     = notangle -R'$(basename $(notdir $<))' -filter btdefn $< >$@
 all: idris erlang
 	@ ln -sf idris/hello.html docs/index.html
 
-.PHONY: idris erlang paip aaig lol
+.PHONY: idris erlang paip aaig lol pandoc-minted
 
 idris: ${IDR_ALL}
 erlang: ${ERL_ALL}
@@ -52,6 +52,15 @@ aaig:
 # git remote add -f lol git@github.com:yurrriq/land-of-lisp.git
 # git subtree add --prefix lol lol master --squash
 lol:
+	@ git fetch $@ master
+	@ git subtree pull --prefix $@ $@ master --squash
+	@ mkdir -p docs/$@
+	@ ln -f $@/docs/*.pdf docs/$@/
+
+
+# git remote add -f pandoc-minted git@github.com:yurrriq/pandoc-minted.git
+# git subtree add --prefix pandoc-minted pandoc-minted master --squash
+pandoc-minted:
 	@ git fetch $@ master
 	@ git subtree pull --prefix $@ $@ master --squash
 	@ mkdir -p docs/$@
