@@ -55,8 +55,7 @@ endef
 .nw.tex:  ; noweave -filter btdefn -n -delay -index $< >$@
 .tex.pdf: ; latexmk --shell-escape -pdf -outdir=$(call dirname,$<) $<
 
-all: idris erlang
-	@ ln -sf idris/hello.html docs/index.html
+all: aaig lol pandoc-minted idris erlang paip docs/index.html
 
 .PHONY: idris erlang paip aaig lol pandoc-minted
 
