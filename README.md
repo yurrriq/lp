@@ -1,6 +1,8 @@
 # Literate Programming
 
 - `aaig`: :book: [Abstract Algebra in GAP][aaig] ([repo][aaig/repo])
+- `eunix`: [Reimplementations of UNIX tools][eunix/repo]
+    - [`echo`][eunix/echo.pdf]
 - `lol`: :book: [Land of Lisp][lol/repo] ([repo][lol/repo])
     - Chapter 2: [The Guess-My-Number Game][lol/guess.pdf]
     - Chapter 4: [Pudding Eater][lol/pudding.pdf]
@@ -16,6 +18,8 @@
 
 [aaig]: https://yurrriq.github.io/lp/aaig.pdf
 [aaig/repo]: https://github.com/yurrriq/abstract-algebra-in-gap
+[eunix/repo]: https://github.com/yurrriq/eunix
+[eunix/echo.pdf]: https://yurrriq.github.io/lp/eunix/echo.pdf
 [lol/repo]: https://github.com/yurrriq/land-of-lisp
 [lol/guess.pdf]: https://yurrriq.github.io/lp/lol/guess.pdf
 [lol/pudding.pdf]: https://yurrriq.github.io/lp/lol/pudding.pdf
