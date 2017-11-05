@@ -71,6 +71,13 @@ aaig:
 	$(call subtree_pdf)
 
 
+# git remote add -f eunix git@github.com:yurrriq/eunix.git
+# git subtree add --prefix eunix eunix master --squash
+eunix:
+	$(call subtree_dir)
+
+
+
 # git remote add -f lol git@github.com:yurrriq/land-of-lisp.git
 # git subtree add --prefix lol lol master --squash
 lol:
