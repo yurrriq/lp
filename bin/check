@@ -1,0 +1,21 @@
+#! /usr/bin/env bash
+
+# NOTE: Must be run from the eunix project root.
+
+set -e
+
+
+### echo ###
+
+check_echo ()
+{
+    (>&2 echo "===> echo $@")
+    diff <(echo $@) <(bin/echo $@)
+}
+
+
+check_echo a simple test
+check_echo -n dash n
+check_echo -x ignore unknown options
+check_echo -n -x known then unknown
+check_echo -x -n unknown then known

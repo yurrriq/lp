@@ -1,0 +1,224 @@
+% -*- ess-noweb-code-mode: c-mode; -*-% ===> this file was generated automatically by noweave --- better not edit it
+\documentclass[nobib]{tufte-handout}
+
+
+\input{src/preamble.tex}
+
+
+% \usepackage[xindy,nopostdot]{glossaries}
+% \makeglossaries
+% \input{glossary}
+% \renewcommand*{\glstextformat}[1]{\textsl{#1}}
+
+
+\hypersetup{
+  pdffitwindow=true,
+  pdfstartview={FitH},
+  pdftitle={eunix: echo},
+  pdfauthor={Eric Bailey <eric@ericb.me>},
+  pdfsubject={A reimplementation of echo for my own edification},
+  pdfkeywords={UNIX, C language, learning},
+  colorlinks=true,
+  linkcolor=ErlangRed,
+  urlcolor=ErlangRed
+}
+
+
+\title{eunix: echo}
+
+
+\date{%
+  October 31, 2017
+  \thanks{Last updated \today}
+}
+
+
+\begin{document}
+
+
+\maketitle
+\nwfilename{src/echo.nw}\nwbegindocs{1}\nwdocspar
+
+
+\begin{abstract}
+  A reimplementation of \cee{echo} for my own edification.
+\end{abstract}
+
+
+\section{Headers and Forward Declarations}
+
+Include the core input and output functions from the C standard library.
+\nwenddocs{}\nwbegincode{2}\sublabel{NW2SkDK9-1p0Y9w-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-1p0Y9w-1}}}\moddef{*~{\nwtagstyle{}\subpageref{NW2SkDK9-1p0Y9w-1}}}\endmoddef\nwstartdeflinemarkup\nwprevnextdefs{\relax}{NW2SkDK9-1p0Y9w-2}\nwenddeflinemarkup
+\\#include <stdio.h>
+\nwalsodefined{\\{NW2SkDK9-1p0Y9w-2}\\{NW2SkDK9-1p0Y9w-3}\\{NW2SkDK9-1p0Y9w-4}\\{NW2SkDK9-1p0Y9w-5}}\nwnotused{*}\nwendcode{}\nwbegindocs{3}\nwdocspar
+
+
+\todoo{Describe GNU \cee{getopt}}
+\nwenddocs{}\nwbegincode{4}\sublabel{NW2SkDK9-1p0Y9w-2}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-1p0Y9w-2}}}\moddef{*~{\nwtagstyle{}\subpageref{NW2SkDK9-1p0Y9w-1}}}\plusendmoddef\nwstartdeflinemarkup\nwprevnextdefs{NW2SkDK9-1p0Y9w-1}{NW2SkDK9-1p0Y9w-3}\nwenddeflinemarkup
+\\#include <getopt.h>
+
+
+\nwendcode{}\nwbegindocs{5}\nwdocspar
+
+Declare the {\Tt{}\nwlinkedidentq{usage}{NW2SkDK9-1p0Y9w-5}\nwendquote} function.
+\nwenddocs{}\nwbegincode{6}\sublabel{NW2SkDK9-1p0Y9w-3}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-1p0Y9w-3}}}\moddef{*~{\nwtagstyle{}\subpageref{NW2SkDK9-1p0Y9w-1}}}\plusendmoddef\nwstartdeflinemarkup\nwprevnextdefs{NW2SkDK9-1p0Y9w-2}{NW2SkDK9-1p0Y9w-4}\nwenddeflinemarkup
+void \nwlinkedidentc{usage}{NW2SkDK9-1p0Y9w-5}();
+
+
+\nwidentuses{\\{{\nwixident{usage}}{usage}}}\nwindexuse{\nwixident{usage}}{usage}{NW2SkDK9-1p0Y9w-3}\nwendcode{}\nwbegindocs{7}\nwdocspar
+
+
+\section{The \cee{main} Function}
+
+\nwenddocs{}\nwbegincode{8}\sublabel{NW2SkDK9-1p0Y9w-4}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-1p0Y9w-4}}}\moddef{*~{\nwtagstyle{}\subpageref{NW2SkDK9-1p0Y9w-1}}}\plusendmoddef\nwstartdeflinemarkup\nwprevnextdefs{NW2SkDK9-1p0Y9w-3}{NW2SkDK9-1p0Y9w-5}\nwenddeflinemarkup
+int \nwlinkedidentc{main}{NW2SkDK9-1p0Y9w-4}(int argc, char *argv[])\nwindexdefn{\nwixident{main}}{main}{NW2SkDK9-1p0Y9w-4}
+\{
+    \LA{}Process given options.~{\nwtagstyle{}\subpageref{NW2SkDK9-2qq39g-1}}\RA{}
+
+    \LA{}Print each string, separated by a space.~{\nwtagstyle{}\subpageref{NW2SkDK9-2HrPB2-1}}\RA{}
+
+    \LA{}Print a newline unless the \code{}-n\edoc{} option was given.~{\nwtagstyle{}\subpageref{NW2SkDK9-32O94Y-1}}\RA{}
+
+    return 0;
+\}
+
+
+\nwidentdefs{\\{{\nwixident{main}}{main}}}\nwendcode{}\nwbegindocs{9}\nwdocspar
+
+
+\section{Processing Options}
+
+Currently, the {\Tt{}\LA{}legal options~{\nwtagstyle{}\subpageref{NW2SkDK9-3n5D25-1}}\RA{}\nwendquote} are:
+\begin{itemize}
+  \item \cee{-n} (do not print a trailing newline)
+\end{itemize}
+
+\nwenddocs{}\nwbegincode{10}\sublabel{NW2SkDK9-3n5D25-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-3n5D25-1}}}\moddef{legal options~{\nwtagstyle{}\subpageref{NW2SkDK9-3n5D25-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW2SkDK9-Vxhrz-1}}\nwenddeflinemarkup
+n
+\nwused{\\{NW2SkDK9-Vxhrz-1}}\nwendcode{}\nwbegindocs{11}\nwdocspar
+
+
+\subsection{\cee{-n} (do not print a trailing newline)}
+
+Declare a variable {\Tt{}\nwlinkedidentq{newline{\_}flag}{NW2SkDK9-2qq39g-1}\nwendquote} to determine whether or not to print a
+newline after printing the rest of the given strings, i.e.
+\nwenddocs{}\nwbegincode{12}\sublabel{NW2SkDK9-32O94Y-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-32O94Y-1}}}\moddef{Print a newline unless the \code{}-n\edoc{} option was given.~{\nwtagstyle{}\subpageref{NW2SkDK9-32O94Y-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW2SkDK9-1p0Y9w-4}}\nwenddeflinemarkup
+if (\nwlinkedidentc{newline_flag}{NW2SkDK9-2qq39g-1})
+    putchar('\\n');
+\nwused{\\{NW2SkDK9-1p0Y9w-4}}\nwidentuses{\\{{\nwixident{newline{\_}flag}}{newline:unflag}}}\nwindexuse{\nwixident{newline{\_}flag}}{newline:unflag}{NW2SkDK9-32O94Y-1}\nwendcode{}\nwbegindocs{13}\nwdocspar
+
+When the \cee{-n} option is given, set \cee{newline_flag} to \cee{0},
+thereby disabling the printing of the trailing newline.
+\nwenddocs{}\nwbegincode{14}\sublabel{NW2SkDK9-3Q4bOb-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-3Q4bOb-1}}}\moddef{Handle \code{}-n\edoc{}.~{\nwtagstyle{}\subpageref{NW2SkDK9-3Q4bOb-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW2SkDK9-2qq39g-2}}\nwenddeflinemarkup
+case 'n':
+    \nwlinkedidentc{newline_flag}{NW2SkDK9-2qq39g-1} = 0;
+    break;
+\nwused{\\{NW2SkDK9-2qq39g-2}}\nwidentuses{\\{{\nwixident{newline{\_}flag}}{newline:unflag}}}\nwindexuse{\nwixident{newline{\_}flag}}{newline:unflag}{NW2SkDK9-3Q4bOb-1}\nwendcode{}\nwbegindocs{15}\nwdocspar
+
+By default, print a trailing newline.
+\nwenddocs{}\nwbegincode{16}\sublabel{NW2SkDK9-2qq39g-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-2qq39g-1}}}\moddef{Process given options.~{\nwtagstyle{}\subpageref{NW2SkDK9-2qq39g-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW2SkDK9-1p0Y9w-4}}\nwprevnextdefs{\relax}{NW2SkDK9-2qq39g-2}\nwenddeflinemarkup
+/* Flag set by '-n'. */
+int \nwlinkedidentc{newline_flag}{NW2SkDK9-2qq39g-1} = 1;\nwindexdefn{\nwixident{newline{\_}flag}}{newline:unflag}{NW2SkDK9-2qq39g-1}
+
+\nwalsodefined{\\{NW2SkDK9-2qq39g-2}}\nwused{\\{NW2SkDK9-1p0Y9w-4}}\nwidentdefs{\\{{\nwixident{newline{\_}flag}}{newline:unflag}}}\nwendcode{}\nwbegindocs{17}\nwdocspar
+
+
+\subsection{Looping Through Given Options}
+
+\nwenddocs{}\nwbegincode{18}\sublabel{NW2SkDK9-2qq39g-2}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-2qq39g-2}}}\moddef{Process given options.~{\nwtagstyle{}\subpageref{NW2SkDK9-2qq39g-1}}}\plusendmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW2SkDK9-1p0Y9w-4}}\nwprevnextdefs{NW2SkDK9-2qq39g-1}{\relax}\nwenddeflinemarkup
+int \nwlinkedidentc{c}{NW2SkDK9-2qq39g-2};\nwindexdefn{\nwixident{c}}{c}{NW2SkDK9-2qq39g-2}
+
+while (\LA{}Process each option until \code{}EOF\edoc{}.~{\nwtagstyle{}\subpageref{NW2SkDK9-Vxhrz-1}}\RA{}) \{
+    switch (\nwlinkedidentc{c}{NW2SkDK9-2qq39g-2}) \{
+    \LA{}Handle \code{}-n\edoc{}.~{\nwtagstyle{}\subpageref{NW2SkDK9-3Q4bOb-1}}\RA{}
+    \LA{}Handle illegal options.~{\nwtagstyle{}\subpageref{NW2SkDK9-nBbN2-1}}\RA{}
+    \}
+\}
+\nwused{\\{NW2SkDK9-1p0Y9w-4}}\nwidentdefs{\\{{\nwixident{c}}{c}}}\nwendcode{}\nwbegindocs{19}\nwdocspar
+
+
+\todoo{Describe this, esp. \cee{getopt}}
+\nwenddocs{}\nwbegincode{20}\sublabel{NW2SkDK9-Vxhrz-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-Vxhrz-1}}}\moddef{Process each option until \code{}EOF\edoc{}.~{\nwtagstyle{}\subpageref{NW2SkDK9-Vxhrz-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW2SkDK9-2qq39g-2}}\nwenddeflinemarkup
+(\nwlinkedidentc{c}{NW2SkDK9-2qq39g-2} = getopt(argc, argv, "\LA{}legal options~{\nwtagstyle{}\subpageref{NW2SkDK9-3n5D25-1}}\RA{}")) != EOF
+\nwused{\\{NW2SkDK9-2qq39g-2}}\nwidentuses{\\{{\nwixident{c}}{c}}}\nwindexuse{\nwixident{c}}{c}{NW2SkDK9-Vxhrz-1}\nwendcode{}\nwbegindocs{21}\nwdocspar
+
+
+If the user gives an illegal option, i.e. one not included in the
+{\Tt{}\LA{}legal options~{\nwtagstyle{}\subpageref{NW2SkDK9-3n5D25-1}}\RA{}\nwendquote}, display the {\Tt{}\nwlinkedidentq{usage}{NW2SkDK9-1p0Y9w-5}\nwendquote} information and
+return a non-zero status code.
+
+\nwenddocs{}\nwbegincode{22}\sublabel{NW2SkDK9-nBbN2-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-nBbN2-1}}}\moddef{Handle illegal options.~{\nwtagstyle{}\subpageref{NW2SkDK9-nBbN2-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW2SkDK9-2qq39g-2}}\nwenddeflinemarkup
+case '?':
+    \nwlinkedidentc{usage}{NW2SkDK9-1p0Y9w-5}();
+    return 1;
+\nwused{\\{NW2SkDK9-2qq39g-2}}\nwidentuses{\\{{\nwixident{usage}}{usage}}}\nwindexuse{\nwixident{usage}}{usage}{NW2SkDK9-nBbN2-1}\nwendcode{}\nwbegindocs{23}\nwdocspar
+
+
+\section{Echoing Strings}
+
+Otherwise, loop through the remainder of \cee{argv} and print each string,
+followed by a space. Unless the current string is the last one,
+i.e. \cee{index == argc - 1}, in which case, do {\bf not} print a space.
+\nwenddocs{}\nwbegincode{24}\sublabel{NW2SkDK9-3jNScw-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-3jNScw-1}}}\moddef{Write a space unless this is the last string.~{\nwtagstyle{}\subpageref{NW2SkDK9-3jNScw-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW2SkDK9-2HrPB2-1}}\nwenddeflinemarkup
+if (\nwlinkedidentc{index}{NW2SkDK9-2HrPB2-1} < argc - 1)
+    putchar(' ');
+\nwused{\\{NW2SkDK9-2HrPB2-1}}\nwidentuses{\\{{\nwixident{index}}{index}}}\nwindexuse{\nwixident{index}}{index}{NW2SkDK9-3jNScw-1}\nwendcode{}\nwbegindocs{25}\nwdocspar
+
+
+\todoo{Describe \cee{optind}}
+\nwenddocs{}\nwbegincode{26}\sublabel{NW2SkDK9-2HrPB2-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-2HrPB2-1}}}\moddef{Print each string, separated by a space.~{\nwtagstyle{}\subpageref{NW2SkDK9-2HrPB2-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW2SkDK9-1p0Y9w-4}}\nwenddeflinemarkup
+int \nwlinkedidentc{index}{NW2SkDK9-2HrPB2-1};\nwindexdefn{\nwixident{index}}{index}{NW2SkDK9-2HrPB2-1}
+
+for (\nwlinkedidentc{index}{NW2SkDK9-2HrPB2-1} = optind; \nwlinkedidentc{index}{NW2SkDK9-2HrPB2-1} < argc; \nwlinkedidentc{index}{NW2SkDK9-2HrPB2-1}++) \{
+    printf("%s", argv[\nwlinkedidentc{index}{NW2SkDK9-2HrPB2-1}]);
+    \LA{}Write a space unless this is the last string.~{\nwtagstyle{}\subpageref{NW2SkDK9-3jNScw-1}}\RA{}
+\}
+\nwused{\\{NW2SkDK9-1p0Y9w-4}}\nwidentdefs{\\{{\nwixident{index}}{index}}}\nwendcode{}\nwbegindocs{27}\nwdocspar
+
+
+\section{The \cee{usage} Function}
+
+Display information on how to use {\Tt{}echo\nwendquote}, including {\Tt{}\LA{}legal options~{\nwtagstyle{}\subpageref{NW2SkDK9-3n5D25-1}}\RA{}\nwendquote}.
+\nwenddocs{}\nwbegincode{28}\sublabel{NW2SkDK9-1p0Y9w-5}\nwmargintag{{\nwtagstyle{}\subpageref{NW2SkDK9-1p0Y9w-5}}}\moddef{*~{\nwtagstyle{}\subpageref{NW2SkDK9-1p0Y9w-1}}}\plusendmoddef\nwstartdeflinemarkup\nwprevnextdefs{NW2SkDK9-1p0Y9w-4}{\relax}\nwenddeflinemarkup
+void \nwlinkedidentc{usage}{NW2SkDK9-1p0Y9w-5}()\nwindexdefn{\nwixident{usage}}{usage}{NW2SkDK9-1p0Y9w-5}
+\{
+    printf("Usage: echo [-n] [string ...]\\n");
+\}
+\nwidentdefs{\\{{\nwixident{usage}}{usage}}}\nwendcode{}
+
+\nwixlogsorted{c}{{*}{NW2SkDK9-1p0Y9w-1}{\nwixd{NW2SkDK9-1p0Y9w-1}\nwixd{NW2SkDK9-1p0Y9w-2}\nwixd{NW2SkDK9-1p0Y9w-3}\nwixd{NW2SkDK9-1p0Y9w-4}\nwixd{NW2SkDK9-1p0Y9w-5}}}%
+\nwixlogsorted{c}{{Handle \code{}-n\edoc{}.}{NW2SkDK9-3Q4bOb-1}{\nwixd{NW2SkDK9-3Q4bOb-1}\nwixu{NW2SkDK9-2qq39g-2}}}%
+\nwixlogsorted{c}{{Handle illegal options.}{NW2SkDK9-nBbN2-1}{\nwixu{NW2SkDK9-2qq39g-2}\nwixd{NW2SkDK9-nBbN2-1}}}%
+\nwixlogsorted{c}{{legal options}{NW2SkDK9-3n5D25-1}{\nwixd{NW2SkDK9-3n5D25-1}\nwixu{NW2SkDK9-Vxhrz-1}}}%
+\nwixlogsorted{c}{{Print a newline unless the \code{}-n\edoc{} option was given.}{NW2SkDK9-32O94Y-1}{\nwixu{NW2SkDK9-1p0Y9w-4}\nwixd{NW2SkDK9-32O94Y-1}}}%
+\nwixlogsorted{c}{{Print each string, separated by a space.}{NW2SkDK9-2HrPB2-1}{\nwixu{NW2SkDK9-1p0Y9w-4}\nwixd{NW2SkDK9-2HrPB2-1}}}%
+\nwixlogsorted{c}{{Process each option until \code{}EOF\edoc{}.}{NW2SkDK9-Vxhrz-1}{\nwixu{NW2SkDK9-2qq39g-2}\nwixd{NW2SkDK9-Vxhrz-1}}}%
+\nwixlogsorted{c}{{Process given options.}{NW2SkDK9-2qq39g-1}{\nwixu{NW2SkDK9-1p0Y9w-4}\nwixd{NW2SkDK9-2qq39g-1}\nwixd{NW2SkDK9-2qq39g-2}}}%
+\nwixlogsorted{c}{{Write a space unless this is the last string.}{NW2SkDK9-3jNScw-1}{\nwixd{NW2SkDK9-3jNScw-1}\nwixu{NW2SkDK9-2HrPB2-1}}}%
+\nwixlogsorted{i}{{\nwixident{c}}{c}}%
+\nwixlogsorted{i}{{\nwixident{index}}{index}}%
+\nwixlogsorted{i}{{\nwixident{main}}{main}}%
+\nwixlogsorted{i}{{\nwixident{newline{\_}flag}}{newline:unflag}}%
+\nwixlogsorted{i}{{\nwixident{usage}}{usage}}%
+\nwbegindocs{29}\nwdocspar
+
+
+% \newpage
+% \chapter{Chunks}
+% \nowebchunks
+
+
+% \chapter{Index}
+% \nowebindex
+
+
+% \bibliography{echo}
+% \bibliographystyle{plainnat}
+
+
+\newpage
+\listoftodos[To-Do]
+
+
+\end{document}
+\nwenddocs{}
